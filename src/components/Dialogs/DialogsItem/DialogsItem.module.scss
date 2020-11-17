@@ -1,16 +1,8 @@
 
-.navBarBlock {
-  background: chartreuse;
-  padding: 5px;
-  grid-area: n;
-  margin-left: 5px;
-}
-
-.link {
-  padding: 20px;
-  @media screen and (max-width: 376px){
-    padding: 5px;
-  }
+.itemBlock {
+  margin: 5px;
+  background: aqua;
+  border-radius: 3px;
   a{
     color: #363a42;
     text-decoration: none;

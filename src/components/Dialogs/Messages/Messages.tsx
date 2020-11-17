@@ -1,11 +1,14 @@
 import React from "react";
 import s from "../Messages/Messages.module.scss"
 
+type Message = {
+    text?: string
+}
 
-const Messages = () => {
+const Messages = (props: Message) => {
     return (
         <div className={s.messBlock}>
-            messages
+            <span>{props.text}</span>
         </div>
     )
 }
