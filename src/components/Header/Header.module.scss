@@ -1,0 +1,24 @@
+@import "src/common/SCSS/Mixins.module";
+
+
+.headerBlock {
+  width: 100%;
+  height: 60px;
+  background: saddlebrown;
+  grid-area: h;
+
+  header {
+    width: 100%;
+    height: 100%;
+    @include flex(space-between, center);
+
+    img {
+      max-height: 85%;
+      padding: 2px 5px;
+    }
+
+    div {
+      padding: 2px 5px;
+    }
+  }
+}
