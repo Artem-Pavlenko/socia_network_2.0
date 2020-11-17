@@ -1,16 +1,22 @@
 .App {
-    text-align: center;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 1fr;
-    grid-template-columns: 1fr 5fr;
+    grid-template-columns: 1fr 7fr;
     grid-template-areas:
     "h h"
     "n c";
     grid-gap: 5px;
 }
 
-.content {
+@media screen and (max-width: 380px){
+    .App {
+        grid-template-columns: 1fr 10fr;
+    }
+}
+
+.content-wrapper {
+    background-color: darkgray;
     margin-right: 5px;
     grid-area: c;
 }

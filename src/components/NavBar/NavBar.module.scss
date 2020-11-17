@@ -1,10 +1,6 @@
 
 .navBarBlock {
   background: chartreuse;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
   padding: 5px;
   grid-area: n;
   margin-left: 5px;
@@ -16,9 +12,9 @@
     color: #363a42;
     text-decoration: none;
     display: block;
+
   }
   a.active {
-    display: block;
     width: 100%;
     color: #2b2f36;
     font-weight: bold;

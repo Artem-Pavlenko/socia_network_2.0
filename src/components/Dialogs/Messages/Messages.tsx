@@ -1,8 +1,10 @@
 import React from "react";
+import s from "../Messages/Messages.module.scss"
+
 
 const Messages = () => {
     return (
-        <div>
+        <div className={s.messBlock}>
             messages
         </div>
     )
