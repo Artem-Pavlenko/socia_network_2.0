@@ -4,6 +4,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import s from "../Profile/Profile.module.scss"
 
 const Profile = () => {
+
     return (
         <div className={s.profileBlock}>
             <ProfileInfo />

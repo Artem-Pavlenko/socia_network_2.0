@@ -6,6 +6,7 @@ type Message = {
 }
 
 const Messages = (props: Message) => {
+
     return (
         <div className={s.messBlock}>
             <span>{props.text}</span>

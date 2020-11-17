@@ -6,9 +6,15 @@
     height: 50px;
     border-radius: 10px;
   }
-  .postText{
+  .posts{
+    margin: 3px;
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    .postText {
 
-    span {
+    }
+    .likes {
 
     }
   }
