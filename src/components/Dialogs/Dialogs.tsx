@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import Messages from "./Messages/Messages";
 import s from "./Dialogs.module.scss"
 import DialogsItems from "./DialogsItem/DialogsItems";
@@ -16,8 +16,13 @@ type Dialogs = {
     mess: Array<MessType>
 }
 
-const Dialogs = ({users, mess}: Dialogs) => {
+const DialogsPage = React.memo(({users, mess}: Dialogs) => {
 
+    const [value, setValue] = useState<string>('')
+
+    const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        setValue(e.currentTarget.value)
+    }
 
     return (
         <div className={s.dialogsBlock}>
@@ -29,9 +34,15 @@ const Dialogs = ({users, mess}: Dialogs) => {
                 <div className={s.mess}>
                     {mess.map(m => <Messages key={m.id} text={m.message}/>)}
                 </div>
+                <div>
+                    <textarea value={value} onChange={onTextAreaChange}></textarea>
+                </div>
+                <div>
+                    <button onClick={()=> {alert(value)}}>send</button>
+                </div>
             </div>
         </div>
     )
-}
+})
 
-export default Dialogs
+export default DialogsPage

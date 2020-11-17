@@ -8,12 +8,12 @@ type DialogsItem = {
     name: string
 }
 
-const DialogsItems = (props: DialogsItem) => {
+const DialogsItems = React.memo ((props: DialogsItem) => {
     return (
         <div className={s.itemBlock}>
             <NavLink activeClassName={s.active} to={"/messages/"+ props.id}>{props.name}</NavLink>
         </div>
     )
-}
+})
 
 export default DialogsItems

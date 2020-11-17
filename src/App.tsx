@@ -5,12 +5,13 @@ import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import UsersContainer from "./components/Users/UsersContainer";
 import Settings from "./components/Setting/Settings";
-import Profile from "./components/Profile/Profile";
-import Dialogs from "./components/Dialogs/Dialogs";
-import {StoreType} from "./index";
+import {StateType} from "./store/store";
+import ProfilePage from "./components/Profile/Profile";
+import DialogsPage from "./components/Dialogs/Dialogs";
 
 type AppType = {
-    store: StoreType
+    store: StateType
+    addPost: (post: string) => void
 }
 
 const App = (props: AppType) => {
@@ -21,9 +22,9 @@ const App = (props: AppType) => {
             <NavBar/>
             <div className="content-wrapper">
                 <Switch>
-                    <Route path={"/profile"} render={() => <Profile posts={props.store.posts}/>}/>
+                    <Route path={"/profile"} render={() => <ProfilePage addPost={props.addPost} posts={props.store.posts}/>}/>
                     <Route path={"/users"} render={() => <UsersContainer/>}/>
-                    <Route path={"/messages"} render={() => <Dialogs users={props.store.users} mess={props.store.mess}/>}/>
+                    <Route path={"/messages"} render={() => <DialogsPage users={props.store.users} mess={props.store.mess}/>}/>
                     <Route path={"/settings"} render={() => <Settings/>}/>
                     <Route exact path={'/'}><Redirect to={'/profile'}/></Route>
                     {/*<Redirect from={"/"} to={"profile"}/>*/}

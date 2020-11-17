@@ -5,17 +5,18 @@ import s from "../Profile/Profile.module.scss"
 
 type Profile = {
     posts: Array<PostType>
+    addPost: (post: string) => void
 }
 
 
-const Profile = (props: Profile) => {
+const ProfilePage = React.memo ((props: Profile) => {
 
     return (
         <div className={s.profileBlock}>
             <ProfileInfo />
-            <MyPosts posts={props.posts} />
+            <MyPosts addPost={props.addPost} posts={props.posts} />
         </div>
     )
-}
+})
 
-export default Profile
+export default ProfilePage
