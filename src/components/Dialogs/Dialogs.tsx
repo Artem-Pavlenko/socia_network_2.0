@@ -3,13 +3,21 @@ import Messages from "./Messages/Messages";
 import s from "./Dialogs.module.scss"
 import DialogsItems from "./DialogsItem/DialogsItems";
 
+export type UsersType = {
+    id: number
+    name: string
+}
+export type MessType = {
+    id: number
+    message: string
+}
+type Dialogs = {
+    users: Array<UsersType>
+    mess: Array<MessType>
+}
 
-const Dialogs = () => {
+const Dialogs = ({users, mess}: Dialogs) => {
 
-    const users = [{id: 1, name: "Artem"}, {id: 2, name: "Dima"}, {id: 3, name: "Alex"},
-        {id: 4, name: "Yarik"}, {id: 5, name: "Bob"}]
-    const mess = [{id: 1, message: 'React'}, {id: 2, message: 'Redux'},
-        {id: 3, message: 'Hooks'}, {id: 4, message: 'hoc'}]
 
     return (
         <div className={s.dialogsBlock}>

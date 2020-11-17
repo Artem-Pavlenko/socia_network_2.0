@@ -1,14 +1,19 @@
 import React from "react";
-import MyPosts from "./MyPosts/MyPosts";
+import MyPosts, {PostType} from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import s from "../Profile/Profile.module.scss"
 
-const Profile = () => {
+type Profile = {
+    posts: Array<PostType>
+}
+
+
+const Profile = (props: Profile) => {
 
     return (
         <div className={s.profileBlock}>
             <ProfileInfo />
-            <MyPosts />
+            <MyPosts posts={props.posts} />
         </div>
     )
 }

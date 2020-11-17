@@ -12,14 +12,12 @@ const UserPost = ({text = "", srcImg = "https://klike.net/uploads/posts/2019-03/
 
     return (
         <div className={s.postBlock}>
-            <img src={srcImg} alt=""/>
-            <div className={s.posts}>
-                <div className={s.postText}>
-                    <span>{text}</span>
-                </div>
-                <div className={s.likes}>
-                    <span>likes: {likesCount}</span>
-                </div>
+            <div className={s.postDescription}>
+                <img src={srcImg} alt=""/>
+                <span>{text}</span>
+            </div>
+            <div className={s.likes}>
+                <span>likes: {likesCount}</span>
             </div>
         </div>
     )
