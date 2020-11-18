@@ -4,8 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter} from "react-router-dom";
-import {addPost, store} from "./store/store"
-
+import {store} from "./store/store"
 
 
 
@@ -13,7 +12,7 @@ import {addPost, store} from "./store/store"
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App addPost={addPost} store={store.state}/>
+            <App addPost={store.addPost} sendMess={store.sendMess} store={store.getState()}/>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')

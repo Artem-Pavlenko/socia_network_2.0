@@ -4,24 +4,29 @@ import s from "./Dialogs.module.scss"
 import DialogsItems from "./DialogsItem/DialogsItems";
 
 export type UsersType = {
-    id: number
+    id: string
     name: string
 }
 export type MessType = {
-    id: number
+    id: string
     message: string
 }
 type Dialogs = {
     users: Array<UsersType>
     mess: Array<MessType>
+    sendMess: (mess: string) => void
 }
 
-const DialogsPage = React.memo(({users, mess}: Dialogs) => {
+const DialogsPage = React.memo(({users, mess, ...props}: Dialogs) => {
 
     const [value, setValue] = useState<string>('')
 
     const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.currentTarget.value)
+    }
+    const sendMessage = () => {
+        props.sendMess(value)
+        setValue('')
     }
 
     return (
@@ -38,7 +43,7 @@ const DialogsPage = React.memo(({users, mess}: Dialogs) => {
                     <textarea value={value} onChange={onTextAreaChange}></textarea>
                 </div>
                 <div>
-                    <button onClick={()=> {alert(value)}}>send</button>
+                    <button onClick={sendMessage}>send</button>
                 </div>
             </div>
         </div>

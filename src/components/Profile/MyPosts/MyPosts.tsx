@@ -3,7 +3,7 @@ import s from "./MyPosts.module.scss"
 import UserPost from "./Post/UserPost";
 
 export type PostType = {
-    id: number
+    id: string
     post: string
     likesCount: number
 }
