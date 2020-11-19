@@ -1,27 +1,23 @@
 import React, {ChangeEvent, useState} from "react";
 import s from "./MyPosts.module.scss"
 import UserPost from "./Post/UserPost";
-import {ActionsType, addPost} from "../../../store/store";
+import {useDispatch, useSelector} from "react-redux";
+import {addPost, PostType} from "../../../store/PostReducer";
+import {StateType} from "../../../store/store";
 
-export type PostType = {
-    id: string
-    post: string
-    likesCount: number
-}
-type MyPost = {
-    posts: Array<PostType>
-    dispatch: (action: ActionsType) => void
-}
 
-const MyPosts = React.memo(({posts, ...props}: MyPost) => {
+
+const MyPosts = React.memo(() => {
 
     const [value, setValue] = useState<string>('')
+    const posts = useSelector<StateType, PostType>(state => state.post.posts)
+    const dispatch = useDispatch()
 
     const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.currentTarget.value)
     }
     const addPostHandler = () => {
-        props.dispatch(addPost(value))
+        dispatch(addPost(value))
         setValue('')
     }
 

@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 
-type MessageReducerType = typeof initState
-
+export type MessageReducerType = typeof initState
+type ActionsType = ReturnType<typeof sendMess>
 
 const initState = {
     users: [
@@ -19,12 +19,14 @@ const initState = {
     ]
 }
 
-const MessageReducer = (state:MessageReducerType = initState, action: ActionsType): MessageReducerType => {
+const MessageReducer = (state: MessageReducerType = initState, action: ActionsType): MessageReducerType => {
     switch (action.type) {
         case "SEND_MESSAGE":
             return {
                 ...state, message: [...state.message, {id: v1(), message: action.mess}]
             }
+        default:
+            return state
     }
 }
 
@@ -32,4 +34,3 @@ export default MessageReducer
 
 export const sendMess = (mess: string) => ({type: 'SEND_MESSAGE', mess} as const)
 
-type ActionsType = ReturnType<typeof sendMess>

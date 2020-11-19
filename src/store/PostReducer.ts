@@ -1,6 +1,8 @@
 import {v1} from "uuid";
 
-
+export type PostType = typeof initState.posts
+export type PostReducerType = typeof initState
+type ActionsTypes = ReturnType<typeof addPost>
 
 const initState = {
     posts: [
@@ -14,14 +16,18 @@ const initState = {
     ]
 }
 
-type PostReducerType = typeof initState
 
-const PostReducer = (state = initState, action: ActionsType): PostReducerType => {
+const PostReducer = (state = initState, action: ActionsTypes): PostReducerType => {
     switch (action.type) {
         case "ADD_POST":
-        return {
-            ...state, posts: [{id: v1(), post: action.post, likesCount: 0},...state.posts]
-        }
+            if (action.post.trim()) {
+                return {
+                    ...state, posts: [{id: v1(), post: action.post, likesCount: 0}, ...state.posts]
+                }
+            }
+            return state
+        default:
+            return state
     }
 }
 
@@ -29,4 +35,3 @@ export default PostReducer
 
 export const addPost = (post: string) => ({type: 'ADD_POST', post} as const)
 
-type ActionsType = ReturnType<typeof addPost>

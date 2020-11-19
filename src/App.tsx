@@ -5,16 +5,12 @@ import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import UsersContainer from "./components/Users/UsersContainer";
 import Settings from "./components/Setting/Settings";
-import {ActionsType, StateType} from "./store/store";
 import ProfilePage from "./components/Profile/Profile";
 import DialogsPage from "./components/Dialogs/Dialogs";
 
-type AppType = {
-    store: StateType
-    dispatch: (action: ActionsType) => void
-}
 
-const App = (props: AppType) => {
+
+const App = () => {
 
     return (
         <div className="App">
@@ -23,11 +19,10 @@ const App = (props: AppType) => {
             <div className="content-wrapper">
                 <Switch>
                     <Route path={"/profile"}
-                           render={() => <ProfilePage dispatch={props.dispatch} posts={props.store.posts}/>}/>
+                           render={() => <ProfilePage/>}/>
                     <Route path={"/users"} render={() => <UsersContainer/>}/>
                     <Route path={"/messages"}
-                           render={() => <DialogsPage dispatch={props.dispatch} users={props.store.users}
-                                                      mess={props.store.mess}/>}/>
+                           render={() => <DialogsPage/>}/>
                     <Route path={"/settings"} render={() => <Settings/>}/>
                     <Route exact path={'/'}><Redirect to={'/profile'}/></Route>
                     {/*<Redirect from={"/"} to={"profile"}/>*/}

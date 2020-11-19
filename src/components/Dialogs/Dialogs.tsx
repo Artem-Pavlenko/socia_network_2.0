@@ -2,31 +2,23 @@ import React, {ChangeEvent, useState} from "react";
 import Messages from "./Messages/Messages";
 import s from "./Dialogs.module.scss"
 import DialogsItems from "./DialogsItem/DialogsItems";
-import {ActionsType, sendMess} from "../../store/store";
+import {useDispatch, useSelector} from "react-redux";
+import {MessageReducerType, sendMess} from "../../store/MessageReducer";
+import {StateType} from "../../store/store";
 
-export type UsersType = {
-    id: string
-    name: string
-}
-export type MessType = {
-    id: string
-    message: string
-}
-type Dialogs = {
-    users: Array<UsersType>
-    mess: Array<MessType>
-    dispatch: (action: ActionsType) => void
-}
 
-const DialogsPage = React.memo(({users, mess, ...props}: Dialogs) => {
+
+const DialogsPage = React.memo(() => {
 
     const [value, setValue] = useState<string>('')
+    const dispatch = useDispatch()
+    const {users, message} = useSelector<StateType, MessageReducerType>(state => state.message)
 
     const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.currentTarget.value)
     }
     const sendMessage = () => {
-        props.dispatch(sendMess(value))
+        dispatch(sendMess(value))
         setValue('')
     }
 
@@ -38,7 +30,7 @@ const DialogsPage = React.memo(({users, mess, ...props}: Dialogs) => {
             <div className={s.messBlock}>
                 <h2>Messages</h2>
                 <div className={s.mess}>
-                    {mess.map(m => <Messages key={m.id} text={m.message}/>)}
+                    {message.map(m => <Messages key={m.id} text={m.message}/>)}
                 </div>
                 <div>
                     <textarea value={value} onChange={onTextAreaChange}></textarea>
