@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState} from "react";
 import Messages from "./Messages/Messages";
 import s from "./Dialogs.module.scss"
 import DialogsItems from "./DialogsItem/DialogsItems";
+import {ActionsType, sendMess} from "../../store/store";
 
 export type UsersType = {
     id: string
@@ -14,7 +15,7 @@ export type MessType = {
 type Dialogs = {
     users: Array<UsersType>
     mess: Array<MessType>
-    sendMess: (mess: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 const DialogsPage = React.memo(({users, mess, ...props}: Dialogs) => {
@@ -25,7 +26,7 @@ const DialogsPage = React.memo(({users, mess, ...props}: Dialogs) => {
         setValue(e.currentTarget.value)
     }
     const sendMessage = () => {
-        props.sendMess(value)
+        props.dispatch(sendMess(value))
         setValue('')
     }
 

@@ -7,12 +7,10 @@ import {BrowserRouter} from "react-router-dom";
 import {store} from "./store/store"
 
 
-
-
 ReactDOM.render(
     <React.StrictMode>
         <BrowserRouter>
-            <App addPost={store.addPost} sendMess={store.sendMess} store={store.getState()}/>
+            <App dispatch={store.dispatch} store={store.getState()}/>
         </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')

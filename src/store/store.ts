@@ -1,5 +1,9 @@
 import {v1} from "uuid"
 
+type AddPost = ReturnType<typeof addPost>
+type SendMessage = ReturnType<typeof sendMess>
+
+export type ActionsType = AddPost | SendMessage
 
 export type StateType = typeof store._state
 
@@ -26,19 +30,21 @@ export const store = {
             {id: '5', post: 'text text text text text text text text text text text text text text', likesCount: 11},
             {id: '6', post: 'text text text text text text text text text text text text text text', likesCount: 5},
             {id: '7', post: 'text text text text text text text text text text text text text text', likesCount: 1}
-        ],
-
-
-    },
-    addPost: (post: string) => {
-        // store.state.posts.unshift({id: post.slice(Math.ceil(Math.random() * post.length)),post: post, likesCount: 0})
-        store._state.posts.unshift({id: v1(),post: post, likesCount: 0})
-    },
-    sendMess: (mess: string) => {
-        // store.state.mess.push({id: mess.slice(Math.ceil(Math.random() * mess.length)), message: mess})
-        store._state.mess.push({id: v1(), message: mess})
+        ]
     },
     getState: () => {
-      return store._state
+        return store._state
+    },
+    dispatch: (action: ActionsType) => {
+        if (action.type === 'ADD_POST') {
+            store._state.posts.unshift({id: v1(), post: action.post, likesCount: 0})
+        } else if (action.type === 'SEND_MESSAGE') {
+            store._state.mess.push({id: v1(), message: action.mess})
+        }
     }
 }
+
+
+export const addPost = (post: string) => ({type: 'ADD_POST', post} as const)
+export const sendMess = (mess: string) => ({type: 'SEND_MESSAGE', mess} as const)
+

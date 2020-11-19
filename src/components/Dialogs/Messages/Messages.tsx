@@ -5,7 +5,7 @@ type Message = {
     text?: string
 }
 
-const Messages = React.memo ((props: Message) => {
+const Messages = React.memo((props: Message) => {
 
     return (
         <div className={s.messBlock}>

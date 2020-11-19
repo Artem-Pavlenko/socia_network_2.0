@@ -1,6 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import s from "./MyPosts.module.scss"
 import UserPost from "./Post/UserPost";
+import {ActionsType, addPost} from "../../../store/store";
 
 export type PostType = {
     id: string
@@ -9,7 +10,7 @@ export type PostType = {
 }
 type MyPost = {
     posts: Array<PostType>
-    addPost: (post: string) => void
+    dispatch: (action: ActionsType) => void
 }
 
 const MyPosts = React.memo(({posts, ...props}: MyPost) => {
@@ -19,8 +20,8 @@ const MyPosts = React.memo(({posts, ...props}: MyPost) => {
     const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.currentTarget.value)
     }
-    const addPost = () => {
-        props.addPost(value)
+    const addPostHandler = () => {
+        props.dispatch(addPost(value))
         setValue('')
     }
 
@@ -31,7 +32,7 @@ const MyPosts = React.memo(({posts, ...props}: MyPost) => {
                     <textarea placeholder={'write your post'} value={value} onChange={onTextAreaChange}></textarea>
                 </div>
                 <div>
-                    <button onClick={addPost}>add post</button>
+                    <button onClick={addPostHandler}>add post</button>
                 </div>
             </div>
             <h3>P O S T S :</h3>
