@@ -17,7 +17,7 @@ const initState = {
 }
 
 
-const PostReducer = (state = initState, action: ActionsTypes): PostReducerType => {
+const PostReducer = (state:PostReducerType = initState, action: ActionsTypes): PostReducerType => {
     switch (action.type) {
         case "ADD_POST":
             if (action.post.trim()) {
