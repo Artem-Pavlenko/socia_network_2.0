@@ -34,7 +34,7 @@ const DialogsPage = React.memo(() => {
                 <div>
                     <textarea value={value} onChange={onTextAreaChange}></textarea>
                 </div>
-                <div>
+                <div className={s.sendMess}>
                     <button onClick={sendMessage}>send</button>
                 </div>
             </div>

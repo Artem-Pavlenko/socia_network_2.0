@@ -1,13 +1,18 @@
-import React from "react";
-import {useSelector} from "react-redux";
+import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../store/store";
-import {UsersType} from "../../store/UsersReducer";
+import {UserType} from "../../store/UsersReducer";
 import Users from "./Users";
+import {usersAPI} from "../../api/usersAPI";
 
 
 const UsersContainer = React.memo(() => {
 
-    const users = useSelector<StateType, Array<UsersType>>(state => state.users.users)
+    const dispatch = useDispatch()
+
+    useEffect( () => {usersAPI.getUsers(dispatch)
+    },[])
+    const users = useSelector<StateType, Array<UserType>>(state => state.users.items)
 
     return (
         <div>

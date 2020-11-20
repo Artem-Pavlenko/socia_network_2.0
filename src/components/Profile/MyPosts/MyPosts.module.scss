@@ -3,6 +3,20 @@
 
   .addPostBlock {
     padding: 5px;
+    .postSend {
+      button {
+        background:    #15d798;
+        border-radius: 11px;
+        padding:       6px 30px;
+        color:         #ffffff;
+        display:       inline-block;
+        font:          normal bold 34px/1 "Lobster Two", cursive;
+        text-align:    center;
+        text-shadow:   1px 1px #000000;
+        cursor: pointer;
+      }
+
+    }
   }
   .postGroup{
 

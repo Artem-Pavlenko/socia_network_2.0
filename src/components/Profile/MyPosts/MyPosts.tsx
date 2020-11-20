@@ -26,7 +26,7 @@ const MyPosts = React.memo(() => {
                 <div>
                     <textarea placeholder={'write your post'} value={value} onChange={onTextAreaChange}></textarea>
                 </div>
-                <div>
+                <div className={s.postSend}>
                     <button onClick={addPostHandler}>add post</button>
                 </div>
             </div>

@@ -1,21 +1,41 @@
 import axios from "axios"
+import {Dispatch} from "redux";
+import {setTotalCount, setUsers} from "../store/UsersReducer";
+
+type Response = {
+    error: null | string
+    items: [{
+        followed: boolean
+        id: number
+        name: string
+        photos: {
+            small: string | null
+            large: string | null
+        }
+        status: string | null
+        uniqueUrlName: string | null
+    }]
+    totalCount: number
+}
 
 const settings = {
     withCredentials: true,
     headers: {
-        'API-KEY': ''
+        'API-KEY': '3e79c344-389c-4379-912f-1ab506d5006c'
     }
 
 }
 
 const instance = axios.create({
     ...settings,
-    baseURL: "",
-
+    baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 })
 
 export const usersAPI = {
-    getUsers: () => {
-        instance.get('users')
+    getUsers: (dispatch: Dispatch) => {
+        instance.get<Response>('users').then( res => {
+            dispatch(setUsers(res.data.items))
+            dispatch(setTotalCount(res.data.totalCount))
+        })
     }
 }

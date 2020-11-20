@@ -16,7 +16,6 @@
 }
 
 .content-wrapper {
-    background-color: darkgray;
     margin-right: 5px;
     grid-area: c;
 }
@@ -37,3 +36,18 @@
         transform: rotate(360deg);
     }
 }
+
+/*убирает рамку у кнопки*/
+button,
+button:active,
+button:focus {
+    outline: none !important;
+}
+/*убираю браузерную обводку */
+a:active, a:focus { outline: none; }
+input, textarea {outline:none;}
+input:active, textarea:active {outline:none;}
+:focus {outline:none;}
+textarea {resize:none;}
+textarea {resize:vertical;}
+textarea {resize:horizontal;}

@@ -1,5 +1,79 @@
+@import "src/common/SCSS/Mixins.module";
+
 
 .userBlock {
+  transition: all 3s;
+  background-color: #486ba5;
   border: 2px solid aliceblue;
-  padding: 55px;
+  padding: 55px 45px 40px 45px;
+  border-radius: 8px;
+  margin-bottom: 5px;
+  .userInfo {
+    border: 1px solid;
+    @include flex(space-betwen, flex-center);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    .avaWithDescription {
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      border: 1px solid;
+      .avatarBlock{
+        border: 1px solid;
+        img {
+          max-width: 120px;
+        }
+      }
+      .name {
+        padding: 15px 5px 5px 15px;
+        border: 1px solid;
+        div {
+          opacity: .93;
+          color: #FFFFFF;
+          text-shadow: 0 -1px 4px #FFF, 0 -2px 10px #ff0, 0 -10px 20px #ff8000, 0 -18px 40px #F00;
+        }
+      }
+    }
+    .status {
+      border: 1px solid;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  .followCheck {
+    position: relative;
+    top: -132px;
+    opacity: 0.3;
+  }
+  .button {
+    position: relative;
+    top: -45px;
+    left: -19px;
+    height: 40px;
+    cursor: pointer;
+    opacity: .7;
+    transition: 2.5s;
+    .unfollow {
+      height: 100%;
+      transition:all 2.5s;
+      background-image: url("../../../assets/images/minus.svg")  ;
+      background-repeat: no-repeat;
+
+    }
+    .follow {
+      height: 100%;
+      transition:all 2.5s;
+      background-image: url("../../../assets/images/plus.svg");
+      background-repeat: no-repeat;
+    }
+    button {
+      display: none;
+    }
+  }
+}
+
+.isFollowed {
+  transition: all 3s;
+  background-color: #769de3;
 }
