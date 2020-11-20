@@ -6,7 +6,6 @@ import {addPost, PostType} from "../../../store/PostReducer";
 import {StateType} from "../../../store/store";
 
 
-
 const MyPosts = React.memo(() => {
 
     const [value, setValue] = useState<string>('')

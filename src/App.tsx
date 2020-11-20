@@ -9,7 +9,6 @@ import ProfilePage from "./components/Profile/Profile";
 import DialogsPage from "./components/Dialogs/Dialogs";
 
 
-
 const App = () => {
 
     return (

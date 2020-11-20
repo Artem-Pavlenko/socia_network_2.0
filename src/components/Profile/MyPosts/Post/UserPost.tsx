@@ -8,7 +8,7 @@ type Post = {
     likesCount: number
 }
 
-const UserPost = React.memo (({text = "", srcImg = "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg", likesCount}: Post) => {
+const UserPost = React.memo(({text = "", srcImg = "https://klike.net/uploads/posts/2019-03/1551511801_1.jpg", likesCount}: Post) => {
 
     return (
         <div className={s.postBlock}>

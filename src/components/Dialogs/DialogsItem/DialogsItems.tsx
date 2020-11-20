@@ -8,10 +8,10 @@ type DialogsItem = {
     name: string
 }
 
-const DialogsItems = React.memo ((props: DialogsItem) => {
+const DialogsItems = React.memo((props: DialogsItem) => {
     return (
         <div className={s.itemBlock}>
-            <NavLink activeClassName={s.active} to={"/messages/"+ props.id}>{props.name}</NavLink>
+            <NavLink activeClassName={s.active} to={"/messages/" + props.id}>{props.name}</NavLink>
         </div>
     )
 })

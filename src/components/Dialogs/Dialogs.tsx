@@ -7,7 +7,6 @@ import {MessageReducerType, sendMess} from "../../store/MessageReducer";
 import {StateType} from "../../store/store";
 
 
-
 const DialogsPage = React.memo(() => {
 
     const [value, setValue] = useState<string>('')

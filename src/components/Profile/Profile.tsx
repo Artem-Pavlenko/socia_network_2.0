@@ -4,7 +4,6 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import s from "../Profile/Profile.module.scss"
 
 
-
 const ProfilePage = React.memo(() => {
 
     return (

@@ -4,6 +4,7 @@ import {NavLink} from "react-router-dom";
 
 const navItems = ["profile", "users", "messages", "settings", "News"]
 
+
 const NavBar = () => {
     return (
         <div className={s.navBarBlock}>
@@ -19,6 +20,7 @@ type LinkType = {
     to: string
     text: string
 }
+
 const NavBarLink = ({to, text = ""}: LinkType) => {
     return (
         <div className={s.link}>
