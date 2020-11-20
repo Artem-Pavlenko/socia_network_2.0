@@ -3,10 +3,10 @@ import {Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
 import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
-import UsersContainer from "./components/Users/UsersContainer";
 import Settings from "./components/Setting/Settings";
 import ProfilePage from "./components/Profile/Profile";
 import DialogsPage from "./components/Dialogs/Dialogs";
+import UsersContainer from "./components/Users/UsersContainer";
 
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
                 </Switch>
             </div>
         </div>
-    );
+    )
 }
 
 export default App;
