@@ -10,10 +10,13 @@ import UsersContainer from "./components/Users/UsersContainer";
 import NotFound from "./components/404/NotFound";
 
 
+
 const App = () => {
+
 
     return (
         <div className="App">
+
             <Header/>
             <NavBar/>
             <div className="content-wrapper">

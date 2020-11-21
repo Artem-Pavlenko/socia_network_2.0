@@ -31,7 +31,7 @@ const initState: UsersRootType = {
             uniqueUrlName: null
         }
     ],
-    totalCount: 1
+    totalCount: 0
 }
 
 const UsersReducers = (state: UsersRootType = initState, action: ActionsType): UsersReducerType => {

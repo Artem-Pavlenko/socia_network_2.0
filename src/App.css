@@ -11,6 +11,7 @@
     font: normal bold 16px/1 "Lobster Two", cursive;
 }
 
+
 @media screen and (max-width: 380px){
     .App {
         grid-template-columns: 1fr 10fr;

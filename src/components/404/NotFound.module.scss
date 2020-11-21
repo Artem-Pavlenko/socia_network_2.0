@@ -2,9 +2,20 @@
 .notFoundBlock {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
+  background-color: #363a42;
+  height: 91vh;
+  .particles {
+    //width: 60px;
+    position: absolute;
+    top: 67px;
+    left: 157px;
+    right: 0;
+    bottom: 0;
+    opacity: .8;
+  }
   img {
     padding: 15px;
     max-width: 250px;
@@ -16,3 +27,4 @@
     }
   }
 }
+

@@ -5,12 +5,16 @@ import SocialNetworkIcon from "../../assets/images/social.svg"
 
 const Header = () => {
 
+
+
     return (
         <div className={s.headerBlock}>
+
             <header>
+
                 <img src={SocialNetworkIcon} alt=""/>
                 <div>
-                    bla bla
+                    <button>bla bla</button>
                 </div>
             </header>
         </div>
