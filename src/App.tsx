@@ -7,6 +7,7 @@ import Settings from "./components/Setting/Settings";
 import ProfilePage from "./components/Profile/Profile";
 import DialogsPage from "./components/Dialogs/Dialogs";
 import UsersContainer from "./components/Users/UsersContainer";
+import NotFound from "./components/404/NotFound";
 
 
 const App = () => {
@@ -25,7 +26,7 @@ const App = () => {
                     <Route path={"/settings"} render={() => <Settings/>}/>
                     <Route exact path={'/'}><Redirect to={'/profile'}/></Route>
                     {/*<Redirect from={"/"} to={"profile"}/>*/}
-                    <Route render={() => <div>404 not found</div>}/>
+                    <Route render={() => <NotFound/>}/>
                 </Switch>
             </div>
         </div>
