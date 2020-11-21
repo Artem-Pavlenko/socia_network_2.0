@@ -1,0 +1,52 @@
+
+input {
+  padding: 0;
+  margin: 0;
+}
+
+.inputBlock {
+  display: inline-block;
+  position: relative;
+  margin: 10px;
+  width: 100%;
+  div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    .textBox {
+      border: 0;
+      padding: 2px 0;
+      border-bottom: 1px solid #ccc;
+      font: 15px/24px "Lato", Arial, sans-serif;
+      color: #333;
+      width: 100%;
+      box-sizing: border-box;
+      letter-spacing: 1px;
+
+      ~ {
+        .focusBorder {
+          position: absolute;
+          bottom:0;
+          left: 0;
+          width: 0;
+          height: 2px;
+          background-color: #3399FF;
+          transition: 0.4s;
+        }
+      }
+
+      &:focus, &:hover {
+        outline: none;
+
+        ~ {
+          .focusBorder {
+            width: 100%;
+            transition: 0.4s;
+          }
+        }
+      }
+    }
+  }
+
+}

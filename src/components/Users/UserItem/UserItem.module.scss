@@ -52,18 +52,18 @@
     left: -19px;
     height: 40px;
     cursor: pointer;
-    opacity: .7;
-    transition: 2.5s;
+    opacity: .85;
+    transition: 2s;
     .unfollow {
       height: 100%;
-      transition:all 2.5s;
+      transition:all 2s;
       background-image: url("../../../assets/images/minus.svg")  ;
       background-repeat: no-repeat;
 
     }
     .follow {
       height: 100%;
-      transition:all 2.5s;
+      transition:all 2s;
       background-image: url("../../../assets/images/plus.svg");
       background-repeat: no-repeat;
     }

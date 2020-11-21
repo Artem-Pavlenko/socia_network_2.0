@@ -12,27 +12,34 @@
     }
   }
   .messBlock {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     width: 70%;
-    background: beige;
+    background: rgba(217, 217, 124, 0.3);
+    border-radius: 8px;
     padding: 10px;
     h2 {
       text-align: center;
       margin: 0;
     }
     .mess {
+      margin: 0 auto;
       padding: 10px;
+      width: 80%;
     }
-    .sendMess {
-      button {
-        background:    #15d798;
-        border-radius: 11px;
-        padding:       6px 30px;
-        color:         #ffffff;
-        display:       inline-block;
-        font:          normal bold 34px/1 "Lobster Two", cursive;
-        text-align:    center;
-        text-shadow:   1px 1px #000000;
-        cursor: pointer;
+    .sendMessGroup {
+      width: 100%;
+      margin: 0 auto;
+      .textField {
+        margin: 0 auto;
+        width: 80%;
+      }
+      .sendMess {
+        width: 30%;
+        margin: 0 auto;
       }
     }
   }

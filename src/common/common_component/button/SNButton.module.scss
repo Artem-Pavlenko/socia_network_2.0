@@ -1,14 +1,27 @@
 
 .btnBlock {
   button {
-    background:    #15d798;
+    margin: 0 auto;
+    background: #15d798;
     border-radius: 11px;
-    padding:       6px 30px;
-    color:         #ffffff;
-    display:       inline-block;
-    font:          normal bold 34px/1 "Lobster Two", cursive;
-    text-align:    center;
-    text-shadow:   1px 1px #000000;
+    padding: 6px 30px 8px;
+    color: #ffffff;
+    display: inline-block;
+    font: normal bold 34px/1 "Lobster Two", cursive;
+    text-align: center;
+    text-shadow: 1px 1px #000000;
     cursor: pointer;
+    box-shadow: 0 5px 0 #0c694b;
+    border: none;
+    position: relative;
+    top: 0;
+    transition: background-color 1s linear 0s, top .2s linear 0s, box-shadow .2s linear 0s;
+
+    &:hover {
+      transition: background-color 1s linear 0s, top .2s linear 0s, box-shadow .2s linear 0s;
+      top: 2px;
+      background-color: #2deeaf;
+      box-shadow: 0 3px 0 #0c694b;
+    }
   }
 }
