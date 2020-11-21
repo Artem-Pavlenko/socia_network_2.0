@@ -22,9 +22,12 @@ const initState = {
 const MessageReducer = (state: MessageReducerType = initState, action: ActionsType): MessageReducerType => {
     switch (action.type) {
         case "SEND_MESSAGE":
-            return {
-                ...state, message: [...state.message, {id: v1(), message: action.mess}]
+            if (action.mess.trim()) {
+                return {
+                    ...state, message: [...state.message, {id: v1(), message: action.mess}]
+                }
             }
+            return state
         default:
             return state
     }
