@@ -8,6 +8,7 @@
     "n c";
     grid-gap: 5px;
     margin: 0 auto;
+    font: normal bold 16px/1 "Lobster Two", cursive;
 }
 
 @media screen and (max-width: 380px){

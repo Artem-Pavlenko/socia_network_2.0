@@ -7,14 +7,14 @@
     color: #363a42;
     text-decoration: none;
     display: block;
-
-
+    padding: 5px;
+    transition: all .2s linear 0s;
   }
   a.active {
-    width: 100%;
     color: #2b2f36;
     font-weight: bold;
     border-radius: 3px;
     background-color: #f5f6f7;
+    transition: all .2s linear 0s;
   }
 }
