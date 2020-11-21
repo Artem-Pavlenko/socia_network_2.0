@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {addPost, PostType} from "../../../store/PostReducer";
 import {StateType} from "../../../store/store";
 import SNButton from "../../../common/common_component/button/SNButton";
+import SNTextarea from "../../../common/common_component/textarea/SNTextarea";
 
 
 const MyPosts = React.memo(() => {
@@ -25,10 +26,9 @@ const MyPosts = React.memo(() => {
         <div className={s.myPostsBlock}>
             <div className={s.addPostBlock}>
                 <div className={s.postText}>
-                    <textarea placeholder={'write your post'} value={value} onChange={onTextAreaChange}></textarea>
+                    <SNTextarea value={value} onChange={onTextAreaChange}/>
                 </div>
                 <div className={s.postSend}>
-                    {/*<button onClick={addPostHandler}>add post</button>*/}
                     <SNButton onClick={addPostHandler} buttonText={'add post'} />
                 </div>
             </div>

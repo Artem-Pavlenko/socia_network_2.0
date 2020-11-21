@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {MessageReducerType, sendMess} from "../../store/MessageReducer";
 import {StateType} from "../../store/store";
 import SNButton from "../../common/common_component/button/SNButton";
-import SNInput from "../../common/common_component/input/SNInput";
+import SNTextarea from "../../common/common_component/textarea/SNTextarea";
 
 
 const DialogsPage = React.memo(() => {
@@ -16,10 +16,6 @@ const DialogsPage = React.memo(() => {
     const {users, message} = useSelector<StateType, MessageReducerType>(state => state.message)
 
     const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        setValue(e.currentTarget.value)
-    }
-
-    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
 
@@ -40,8 +36,7 @@ const DialogsPage = React.memo(() => {
                 </div>
                 <div className={s.sendMessGroup}>
                     <div className={s.textField}>
-                        <SNInput value={value} onChange={onInputChange}/>
-                        {/*<textarea value={value} onChange={onTextAreaChange}></textarea>*/}
+                        <SNTextarea value={value} onChange={onTextAreaChange}/>
                     </div>
                     <div className={s.sendMess}>
                         <SNButton onClick={sendMessage} buttonText={'send'}/>
