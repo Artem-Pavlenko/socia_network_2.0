@@ -5,14 +5,14 @@ import {setCurrentPage, UserType} from "../../store/UsersReducer";
 import {useDispatch} from "react-redux";
 import Paginator from "../../common/common_component/Paginator/Paginator";
 
-type Users = {
+type UsersType = {
     users: Array<UserType>
     pageSize: number
     currentPage: number
     totalUsersCont: number
 }
 
-const Users = React.memo ((props: Users) => {
+const Users = React.memo((props: UsersType) => {
 
     const dispatch = useDispatch()
 

@@ -1,9 +1,8 @@
-
 export type UsersReducerType = typeof initState
 type ActionsType = ReturnType<typeof followUnfollow> | ReturnType<typeof setUsers> | ReturnType<typeof setTotalCount>
     | ReturnType<typeof setCurrentPage> | ReturnType<typeof setPageCount>
 
-export type UserType =  {
+export type UserType = {
     followed: boolean
     id: number
     name: string

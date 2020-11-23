@@ -19,8 +19,7 @@ const UsersContainer = React.memo(() => {
                 dispatch(setUsers(res.data.items))
                 dispatch(setTotalCount(res.data.totalCount))
             })
-    },[currentPage, pageSize])
-
+    }, [currentPage, pageSize, dispatch])
 
 
     return (

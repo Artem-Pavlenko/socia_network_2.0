@@ -3,21 +3,7 @@ import s from "../UserItem/UserItem.module.scss"
 import {useDispatch} from "react-redux";
 import {followUnfollow, UserType} from "../../../store/UsersReducer";
 import userPhoto from "../../../assets/images/anonymous.svg"
-import followIcon from "../../../assets/images/FOLLOW.svg"
-import unfollowIcon from "../../../assets/images/UNFOLLOW.svg"
 
-
-type UserItem = {
-    followed: boolean
-    id: number
-    name: string
-    photos: {
-        small: string | null
-        large: string | null
-    }
-    status: string | null
-    uniqueUrlName: string | null
-}
 
 const UserItem = (props: UserType) => {
 
@@ -37,7 +23,7 @@ const UserItem = (props: UserType) => {
 
                 <div className={s.avaWithDescription}>
                     <div className={s.avatarBlock}>
-                        <img src={props.photos.small ? props.photos.small : userPhoto} alt=""/>
+                        <img src={props.photos.small || userPhoto} alt=""/>
                     </div>
                     <div className={s.name}>
                         <div>{props.name}</div>
