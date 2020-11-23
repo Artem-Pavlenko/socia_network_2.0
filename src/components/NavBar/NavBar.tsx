@@ -2,7 +2,7 @@ import React from "react";
 import s from "../NavBar/NavBar.module.scss"
 import {NavLink} from "react-router-dom";
 
-const navItems = ["profile", "users", "messages", "settings", "News"]
+const navItems = ["profile", "friends", "users", "messages", "settings", "News"]
 
 
 const NavBar = () => {

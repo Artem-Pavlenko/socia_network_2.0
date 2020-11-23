@@ -10,9 +10,9 @@ type PaginatorProps = {
     onClick: (page: number) => void
 }
 
-const Paginator = ({pageSize,currentPage,totalUsersCont,onClick}: PaginatorProps) => {
+const Paginator = ({pageSize, currentPage, totalUsersCont, onClick}: PaginatorProps) => {
 
-    const totalPagesCount = totalUsersCont / pageSize
+    const totalPagesCount = Math.ceil(totalUsersCont / pageSize)
     const pages: number[] = []
     for (let i = 1; i <= totalPagesCount / 50; i++) {  //делю на 50 для удобства просмотра
         pages.push(i)

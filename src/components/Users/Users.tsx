@@ -12,15 +12,9 @@ type Users = {
     totalUsersCont: number
 }
 
-const Users = (props: Users) => {
+const Users = React.memo ((props: Users) => {
 
     const dispatch = useDispatch()
-
-    const totalPagesCount = props.totalUsersCont / props.pageSize
-    const pages: number[] = []
-    for (let i = 1; i <= totalPagesCount / 50; i++) {  //делю на 50 для удобства просмотра
-        pages.push(i)
-    }
 
     const setPage = (page: number) => {
         dispatch(setCurrentPage(page))
@@ -35,7 +29,7 @@ const Users = (props: Users) => {
                     totalUsersCont={props.totalUsersCont}
                     onClick={setPage}/>
             </div>
-            <div>
+            <div className={s.users}>
                 {props.users.map(u => <UserItem
                     photos={u.photos}
                     uniqueUrlName={u.uniqueUrlName}
@@ -47,6 +41,6 @@ const Users = (props: Users) => {
             </div>
         </div>
     )
-}
+})
 
 export default Users
