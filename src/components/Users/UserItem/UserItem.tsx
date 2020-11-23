@@ -59,7 +59,6 @@ const UserItem = (props: UserType) => {
                     {props.followed ? <button ref={btnRef} onClick={onFollowUnfollow}>unfollow</button> :
                         <button ref={btnRef} onClick={onFollowUnfollow}>follow</button>}
                 </div>
-
             </div>
         </div>
     )

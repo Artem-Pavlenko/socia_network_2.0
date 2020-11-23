@@ -16,7 +16,6 @@ const App = () => {
 
     return (
         <div className="App">
-
             <Header/>
             <NavBar/>
             <div className="content-wrapper">

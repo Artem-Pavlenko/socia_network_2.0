@@ -1,0 +1,15 @@
+
+.paginatorBlock {
+  margin: 10px;
+  border: 1px solid;
+  text-align: center;
+  span {
+    cursor: pointer;
+    display: inline-block;
+    margin: 2px;
+  }
+  .selectedPage {
+    font-weight: bold;
+    color: #f5f6f7;
+  }
+}

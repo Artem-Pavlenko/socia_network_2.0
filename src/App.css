@@ -1,4 +1,5 @@
 .App {
+    background-color: #e9d68f;
     min-height: 100vh;
     display: grid;
     grid-template-rows: 60px 1fr;
