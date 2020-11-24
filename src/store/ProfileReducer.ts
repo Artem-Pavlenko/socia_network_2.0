@@ -10,17 +10,22 @@ export type ProfileType = {
         youtube:  string | null
         github:  string | null
         mainLink:  string | null
-    },
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string | null,
-    fullName:  string | null,
-    userId: number,
+    }
+    lookingForAJob: boolean
+    lookingForAJobDescription: string | null
+    fullName:  string | null
+    userId: number
     photos: {
-        small:  string | null,
+        small:  string | null
         large:  string | null
     }
+    status: string | null
 }
-type ActionTypes = ReturnType<typeof setProfile>
+type ActionTypes =
+    ReturnType<typeof setProfile>
+    | ReturnType<typeof setStatus>
+
+
 const initState: ProfileType = {
     aboutMe: null,
     contacts: {
@@ -40,13 +45,16 @@ const initState: ProfileType = {
     photos: {
         small: null,
         large: null
-    }
+    },
+    status: null
 }
 
 const ProfileReducer = (state: ProfileType = initState, action: ActionTypes): ProfileType => {
     switch (action.type) {
         case "profile/SET_PROFILE":
             return {...state, ...action.profile}
+        case "profile/SET_STATUS":
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -54,5 +62,6 @@ const ProfileReducer = (state: ProfileType = initState, action: ActionTypes): Pr
 
 
 export const setProfile = (profile: ProfileType) => ({type: 'profile/SET_PROFILE', profile} as const)
+export const setStatus = (status: string | null) => ({type: 'profile/SET_STATUS', status} as const)
 
 export default ProfileReducer

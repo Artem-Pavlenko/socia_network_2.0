@@ -3,6 +3,7 @@ import MessageReducer from "./MessageReducer";
 import PostReducer from "./PostReducer";
 import UsersReducers from "./UsersReducer";
 import FriendsReducer from "./FriendsReducer";
+import ProfileReducer from "./ProfileReducer";
 
 
 const reducers = combineReducers({
@@ -10,8 +11,7 @@ const reducers = combineReducers({
     post: PostReducer,
     users: UsersReducers,
     friends: FriendsReducer,
-    // fetching: FetchingReducer
-
+    profile: ProfileReducer
 })
 
 

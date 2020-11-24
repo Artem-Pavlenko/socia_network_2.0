@@ -1,6 +1,4 @@
 import axios from "axios"
-import {Dispatch} from "redux";
-import {setUsersTotalCount, setUsers} from "../store/UsersReducer";
 
 type UsersResponse = {
     error: null | string
@@ -20,22 +18,22 @@ type UsersResponse = {
 type ProfileResponse = {
     aboutMe: string | null
     contacts: {
-        facebook:  string | null
-        website:  string | null
-        vk:  string | null
-        twitter:  string | null
-        instagram:  string | null
-        youtube:  string | null
-        github:  string | null
-        mainLink:  string | null
+        facebook: string | null
+        website: string | null
+        vk: string | null
+        twitter: string | null
+        instagram: string | null
+        youtube: string | null
+        github: string | null
+        mainLink: string | null
     },
     lookingForAJob: boolean,
     lookingForAJobDescription: string | null,
-    fullName:  string | null,
+    fullName: string | null,
     userId: number,
     photos: {
-        small:  string | null,
-        large:  string | null
+        small: string | null,
+        large: string | null
     }
 }
 
@@ -44,7 +42,6 @@ const settings = {
     headers: {
         'API-KEY': '3e79c344-389c-4379-912f-1ab506d5006c'
     }
-
 }
 
 export const instance = axios.create({
@@ -53,10 +50,13 @@ export const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers: (dispatch: Dispatch) => {
-        instance.get<UsersResponse>('users').then( res => res.data)
+    getUsers: () => {
+        instance.get<UsersResponse>('users').then(res => res.data)
     },
-    getProfile: (userID: number) => {
-        instance.get<ProfileResponse>(`profile/${userID}`).then( res => res.data)
+    getProfile: (userID: string) => {
+        instance.get<ProfileResponse>(`profile/${userID}`).then(res => res.data)
+    },
+    getStatus: (userID: string) => {
+        instance.get(`profile/status/${userID}`).then(res => res.data)
     }
 }
