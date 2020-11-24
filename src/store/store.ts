@@ -9,7 +9,9 @@ const reducers = combineReducers({
     message: MessageReducer,
     post: PostReducer,
     users: UsersReducers,
-    friends: FriendsReducer
+    friends: FriendsReducer,
+    // fetching: FetchingReducer
+
 })
 
 

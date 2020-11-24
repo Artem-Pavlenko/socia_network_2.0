@@ -6,9 +6,9 @@ import NavBar from "./components/NavBar/NavBar";
 import Settings from "./components/Setting/Settings";
 import ProfilePage from "./components/Profile/Profile";
 import DialogsPage from "./components/Dialogs/Dialogs";
-import UsersContainer from "./components/Users/UsersContainer";
 import NotFound from "./components/404/NotFound";
-import FriendsContainer from "./components/Friends/FriendsContainer";
+import FriendsPage from "./components/Friends/FriendsPage";
+import UsersPage from "./components/Users/UsersPage";
 
 
 
@@ -23,8 +23,8 @@ const App = () => {
                 <Switch>
                     <Route path={"/profile"}
                            render={() => <ProfilePage/>}/>
-                    <Route path={"/friends"} render={() => <FriendsContainer/>}/>
-                    <Route path={"/users"} render={() => <UsersContainer/>}/>
+                    <Route path={"/friends"} render={() => <FriendsPage/>}/>
+                    <Route path={"/users"} render={() => <UsersPage/>}/>
                     <Route path={"/messages"}
                            render={() => <DialogsPage/>}/>
                     <Route path={"/settings"} render={() => <Settings/>}/>

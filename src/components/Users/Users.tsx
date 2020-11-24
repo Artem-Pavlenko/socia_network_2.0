@@ -3,7 +3,7 @@ import s from "../Users/Users.module.scss"
 import UserItem from "./UserItem/UserItem";
 import {UserType} from "../../store/UsersReducer";
 import Paginator from "../../common/common_component/Paginator/Paginator";
-
+import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 
 
 type UsersType = {
@@ -12,6 +12,7 @@ type UsersType = {
     currentPage: number
     totalUsersCont: number
     setPage: (page: number) => void
+    showPreloader: boolean
 }
 
 const Users = React.memo((props: UsersType) => {
@@ -27,6 +28,7 @@ const Users = React.memo((props: UsersType) => {
                     onClick={props.setPage}/>
             </div>
             <div className={s.users}>
+                {props.showPreloader && <MiniPreloader/>}
                 {props.users.map(u => <UserItem
                     photos={u.photos}
                     uniqueUrlName={u.uniqueUrlName}

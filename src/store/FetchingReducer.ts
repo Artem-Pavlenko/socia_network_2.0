@@ -3,7 +3,7 @@ type ActionsType = ReturnType<typeof setFetching>
 
 type FetchingType = typeof initState
 const initState = {
-    isFetching: false
+    isFetching: true
 }
 
 const FetchingReducer = (state: FetchingType =  initState, action: ActionsType): FetchingType => {

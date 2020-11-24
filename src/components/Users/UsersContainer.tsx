@@ -1,15 +1,24 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../store/store";
-import {setUsersTotalCount, setUsers, UsersRootType, setUsersCurrentPage} from "../../store/UsersReducer";
+import {
+    setUsersTotalCount,
+    setUsers,
+    UsersRootType,
+    setUsersCurrentPage,
+    setUsersFetching
+} from "../../store/UsersReducer";
 import Users from "./Users";
 import axios from "axios"
+import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 
 
 const UsersContainer = React.memo(() => {
 
     const dispatch = useDispatch()
     const {totalCount, currentPage, pageSize, items} = useSelector<StateType, UsersRootType>(state => state.users)
+    const isFetching = useSelector<StateType, boolean>(state => state.users.isFetching)
+    const [showPreloader, setShowPreloader] = useState<boolean>(true)
 
 
     useEffect(() => {
@@ -17,14 +26,17 @@ const UsersContainer = React.memo(() => {
             .then(res => {
                 dispatch(setUsers(res.data.items))
                 dispatch(setUsersTotalCount(res.data.totalCount))
-                console.log(pageSize, currentPage, totalCount)
+                dispatch(setUsersFetching(false))
+                setShowPreloader(false)
             })
+        return () => {setShowPreloader(true)}
     }, [currentPage, pageSize, dispatch])
 
     const setCurrentPage = (page: number) => {
         dispatch(setUsersCurrentPage(page))
     }
 
+    if (isFetching) return <MiniPreloader/>
     return (
         <Users
             users={items}
@@ -32,6 +44,7 @@ const UsersContainer = React.memo(() => {
             pageSize={pageSize}
             totalUsersCont={totalCount}
             setPage={setCurrentPage}
+            showPreloader={showPreloader}
         />
     )
 
