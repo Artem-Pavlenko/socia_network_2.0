@@ -1,10 +1,11 @@
 import React from "react"
+import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 
 
 const Settings = () => {
     return (
         <div>
-            settings
+            <MiniPreloader />
         </div>
     )
 }

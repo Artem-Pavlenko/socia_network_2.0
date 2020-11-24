@@ -24,9 +24,6 @@ const Paginator = ({pageSize, currentPage, totalUsersCont, onClick}: PaginatorPr
     for (let i = 1; i <= pageCount ; i++) {  //делю на 50 для удобства просмотра
         pages.push(i)
     }
-    console.log('totalUsersCont:', totalUsersCont)
-    console.log('pageSize:', pageSize)
-    console.log('pages:', pages)
 
     return (
         <div className={s.paginatorBlock}>
