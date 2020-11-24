@@ -4,7 +4,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import s from "../Profile/Profile.module.scss"
 
 
-const ProfilePage = React.memo(() => {
+const ProfileContainer = React.memo(() => {
 
     return (
         <div className={s.profileBlock}>
@@ -14,4 +14,4 @@ const ProfilePage = React.memo(() => {
     )
 })
 
-export default ProfilePage
+export default ProfileContainer

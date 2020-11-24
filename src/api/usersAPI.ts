@@ -2,7 +2,7 @@ import axios from "axios"
 import {Dispatch} from "redux";
 import {setUsersTotalCount, setUsers} from "../store/UsersReducer";
 
-type Response = {
+type UsersResponse = {
     error: null | string
     items: [{
         followed: boolean
@@ -16,6 +16,27 @@ type Response = {
         uniqueUrlName: string | null
     }]
     totalCount: number
+}
+type ProfileResponse = {
+    aboutMe: string | null
+    contacts: {
+        facebook:  string | null
+        website:  string | null
+        vk:  string | null
+        twitter:  string | null
+        instagram:  string | null
+        youtube:  string | null
+        github:  string | null
+        mainLink:  string | null
+    },
+    lookingForAJob: boolean,
+    lookingForAJobDescription: string | null,
+    fullName:  string | null,
+    userId: number,
+    photos: {
+        small:  string | null,
+        large:  string | null
+    }
 }
 
 const settings = {
@@ -33,9 +54,9 @@ export const instance = axios.create({
 
 export const usersAPI = {
     getUsers: (dispatch: Dispatch) => {
-        instance.get<Response>('users').then( res => {
-            dispatch(setUsers(res.data.items))
-            dispatch(setUsersTotalCount(res.data.totalCount))
-        })
+        instance.get<UsersResponse>('users').then( res => res.data)
+    },
+    getProfile: (userID: number) => {
+        instance.get<ProfileResponse>(`profile/${userID}`).then( res => res.data)
     }
 }

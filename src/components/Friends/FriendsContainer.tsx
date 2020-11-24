@@ -30,7 +30,7 @@ const FriendsContainer = () => {
                 setShowPreloader(false)
             })
         return () => {setShowPreloader(true)}
-    }, [currentPage, pageSize, dispatch])
+    }, [currentPage, pageSize, dispatch, isFetching])
 
     const setCurrentPage = (page: number) => {
         dispatch(setFriendCurrentPage(page))

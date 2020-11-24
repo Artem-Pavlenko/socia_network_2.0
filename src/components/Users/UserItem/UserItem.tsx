@@ -3,6 +3,7 @@ import s from "../UserItem/UserItem.module.scss"
 import {useDispatch} from "react-redux";
 import {followUnfollow, UserType} from "../../../store/UsersReducer";
 import userPhoto from "../../../assets/images/anonymous.svg"
+import {NavLink} from "react-router-dom";
 
 
 const UserItem = (props: UserType) => {
@@ -23,7 +24,7 @@ const UserItem = (props: UserType) => {
 
                 <div className={s.avaWithDescription}>
                     <div className={s.avatarBlock}>
-                        <img src={props.photos.large || userPhoto} alt=""/>
+                        <NavLink to={`/profile/${props.id}`}><img src={props.photos.large || userPhoto} alt=""/></NavLink>
                     </div>
                     <div className={s.name}>
                         <div>{props.name}</div>
