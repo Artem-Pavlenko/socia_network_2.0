@@ -2,12 +2,14 @@ import {combineReducers, createStore} from "redux";
 import MessageReducer from "./MessageReducer";
 import PostReducer from "./PostReducer";
 import UsersReducers from "./UsersReducer";
+import FriendsReducer from "./FriendsReducer";
 
 
 const reducers = combineReducers({
     message: MessageReducer,
     post: PostReducer,
-    users: UsersReducers
+    users: UsersReducers,
+    friends: FriendsReducer
 })
 
 

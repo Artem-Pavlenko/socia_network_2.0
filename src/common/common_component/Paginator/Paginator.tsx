@@ -13,10 +13,20 @@ type PaginatorProps = {
 const Paginator = ({pageSize, currentPage, totalUsersCont, onClick}: PaginatorProps) => {
 
     const totalPagesCount = Math.ceil(totalUsersCont / pageSize)
+
+    // надо зафиксить пагинатор!
+    // переменная pageCount для отображения пагинатора на странице пользователей
+    // totalUsersCont в Friends меньше 50 и когда делю на 50, не отображаються страници
+
+    const pageCount = totalPagesCount > 1000 ? totalPagesCount / 50 : totalPagesCount
+
     const pages: number[] = []
-    for (let i = 1; i <= totalPagesCount / 50; i++) {  //делю на 50 для удобства просмотра
+    for (let i = 1; i <= pageCount ; i++) {  //делю на 50 для удобства просмотра
         pages.push(i)
     }
+    console.log('totalUsersCont:', totalUsersCont)
+    console.log('pageSize:', pageSize)
+    console.log('pages:', pages)
 
     return (
         <div className={s.paginatorBlock}>

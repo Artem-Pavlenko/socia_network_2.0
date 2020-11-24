@@ -32,7 +32,7 @@ const UserItem = (props: UserType) => {
                 </div>
 
                 <div className={s.status}>
-                    <span>{props.status ? props.status : '---'}</span>
+                    <span>{props.status || '---'}</span>
                 </div>
 
             </div>
@@ -42,8 +42,11 @@ const UserItem = (props: UserType) => {
             <div className={s.button}>
                 <div className={`${s.following} ${props.followed ? s.unfollow : s.follow}`}
                      onClick={onFollowUnfollowIcon}>
-                    {props.followed ? <button ref={btnRef} onClick={onFollowUnfollow}>unfollow</button> :
-                        <button ref={btnRef} onClick={onFollowUnfollow}>follow</button>}
+                    {
+                        props.followed
+                            ? <button ref={btnRef} onClick={onFollowUnfollow}>unfollow</button>
+                            : <button ref={btnRef} onClick={onFollowUnfollow}>follow</button>
+                    }
                 </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 import axios from "axios"
 import {Dispatch} from "redux";
-import {setTotalCount, setUsers} from "../store/UsersReducer";
+import {setUsersTotalCount, setUsers} from "../store/UsersReducer";
 
 type Response = {
     error: null | string
@@ -26,7 +26,7 @@ const settings = {
 
 }
 
-const instance = axios.create({
+export const instance = axios.create({
     ...settings,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/'
 })
@@ -35,7 +35,7 @@ export const usersAPI = {
     getUsers: (dispatch: Dispatch) => {
         instance.get<Response>('users').then( res => {
             dispatch(setUsers(res.data.items))
-            dispatch(setTotalCount(res.data.totalCount))
+            dispatch(setUsersTotalCount(res.data.totalCount))
         })
     }
 }

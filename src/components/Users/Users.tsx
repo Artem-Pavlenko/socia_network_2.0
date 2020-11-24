@@ -1,24 +1,21 @@
 import React from "react";
 import s from "../Users/Users.module.scss"
 import UserItem from "./UserItem/UserItem";
-import {setCurrentPage, UserType} from "../../store/UsersReducer";
-import {useDispatch} from "react-redux";
+import {UserType} from "../../store/UsersReducer";
 import Paginator from "../../common/common_component/Paginator/Paginator";
+
+
 
 type UsersType = {
     users: Array<UserType>
     pageSize: number
     currentPage: number
     totalUsersCont: number
+    setPage: (page: number) => void
 }
 
 const Users = React.memo((props: UsersType) => {
 
-    const dispatch = useDispatch()
-
-    const setPage = (page: number) => {
-        dispatch(setCurrentPage(page))
-    }
 
     return (
         <div className={s.usersBlock}>
@@ -27,13 +24,14 @@ const Users = React.memo((props: UsersType) => {
                     pageSize={props.pageSize}
                     currentPage={props.currentPage}
                     totalUsersCont={props.totalUsersCont}
-                    onClick={setPage}/>
+                    onClick={props.setPage}/>
             </div>
             <div className={s.users}>
                 {props.users.map(u => <UserItem
                     photos={u.photos}
                     uniqueUrlName={u.uniqueUrlName}
-                    key={u.id} id={(Number(u.id))}
+                    key={u.id}
+                    id={+u.id}
                     status={u.status}
                     followed={u.followed}
                     name={u.name}

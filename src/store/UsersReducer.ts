@@ -1,6 +1,6 @@
 export type UsersReducerType = typeof initState
-type ActionsType = ReturnType<typeof followUnfollow> | ReturnType<typeof setUsers> | ReturnType<typeof setTotalCount>
-    | ReturnType<typeof setCurrentPage> | ReturnType<typeof setPageCount>
+type ActionsType = ReturnType<typeof followUnfollow> | ReturnType<typeof setUsers> | ReturnType<typeof setUsersTotalCount>
+    | ReturnType<typeof setUsersCurrentPage> | ReturnType<typeof setPageCount>
 
 export type UserType = {
     followed: boolean
@@ -23,22 +23,13 @@ export type UsersRootType = {
 
 const initState: UsersRootType = {
     error: null,
-    items: [
-        {
-            followed: false,
-            id: 1,
-            name: "",
-            photos: {small: null, large: null},
-            status: null,
-            uniqueUrlName: null
-        }
-    ],
+    items: [],
     totalCount: 0,
     currentPage: 1,
     pageSize: 5
 }
 
-const UsersReducers = (state: UsersRootType = initState, action: ActionsType): UsersReducerType => {
+const UsersReducers = (state: UsersRootType = initState, action: ActionsType): UsersRootType => {
     switch (action.type) {
         case "users/FOLLOW_UNFOLLOW":
             return {...state, items: state.items.map(u => u.id === action.userID ? {...u, followed: !u.followed} : u)}
@@ -58,8 +49,8 @@ const UsersReducers = (state: UsersRootType = initState, action: ActionsType): U
 
 export const followUnfollow = (userID: number) => ({type: 'users/FOLLOW_UNFOLLOW', userID} as const)
 export const setUsers = (users: Array<UserType>) => ({type: 'users/SET_USERS', users} as const)
-export const setTotalCount = (totalCount: number) => ({type: 'users/SET_TOTAL_COUNT', totalCount} as const)
-export const setCurrentPage = (page: number) => ({type: 'users/SET_CURRENT_PAGE', page} as const)
+export const setUsersTotalCount = (totalCount: number) => ({type: 'users/SET_TOTAL_COUNT', totalCount} as const)
+export const setUsersCurrentPage = (page: number) => ({type: 'users/SET_CURRENT_PAGE', page} as const)
 export const setPageCount = (pageSize: number) => ({type: 'users/SET_PAGE_COUNT', pageSize} as const)
 
 export default UsersReducers
