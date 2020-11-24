@@ -11,9 +11,7 @@ import FriendsPage from "./components/Friends/FriendsPage";
 import UsersPage from "./components/Users/UsersPage";
 
 
-
 const App = () => {
-
 
     return (
         <div className="App">
@@ -21,12 +19,10 @@ const App = () => {
             <NavBar/>
             <div className="content-wrapper">
                 <Switch>
-                    <Route path={"/profile"}
-                           render={() => <ProfilePage/>}/>
+                    <Route path={"/profile"} render={() => <ProfilePage/>}/>
                     <Route path={"/friends"} render={() => <FriendsPage/>}/>
                     <Route path={"/users"} render={() => <UsersPage/>}/>
-                    <Route path={"/messages"}
-                           render={() => <DialogsPage/>}/>
+                    <Route path={"/messages"} render={() => <DialogsPage/>}/>
                     <Route path={"/settings"} render={() => <Settings/>}/>
                     <Route exact path={'/'}><Redirect to={'/profile'}/></Route>
                     {/*<Redirect from={"/"} to={"profile"}/>*/}

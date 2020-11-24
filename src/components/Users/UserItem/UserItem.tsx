@@ -18,12 +18,12 @@ const UserItem = (props: UserType) => {
     }
 
     return (
-        <div className={`${s.userBlock} ${props.followed ? s.isFollowed : ''}`}>
+        <div className={`${s.userBlock} ${props.followed && s.isFollowed}`}>
             <div className={s.userInfo}>
 
                 <div className={s.avaWithDescription}>
                     <div className={s.avatarBlock}>
-                        <img src={props.photos.small || userPhoto} alt=""/>
+                        <img src={props.photos.large || userPhoto} alt=""/>
                     </div>
                     <div className={s.name}>
                         <div>{props.name}</div>
@@ -32,7 +32,7 @@ const UserItem = (props: UserType) => {
                 </div>
 
                 <div className={s.status}>
-                    <span>{props.status || '---'}</span>
+                    <span>{props.status || '...'}</span>
                 </div>
 
             </div>
