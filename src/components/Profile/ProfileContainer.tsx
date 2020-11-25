@@ -11,7 +11,7 @@ import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader
 
 
 const ProfileContainer = React.memo(() => {
-    const {userID} = useParams<{ userID: string }>()
+    const {userID} = useParams<{userID: string}>()
     const dispatch = useDispatch()
     const profile = useSelector<StateType, ProfileType>(state => state.profile)
     const [showProfile, setShowProfile] = useState<boolean>(false)

@@ -30,11 +30,13 @@ const UsersContainer = React.memo(() => {
                 setShowPreloader(false)
             })
         return () => {setShowPreloader(true)}
-    }, [currentPage, pageSize, dispatch, isFetching])
+    }, [currentPage, pageSize, dispatch])
 
     const setCurrentPage = (page: number) => {
         dispatch(setUsersCurrentPage(page))
     }
+
+    console.log('users page')
 
     if (isFetching) return <MiniPreloader/>
     return (

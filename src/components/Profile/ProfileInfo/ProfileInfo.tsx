@@ -15,7 +15,7 @@ const ProfileInfo = React.memo((props: ProfileType) => {
                     <span>{props.fullName}</span>
                 </div>
                 <div className={s.status}>
-                    <span>{props.status}</span>
+                    <span>{props.status || '...'}</span>
                 </div>
             </div>
         </div>
