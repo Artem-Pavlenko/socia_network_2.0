@@ -10,7 +10,7 @@ import {
     setFriendsTotalCount
 } from "../../store/FriendsReducer";
 import Users from "../Users/Users";
-import {instance} from "../../api/usersAPI";
+import {instance} from "../../api/API";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 
 

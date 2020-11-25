@@ -51,12 +51,37 @@ export const instance = axios.create({
 
 export const usersAPI = {
     getUsers: () => {
-        instance.get<UsersResponse>('users').then(res => res.data)
+        instance.get<UsersResponse>('users')
+            .then(res => res.data)
     },
     getProfile: (userID: string) => {
-        instance.get<ProfileResponse>(`profile/${userID}`).then(res => res.data)
+        instance.get<ProfileResponse>(`profile/${userID}`)
+            .then(res => res.data)
     },
     getStatus: (userID: string) => {
-        instance.get(`profile/status/${userID}`).then(res => res.data)
+        instance.get(`profile/status/${userID}`)
+            .then(res => res.data)
+    }
+}
+
+
+type LogResponseType<d = {}> = {
+    resultCode: number
+    messages: string[]
+    data: d
+}
+
+export const authAPI = {
+    authMe: () => {
+        instance.get<LogResponseType<{ id: number, email: string, login: string }>>(' auth/me')
+            .then(res => res.data)
+    },
+    login: (email: string, password: string, rememberMe: boolean = false, captcha?: string) => {
+        instance.post<LogResponseType<{ userId: number }>>('auth/login', {email, password, rememberMe, captcha})
+            .then(res => res.data)
+    },
+    logout: () => {
+        instance.delete<LogResponseType>('auth/login')
+            .then(res => res.data)
     }
 }

@@ -4,6 +4,7 @@ import PostReducer from "./PostReducer";
 import UsersReducers from "./UsersReducer";
 import FriendsReducer from "./FriendsReducer";
 import ProfileReducer from "./ProfileReducer";
+import AuthReducer from "./AuthReducer";
 
 
 const reducers = combineReducers({
@@ -11,7 +12,8 @@ const reducers = combineReducers({
     post: PostReducer,
     users: UsersReducers,
     friends: FriendsReducer,
-    profile: ProfileReducer
+    profile: ProfileReducer,
+    auth: AuthReducer
 })
 
 

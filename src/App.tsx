@@ -9,13 +9,14 @@ import NotFound from "./components/404/NotFound";
 import FriendsPage from "./components/Friends/FriendsPage";
 import UsersPage from "./components/Users/UsersPage";
 import ProfilePage from "./components/Profile/ProfilePage";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 
 const App = () => {
 
     return (
         <div className="App">
-            <Header/>
+            <HeaderContainer/>
             <NavBar/>
             <div className="content-wrapper">
                 <Switch>

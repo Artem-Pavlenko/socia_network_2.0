@@ -3,7 +3,7 @@ import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import s from "../Profile/Profile.module.scss"
 import {useParams} from "react-router-dom";
-import {instance} from "../../api/usersAPI";
+import {instance} from "../../api/API";
 import {useDispatch, useSelector} from "react-redux";
 import {ProfileType, setProfile, setStatus} from "../../store/ProfileReducer";
 import {StateType} from "../../store/store";
@@ -25,6 +25,8 @@ const ProfileContainer = React.memo(() => {
                 dispatch(setStatus(res[1].data))
                 setShowProfile(true)
             })
+        } else {
+            setShowProfile(true)
         }
     }, [userID, dispatch])
 
