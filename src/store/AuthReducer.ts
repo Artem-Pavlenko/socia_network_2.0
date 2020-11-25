@@ -24,7 +24,6 @@ const initState: AuthRootType = {
 const AuthReducer = (state: AuthRootType = initState, action: ActionTypes): AuthRootType => {
     switch (action.type) {
         case "auth/SET_AUTH_ME":
-            debugger
             return {...state, data: {...action.data}, isAuth: true}
         case "auth/SET_LOGIN/LOGOUT":
             if (!action.isAuth) {

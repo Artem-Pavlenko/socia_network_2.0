@@ -85,3 +85,21 @@ export const authAPI = {
             .then(res => res.data)
     }
 }
+
+export const following = {
+    // Is current user follower for requested user
+    isFollowed: (userID: number) => {
+        instance.get<boolean>(`follow/${userID}`)
+            .then( res => res.data)
+    },
+    follow: (userID: number) => {
+        instance.post<LogResponseType>(`follow/${userID}`)
+            .then( res => res.data)
+    },
+
+    unfollow: (userID: number) => {
+        instance.delete<LogResponseType>(`follow/${userID}`)
+            .then( res => res.data)
+    }
+
+}

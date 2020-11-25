@@ -1,4 +1,3 @@
-
 type ActionsType =
     ReturnType<typeof followUnfollow>
     | ReturnType<typeof setUsers>
@@ -41,7 +40,10 @@ const initState: UsersRootType = {
 const UsersReducers = (state: UsersRootType = initState, action: ActionsType): UsersRootType => {
     switch (action.type) {
         case "users/FOLLOW_UNFOLLOW":
-            return {...state, items: state.items.map(u => u.id === action.userID ? {...u, followed: !u.followed} : u)}
+            return {
+                ...state,
+                items: state.items.map(u => u.id === action.userID ? {...u, followed: action.following} : u)
+            }
         case "users/SET_USERS":
             return {...state, items: action.users}
         case "users/SET_TOTAL_COUNT":
@@ -59,7 +61,11 @@ const UsersReducers = (state: UsersRootType = initState, action: ActionsType): U
     }
 }
 
-export const followUnfollow = (userID: number) => ({type: 'users/FOLLOW_UNFOLLOW', userID} as const)
+export const followUnfollow = (userID: number, following: boolean) => ({
+    type: 'users/FOLLOW_UNFOLLOW',
+    userID,
+    following
+} as const)
 export const setUsers = (users: Array<UserType>) => ({type: 'users/SET_USERS', users} as const)
 export const setUsersTotalCount = (totalCount: number) => ({type: 'users/SET_TOTAL_COUNT', totalCount} as const)
 export const setUsersCurrentPage = (page: number) => ({type: 'users/SET_CURRENT_PAGE', page} as const)
