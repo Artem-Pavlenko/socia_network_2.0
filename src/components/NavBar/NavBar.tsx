@@ -24,7 +24,7 @@ type LinkType = {
 const NavBarLink = ({to, text = ""}: LinkType) => {
     return (
         <div className={s.link}>
-            <NavLink activeClassName={s.active} to={to}>{text}</NavLink>
+            <NavLink exact activeClassName={s.active} to={to} replace>{text}</NavLink>
         </div>
     )
 }

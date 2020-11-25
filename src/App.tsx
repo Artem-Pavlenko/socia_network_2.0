@@ -1,7 +1,6 @@
 import React from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
-import Header from "./components/Header/Header";
 import NavBar from "./components/NavBar/NavBar";
 import Settings from "./components/Setting/Settings";
 import DialogsPage from "./components/Dialogs/Dialogs";

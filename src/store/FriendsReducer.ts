@@ -6,7 +6,7 @@ type ActionsType =
     | ReturnType<typeof setFriendCurrentPage>
     | ReturnType<typeof setFriendsFetching>
     | ReturnType<typeof setLeavingFriendsPage>
-    | ReturnType<typeof setFollowing>
+    | ReturnType<typeof setFollowingFriends>
 
 
 export type FriendsRootType = {
@@ -58,7 +58,7 @@ export const setFriendsTotalCount = (friendsCount: number) => ({
 export const setFriendCurrentPage = (page: number) => ({type: 'friends/SET_CURRENT_PAGE', page} as const)
 export const setFriendsFetching = (isFetch: boolean) => ({type: 'friends/SET_FETCHING', isFetch} as const)
 export const setLeavingFriendsPage = () => ({type: 'friends/SET_LEAVING_FRIENDS_PAGE'} as const)
-export const setFollowing = (userID: number, following: boolean) => ({
+export const setFollowingFriends = (userID: number, following: boolean) => ({
     type: 'friends/FOLLOW_UNFOLLOW',
     userID,
     following

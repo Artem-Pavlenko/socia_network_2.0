@@ -7,11 +7,13 @@ const FriendsPage = () => {
 
     const dispatch = useDispatch()
 
-    useEffect( () => {
-        return () => {dispatch(setLeavingFriendsPage())}
+    useEffect(() => {
+        return () => {
+            dispatch(setLeavingFriendsPage())
+        }
     })
 
-    return <FriendsContainer />
+    return <FriendsContainer/>
 }
 
 export default FriendsPage

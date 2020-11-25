@@ -5,7 +5,7 @@ import {followUnfollow, UserType} from "../../../store/UsersReducer";
 import userPhoto from "../../../assets/images/anonymous.svg"
 import {NavLink} from "react-router-dom";
 import {instance} from "../../../api/API";
-import {setFollowing} from "../../../store/FriendsReducer";
+import {setFollowingFriends} from "../../../store/FriendsReducer";
 
 
 const UserItem = (props: UserType) => {
@@ -14,34 +14,38 @@ const UserItem = (props: UserType) => {
     const btnRef = useRef<HTMLButtonElement>(null)
 
     const onFollowUnfollow = () => {
-        console.log('followed :', props.followed)
-        if (props.followed) {
-            debugger
-            instance.delete(`follow/${props.id}`)
-                .then(res => {
-                    console.log('unfollow result code:', res.data.resultCode)
-                    if (res.data.resultCode === 0) {
-                        dispatch(followUnfollow(props.id, false))
-                        dispatch(setFollowing(props.id, false))
-                    }
-                })
-        } else {
-            debugger
-            instance.post(`follow/${props.id}`)
-                .then(res => {
-                    console.log('follow result code:', res.data.resultCode)
-                    if (res.data.resultCode === 0) {
-                        dispatch(followUnfollow(props.id, true))
-                        dispatch(setFollowing(props.id, true))
-                    }
-                })
-        }
-        // (props.followed ? instance.delete : instance.post)(`follow/${props.id}`)
-        //     .then(res => {
-        //         if (res.data.resultCode === 0) {
-        //             dispatch(followUnfollow(props.id))
-        //         }
-        //     })
+
+        // if (props.followed) {
+        //     instance.delete(`follow/${props.id}`)
+        //         .then(res => {
+        //             console.log('unfollow result code:', res.data.resultCode)
+        //             if (res.data.resultCode === 0) {
+        //                 dispatch(followUnfollow(props.id, false))
+        //                 dispatch(setFollowingFriends(props.id, false))
+        //                 // instance.get('users?friend=true')
+        //                 //     .then(res => dispatch(setFriendsTotalCount(res.data.totalCount)))
+        //             }
+        //         })
+        // } else {
+        //     instance.post(`follow/${props.id}`)
+        //         .then(res => {
+        //             console.log('follow result code:', res.data.resultCode)
+        //             if (res.data.resultCode === 0) {
+        //                 dispatch(followUnfollow(props.id, true))
+        //                 dispatch(setFollowingFriends(props.id, true))
+        //                 // instance.get('users?friend=true')
+        //                 //     .then(res => dispatch(setFriendsTotalCount(res.data.totalCount)))
+        //             }
+        //         })
+        // }
+
+        (props.followed ? instance.delete : instance.post)(`follow/${props.id}`)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(followUnfollow(props.id, !props.followed))
+                    dispatch(setFollowingFriends(props.id, !props.followed))
+                }
+            })
     }
     const onFollowUnfollowIcon = () => {
         btnRef && btnRef.current && btnRef.current.click()
