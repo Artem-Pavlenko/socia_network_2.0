@@ -7,7 +7,7 @@ type ActionsType =
     | ReturnType<typeof setFriendsTotalCount>
     | ReturnType<typeof setFriendCurrentPage>
     | ReturnType<typeof setFriendsFetching>
-    | ReturnType<typeof setLeavingFriendsPage>
+    | ReturnType<typeof leavingFriendsPage>
     | ReturnType<typeof setFollowingFriends>
     | ReturnType<typeof toggleFollowingFriendsProgress>
     | ReturnType<typeof setFriendsLoadingPage>
@@ -60,7 +60,7 @@ const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType)
             return {...state, currentPage: action.page}
         case "friends/SET_FETCHING":
             return {...state, isFetching: action.isFetch}
-        case "friends/SET_LEAVING_FRIENDS_PAGE":
+        case "friends/LEAVING_FRIENDS_PAGE":
             return {...state, isFetching: true, currentPage: 1}
         case "friends/FOLLOWING_PROGRESS":
             return {
@@ -90,17 +90,21 @@ export const setFriendsTotalCount = (friendsCount: number) => ({
     friendsCount
 } as const)
 export const setFriendCurrentPage = (page: number) => ({type: 'friends/SET_CURRENT_PAGE', page} as const)
+// для прелодера (при загрузки целой стронице "Friends")
 export const setFriendsFetching = (isFetch: boolean) => ({type: 'friends/SET_FETCHING', isFetch} as const)
-export const setLeavingFriendsPage = () => ({type: 'friends/SET_LEAVING_FRIENDS_PAGE'} as const)
+// зануление редюсера при выходе со страницы
+export const leavingFriendsPage = () => ({type: 'friends/LEAVING_FRIENDS_PAGE'} as const)
 export const setFollowingFriends = (userID: number, following: boolean) => ({
     type: 'friends/FOLLOW_UNFOLLOW',
     userID,
     following
 } as const)
+// при подписки или отписки на пользователя. Для disable кнопки или показывать что-то до ответа со сервера
 export const toggleFollowingFriendsProgress = (progress: boolean, ID: number) => ({
     type: 'friends/FOLLOWING_PROGRESS',
     progress, ID
 } as const)
+// для прелодера при переходе со страницы на страницу
 export const setFriendsLoadingPage = (isLoadingPage: boolean) => ({type: 'friends/SET_FETCH', isLoadingPage} as const)
 export const followF = (userID: number) => ({type: 'friends/FOLLOW', userID} as const)
 export const unfollowF = (userID: number) => ({type: 'friends/UNFOLLOW', userID} as const)

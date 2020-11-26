@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import FriendsContainer from "./FriendsContainer";
 import {useDispatch} from "react-redux";
-import {setLeavingFriendsPage} from "../../store/FriendsReducer";
+import {leavingFriendsPage} from "../../store/FriendsReducer";
 
 const FriendsPage = () => {
 
@@ -9,7 +9,7 @@ const FriendsPage = () => {
 
     useEffect(() => {
         return () => {
-            dispatch(setLeavingFriendsPage())
+            dispatch(leavingFriendsPage())
         }
     })
 

@@ -1,4 +1,5 @@
 import axios from "axios"
+import {ProfileType} from "../store/ProfileReducer";
 
 type UsersResponse = {
     error: null | string
@@ -15,27 +16,7 @@ type UsersResponse = {
     }]
     totalCount: number
 }
-type ProfileResponse = {
-    aboutMe: string | null
-    contacts: {
-        facebook: string | null
-        website: string | null
-        vk: string | null
-        twitter: string | null
-        instagram: string | null
-        youtube: string | null
-        github: string | null
-        mainLink: string | null
-    },
-    lookingForAJob: boolean,
-    lookingForAJobDescription: string | null,
-    fullName: string | null,
-    userId: number,
-    photos: {
-        small: string | null,
-        large: string | null
-    }
-}
+
 
 const settings = {
     withCredentials: true,
@@ -56,14 +37,6 @@ export const usersAPI = {
     },
     getFriends: (currentPage: number, pageSize: number) => {
         return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&friend=true`)
-            .then(res => res.data)
-    },
-    getProfile: (userID: string) => {
-        return instance.get<ProfileResponse>(`profile/${userID}`)
-            .then(res => res.data)
-    },
-    getStatus: (userID: string) => {
-        return instance.get(`profile/status/${userID}`)
             .then(res => res.data)
     }
 }
@@ -105,5 +78,15 @@ export const followingAPI = {
         return instance.delete<LogResponseType>(`follow/${userID}`)
             .then(res => res.data)
     }
+}
 
+export const profileAPI = {
+    getProfile: (userID: string) => {
+        return instance.get<ProfileType>(`profile/${userID}`)
+            .then(res => res.data)
+    },
+    getStatus: (userID: string) => {
+        return instance.get<string | null>(`profile/status/${userID}`)
+            .then(res => res.data)
+    }
 }

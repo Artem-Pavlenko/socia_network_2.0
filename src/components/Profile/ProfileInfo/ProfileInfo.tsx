@@ -1,10 +1,10 @@
 import React from "react";
 import s from "../ProfileInfo/ProfileInfo.module.scss"
-import {ProfileType} from "../../../store/ProfileReducer";
+import {ProfileRootType} from "../../../store/ProfileReducer";
 import userIMG from "../../../assets/images/anonymous.svg"
 
 
-const ProfileInfo = React.memo((props: ProfileType) => {
+const ProfileInfo = React.memo((props: ProfileRootType) => {
     return (
         <div className={s.profileInfoBlock}>
             <div className={s.descriptionBlock}>
