@@ -8,7 +8,9 @@ const UsersPage = () => {
 
     const dispatch = useDispatch()
     useEffect(() => {
-        return () => {dispatch(setLeavingUsersPage())}
+        return () => {
+            dispatch(setLeavingUsersPage())
+        }
     })
 
     return <UsersContainer/>

@@ -7,6 +7,7 @@ type ActionsType =
     | ReturnType<typeof setFriendsFetching>
     | ReturnType<typeof setLeavingFriendsPage>
     | ReturnType<typeof setFollowingFriends>
+    | ReturnType<typeof toggleFollowingFriendsProgress>
 
 
 export type FriendsRootType = {
@@ -16,6 +17,10 @@ export type FriendsRootType = {
     currentPage: number
     pageSize: number
     isFetching: boolean
+    toggleFollowingProgress: {
+        ID: Array<number>
+        inProgress: boolean
+    }
 }
 
 const initState: FriendsRootType = {
@@ -24,7 +29,11 @@ const initState: FriendsRootType = {
     currentPage: 1,
     pageSize: 5,
     totalFriendsCount: 0,
-    isFetching: true
+    isFetching: true,
+    toggleFollowingProgress: {
+        ID: [],
+        inProgress: false
+    }
 }
 
 const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType): FriendsRootType => {
@@ -44,6 +53,16 @@ const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType)
             return {...state, isFetching: action.isFetch}
         case "friends/SET_LEAVING_FRIENDS_PAGE":
             return {...state, isFetching: true, currentPage: 1}
+        case "friends/FOLLOWING_PROGRESS":
+            return {
+                ...state, toggleFollowingProgress: {
+                    ...state.toggleFollowingProgress,
+                    inProgress: action.progress,
+                    ID: action.progress
+                        ? [...state.toggleFollowingProgress.ID, action.ID]
+                        : state.toggleFollowingProgress.ID.filter( id => id !== action.ID)
+                }
+            }
         default:
             return state
     }
@@ -62,6 +81,10 @@ export const setFollowingFriends = (userID: number, following: boolean) => ({
     type: 'friends/FOLLOW_UNFOLLOW',
     userID,
     following
+} as const)
+export const toggleFollowingFriendsProgress = (progress: boolean, ID: number) => ({
+    type: 'friends/FOLLOWING_PROGRESS',
+    progress, ID
 } as const)
 
 export default FriendsReducer

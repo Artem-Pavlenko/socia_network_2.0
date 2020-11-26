@@ -13,10 +13,10 @@ type UsersType = {
     totalUsersCont: number
     setPage: (page: number) => void
     showPreloader: boolean
+    toggleFollowingProgress: Array<number>
 }
 
 const Users = React.memo((props: UsersType) => {
-
 
     return (
         <div className={s.usersBlock}>
@@ -28,7 +28,9 @@ const Users = React.memo((props: UsersType) => {
                     onClick={props.setPage}/>
             </div>
             <div className={s.users}>
+
                 {props.showPreloader && <MiniPreloader/>}
+
                 {props.users.map(u => <UserItem
                     photos={u.photos}
                     uniqueUrlName={u.uniqueUrlName}
@@ -37,6 +39,7 @@ const Users = React.memo((props: UsersType) => {
                     status={u.status}
                     followed={u.followed}
                     name={u.name}
+                    toggleFollowingProgress={props.toggleFollowingProgress}
                 />)}
             </div>
         </div>

@@ -10,23 +10,23 @@ import {
     setFriendsTotalCount
 } from "../../store/FriendsReducer";
 import Users from "../Users/Users";
-import {instance} from "../../api/API";
+import {usersAPI} from "../../api/API";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 
 
 const FriendsContainer = () => {
 
     const dispatch = useDispatch()
-    const {totalFriendsCount, currentPage, pageSize, items} = useSelector<StateType, FriendsRootType>(state => state.friends)
+    const {totalFriendsCount, currentPage, pageSize, items, toggleFollowingProgress} = useSelector<StateType, FriendsRootType>(state => state.friends)
     const isFetching = useSelector<StateType, boolean>(state => state.friends.isFetching)
     const [showPreloader, setShowPreloader] = useState<boolean>(true)
 
 
     useEffect(() => {
-        instance.get(`users?page=${currentPage}&count=${pageSize}&friend=true`)
+        usersAPI.getFriends(currentPage, pageSize)
             .then(res => {
-                dispatch(setFriends(res.data.items))
-                dispatch(setFriendsTotalCount(res.data.totalCount))
+                dispatch(setFriends(res.items))
+                dispatch(setFriendsTotalCount(res.totalCount))
                 dispatch(setFriendsFetching(false))
                 setShowPreloader(false)
             })
@@ -53,6 +53,7 @@ const FriendsContainer = () => {
                     totalUsersCont={totalFriendsCount}
                     setPage={setCurrentPage}
                     showPreloader={showPreloader}
+                    toggleFollowingProgress={toggleFollowingProgress.ID}
                 />
                 : <div className={s.emptyPage}> empty </div>
             }

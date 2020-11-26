@@ -11,21 +11,22 @@ import {
 import Users from "./Users";
 import axios from "axios"
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
+import {usersAPI} from "../../api/API";
 
 
 const UsersContainer = React.memo(() => {
 
     const dispatch = useDispatch()
-    const {totalCount, currentPage, pageSize, items} = useSelector<StateType, UsersRootType>(state => state.users)
+    const {totalCount, currentPage, pageSize, items, toggleFollowingProgress} = useSelector<StateType, UsersRootType>(state => state.users)
     const isFetching = useSelector<StateType, boolean>(state => state.users.isFetching)
     const [showPreloader, setShowPreloader] = useState<boolean>(true)
 
 
     useEffect(() => {
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${currentPage}&count=${pageSize}`)
+        usersAPI.getUsers(currentPage, pageSize)
             .then(res => {
-                dispatch(setUsers(res.data.items))
-                dispatch(setUsersTotalCount(res.data.totalCount))
+                dispatch(setUsers(res.items))
+                dispatch(setUsersTotalCount(res.totalCount))
                 dispatch(setUsersFetching(false))
                 setShowPreloader(false)
             })
@@ -49,6 +50,7 @@ const UsersContainer = React.memo(() => {
             totalUsersCont={totalCount}
             setPage={setCurrentPage}
             showPreloader={showPreloader}
+            toggleFollowingProgress={toggleFollowingProgress.ID}
         />
     )
 

@@ -50,16 +50,20 @@ export const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers: () => {
-        instance.get<UsersResponse>('users')
+    getUsers: (currentPage: number, pageSize: number) => {
+        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}`)
+            .then(res => res.data)
+    },
+    getFriends: (currentPage: number, pageSize: number) => {
+        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&friend=true`)
             .then(res => res.data)
     },
     getProfile: (userID: string) => {
-        instance.get<ProfileResponse>(`profile/${userID}`)
+        return instance.get<ProfileResponse>(`profile/${userID}`)
             .then(res => res.data)
     },
     getStatus: (userID: string) => {
-        instance.get(`profile/status/${userID}`)
+        return instance.get(`profile/status/${userID}`)
             .then(res => res.data)
     }
 }
@@ -73,15 +77,15 @@ type LogResponseType<d = {}> = {
 
 export const authAPI = {
     authMe: () => {
-        instance.get<LogResponseType<{ id: number, email: string, login: string }>>(' auth/me')
+        return instance.get<LogResponseType<{ id: number, email: string, login: string }>>(' auth/me')
             .then(res => res.data)
     },
     login: (email: string, password: string, rememberMe: boolean = false, captcha?: string) => {
-        instance.post<LogResponseType<{ userId: number }>>('auth/login', {email, password, rememberMe, captcha})
+        return instance.post<LogResponseType<{ userId: number }>>('auth/login', {email, password, rememberMe, captcha})
             .then(res => res.data)
     },
     logout: () => {
-        instance.delete<LogResponseType>('auth/login')
+        return instance.delete<LogResponseType>('auth/login')
             .then(res => res.data)
     }
 }
@@ -89,17 +93,17 @@ export const authAPI = {
 export const following = {
     // Is current user follower for requested user
     isFollowed: (userID: number) => {
-        instance.get<boolean>(`follow/${userID}`)
-            .then( res => res.data)
+        return instance.get<boolean>(`follow/${userID}`)
+            .then(res => res.data)
     },
     follow: (userID: number) => {
-        instance.post<LogResponseType>(`follow/${userID}`)
-            .then( res => res.data)
+        return instance.post<LogResponseType>(`follow/${userID}`)
+            .then(res => res.data)
     },
 
     unfollow: (userID: number) => {
-        instance.delete<LogResponseType>(`follow/${userID}`)
-            .then( res => res.data)
+        return instance.delete<LogResponseType>(`follow/${userID}`)
+            .then(res => res.data)
     }
 
 }

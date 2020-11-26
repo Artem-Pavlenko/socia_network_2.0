@@ -1,52 +1,33 @@
 import React, {useRef} from "react"
 import s from "../UserItem/UserItem.module.scss"
 import {useDispatch} from "react-redux";
-import {followUnfollow, UserType} from "../../../store/UsersReducer";
+import {followUnfollow, toggleFollowingProgress, UserType} from "../../../store/UsersReducer";
 import userPhoto from "../../../assets/images/anonymous.svg"
 import {NavLink} from "react-router-dom";
 import {instance} from "../../../api/API";
-import {setFollowingFriends} from "../../../store/FriendsReducer";
+import {setFollowingFriends, toggleFollowingFriendsProgress} from "../../../store/FriendsReducer";
 
 
-const UserItem = (props: UserType) => {
+const UserItem = (props: UserType & { toggleFollowingProgress: Array<number> }) => {
 
     const dispatch = useDispatch()
     const btnRef = useRef<HTMLButtonElement>(null)
 
     const onFollowUnfollow = () => {
-
-        // if (props.followed) {
-        //     instance.delete(`follow/${props.id}`)
-        //         .then(res => {
-        //             console.log('unfollow result code:', res.data.resultCode)
-        //             if (res.data.resultCode === 0) {
-        //                 dispatch(followUnfollow(props.id, false))
-        //                 dispatch(setFollowingFriends(props.id, false))
-        //                 // instance.get('users?friend=true')
-        //                 //     .then(res => dispatch(setFriendsTotalCount(res.data.totalCount)))
-        //             }
-        //         })
-        // } else {
-        //     instance.post(`follow/${props.id}`)
-        //         .then(res => {
-        //             console.log('follow result code:', res.data.resultCode)
-        //             if (res.data.resultCode === 0) {
-        //                 dispatch(followUnfollow(props.id, true))
-        //                 dispatch(setFollowingFriends(props.id, true))
-        //                 // instance.get('users?friend=true')
-        //                 //     .then(res => dispatch(setFriendsTotalCount(res.data.totalCount)))
-        //             }
-        //         })
-        // }
-
+        dispatch(toggleFollowingProgress(true, props.id));
+        dispatch(toggleFollowingFriendsProgress(true, props.id));
         (props.followed ? instance.delete : instance.post)(`follow/${props.id}`)
             .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(followUnfollow(props.id, !props.followed))
+                    // этот диспатч для сраници Friends.
                     dispatch(setFollowingFriends(props.id, !props.followed))
+                    dispatch(toggleFollowingProgress(false, props.id))
+                    dispatch(toggleFollowingFriendsProgress(false, props.id))
                 }
             })
     }
+
     const onFollowUnfollowIcon = () => {
         btnRef && btnRef.current && btnRef.current.click()
     }
@@ -57,8 +38,9 @@ const UserItem = (props: UserType) => {
 
                 <div className={s.avaWithDescription}>
                     <div className={s.avatarBlock}>
-                        <NavLink to={`/profile/${props.id}`}><img src={props.photos.large || userPhoto}
-                                                                  alt=""/></NavLink>
+                        <NavLink to={`/profile/${props.id}`}>
+                            <img src={props.photos.large || userPhoto} alt=""/>
+                        </NavLink>
                     </div>
                     <div className={s.name}>
                         <div>{props.name}</div>
@@ -75,8 +57,11 @@ const UserItem = (props: UserType) => {
                 <input type="checkbox" checked={props.followed} readOnly={true}/>
             </div>
             <div className={s.button}>
-                <div className={`${s.following} ${props.followed ? s.unfollow : s.follow}`}
-                     onClick={onFollowUnfollowIcon}>
+                <div className={`${s.following} ${props.followed
+                    ? s.unfollow
+                    : s.follow} ${props.toggleFollowingProgress.some(id => id === props.id) && s.wait}`}
+                     onClick={(props.toggleFollowingProgress.some(id => id === props.id) ? () => {
+                     } : onFollowUnfollowIcon)}>
                     {
                         props.followed
                             ? <button ref={btnRef} onClick={onFollowUnfollow}>unfollow</button>
