@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/API";
+
 type ActionsType =
     ReturnType<typeof followUnfollow>
     | ReturnType<typeof setUsers>
@@ -7,7 +10,7 @@ type ActionsType =
     | ReturnType<typeof setUsersFetching>
     | ReturnType<typeof setLeavingUsersPage>
     | ReturnType<typeof toggleFollowingProgress>
-
+    | ReturnType<typeof setUsersLoadingPage>
 
 export type UserType = {
     followed: boolean
@@ -19,6 +22,7 @@ export type UserType = {
     }
     status: string | null
     uniqueUrlName: string | null
+
 }
 export type UsersRootType = {
     error: null | string
@@ -31,6 +35,7 @@ export type UsersRootType = {
         ID: Array<number>
         inProgress: boolean
     }
+    isLoadingPage: boolean
 }
 
 const initState: UsersRootType = {
@@ -44,7 +49,8 @@ const initState: UsersRootType = {
         ID: [],
         inProgress: false
 
-    }
+    },
+    isLoadingPage: true
 }
 
 const UsersReducers = (state: UsersRootType = initState, action: ActionsType): UsersRootType => {
@@ -76,6 +82,8 @@ const UsersReducers = (state: UsersRootType = initState, action: ActionsType): U
                         : state.toggleFollowingProgress.ID.filter(id => id !== action.ID)
                 }
             }
+        case "users/SET_FETCH":
+            return {...state, isLoadingPage: action.isLoadingPage}
         default:
             return state
     }
@@ -97,5 +105,18 @@ export const toggleFollowingProgress = (progress: boolean, ID: number) => ({
     progress,
     ID
 } as const)
+export const setUsersLoadingPage = (isLoadingPage: boolean) => ({type: 'users/SET_FETCH', isLoadingPage} as const)
+
+
+export const getUsersThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    usersAPI.getUsers(currentPage, pageSize)
+        .then(res => {
+            dispatch(setUsers(res.items))
+            dispatch(setUsersTotalCount(res.totalCount))
+            dispatch(setUsersFetching(false))
+            dispatch(setUsersLoadingPage(false))
+        })
+}
+
 
 export default UsersReducers

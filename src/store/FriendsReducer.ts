@@ -1,4 +1,6 @@
 import {UserType} from "./UsersReducer";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/API";
 
 type ActionsType =
     ReturnType<typeof setFriends>
@@ -8,6 +10,7 @@ type ActionsType =
     | ReturnType<typeof setLeavingFriendsPage>
     | ReturnType<typeof setFollowingFriends>
     | ReturnType<typeof toggleFollowingFriendsProgress>
+    | ReturnType<typeof setFriendsLoadingPage>
 
 
 export type FriendsRootType = {
@@ -21,6 +24,7 @@ export type FriendsRootType = {
         ID: Array<number>
         inProgress: boolean
     }
+    isLoadingPage: boolean
 }
 
 const initState: FriendsRootType = {
@@ -33,7 +37,8 @@ const initState: FriendsRootType = {
     toggleFollowingProgress: {
         ID: [],
         inProgress: false
-    }
+    },
+    isLoadingPage: true
 }
 
 const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType): FriendsRootType => {
@@ -60,9 +65,11 @@ const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType)
                     inProgress: action.progress,
                     ID: action.progress
                         ? [...state.toggleFollowingProgress.ID, action.ID]
-                        : state.toggleFollowingProgress.ID.filter( id => id !== action.ID)
+                        : state.toggleFollowingProgress.ID.filter(id => id !== action.ID)
                 }
             }
+        case "friends/SET_FETCH":
+            return {...state, isLoadingPage: action.isLoadingPage}
         default:
             return state
     }
@@ -86,5 +93,18 @@ export const toggleFollowingFriendsProgress = (progress: boolean, ID: number) =>
     type: 'friends/FOLLOWING_PROGRESS',
     progress, ID
 } as const)
+export const setFriendsLoadingPage = (isLoadingPage: boolean) => ({type: 'friends/SET_FETCH', isLoadingPage} as const)
+
+
+export const getFriendsThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    usersAPI.getFriends(currentPage, pageSize)
+        .then(res => {
+            dispatch(setFriends(res.items))
+            dispatch(setFriendsTotalCount(res.totalCount))
+            dispatch(setFriendsFetching(false))
+            dispatch(setFriendsLoadingPage(false))
+        })
+}
+
 
 export default FriendsReducer

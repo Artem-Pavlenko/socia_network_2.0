@@ -1,56 +1,41 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../store/store";
-import {
-    setUsersTotalCount,
-    setUsers,
-    UsersRootType,
-    setUsersCurrentPage,
-    setUsersFetching
-} from "../../store/UsersReducer";
+import {UsersRootType, setUsersCurrentPage, getUsersThunk, setUsersLoadingPage} from "../../store/UsersReducer";
 import Users from "./Users";
-import axios from "axios"
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
-import {usersAPI} from "../../api/API";
 
 
 const UsersContainer = React.memo(() => {
 
     const dispatch = useDispatch()
-    const {totalCount, currentPage, pageSize, items, toggleFollowingProgress} = useSelector<StateType, UsersRootType>(state => state.users)
-    const isFetching = useSelector<StateType, boolean>(state => state.users.isFetching)
-    const [showPreloader, setShowPreloader] = useState<boolean>(true)
-
+    const users = useSelector<StateType, UsersRootType>(state => state.users)
 
     useEffect(() => {
-        usersAPI.getUsers(currentPage, pageSize)
-            .then(res => {
-                dispatch(setUsers(res.items))
-                dispatch(setUsersTotalCount(res.totalCount))
-                dispatch(setUsersFetching(false))
-                setShowPreloader(false)
-            })
+
+        dispatch(getUsersThunk(users.currentPage, users.pageSize))
+
         return () => {
-            setShowPreloader(true)
+            dispatch(setUsersLoadingPage(true))
         }
-    }, [currentPage, pageSize, isFetching, dispatch])
+    }, [users.currentPage, users.pageSize, users.isFetching, dispatch])
 
     const setCurrentPage = (page: number) => {
         dispatch(setUsersCurrentPage(page))
     }
 
-    console.log('users page')
+    // console.log('users page')
 
-    if (isFetching) return <MiniPreloader/>
+    if (users.isFetching) return <MiniPreloader/>
     return (
         <Users
-            users={items}
-            currentPage={currentPage}
-            pageSize={pageSize}
-            totalUsersCont={totalCount}
+            users={users.items}
+            currentPage={users.currentPage}
+            pageSize={users.pageSize}
+            totalUsersCont={users.totalCount}
             setPage={setCurrentPage}
-            showPreloader={showPreloader}
-            toggleFollowingProgress={toggleFollowingProgress.ID}
+            showPreloader={users.isLoadingPage}
+            toggleFollowingProgress={users.toggleFollowingProgress.ID}
         />
     )
 

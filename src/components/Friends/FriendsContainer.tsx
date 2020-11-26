@@ -1,64 +1,54 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import s from "../Friends/Friends.module.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../store/store";
 import {
     FriendsRootType,
+    setFriendsLoadingPage,
     setFriendCurrentPage,
-    setFriends,
-    setFriendsFetching,
-    setFriendsTotalCount
+    getFriendsThunk
 } from "../../store/FriendsReducer";
 import Users from "../Users/Users";
-import {usersAPI} from "../../api/API";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 
 
-const FriendsContainer = () => {
+const FriendsContainer = React.memo(() => {
 
     const dispatch = useDispatch()
-    const {totalFriendsCount, currentPage, pageSize, items, toggleFollowingProgress} = useSelector<StateType, FriendsRootType>(state => state.friends)
-    const isFetching = useSelector<StateType, boolean>(state => state.friends.isFetching)
-    const [showPreloader, setShowPreloader] = useState<boolean>(true)
-
+    const friends = useSelector<StateType, FriendsRootType>(state => state.friends)
 
     useEffect(() => {
-        usersAPI.getFriends(currentPage, pageSize)
-            .then(res => {
-                dispatch(setFriends(res.items))
-                dispatch(setFriendsTotalCount(res.totalCount))
-                dispatch(setFriendsFetching(false))
-                setShowPreloader(false)
-            })
+        dispatch(getFriendsThunk(friends.currentPage, friends.pageSize))
+
         return () => {
-            setShowPreloader(true)
+            dispatch(setFriendsLoadingPage(true))
         }
 
-    }, [currentPage, pageSize, isFetching, dispatch])
+    }, [friends.currentPage, friends.pageSize, friends.isFetching, dispatch])
 
     const setCurrentPage = (page: number) => {
         dispatch(setFriendCurrentPage(page))
     }
 
-    console.log('friends rerender')
+    // console.log('friends rerender')
 
-    if (isFetching) return <MiniPreloader/>
+    if (friends.isFetching) return <MiniPreloader/>
     return (
         <div className={s.friendsBlock}>
-            {totalFriendsCount
+            {friends.totalFriendsCount
                 ? <Users
-                    users={items}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    totalUsersCont={totalFriendsCount}
+                    users={friends.items}
+                    pageSize={friends.pageSize}
+                    currentPage={friends.currentPage}
+                    totalUsersCont={friends.totalFriendsCount}
                     setPage={setCurrentPage}
-                    showPreloader={showPreloader}
-                    toggleFollowingProgress={toggleFollowingProgress.ID}
+                    showPreloader={friends.isLoadingPage}
+                    toggleFollowingProgress={friends.toggleFollowingProgress.ID}
                 />
                 : <div className={s.emptyPage}> empty </div>
             }
         </div>
     )
-}
+})
 
 export default FriendsContainer
