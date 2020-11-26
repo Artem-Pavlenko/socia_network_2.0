@@ -90,7 +90,7 @@ export const authAPI = {
     }
 }
 
-export const following = {
+export const followingAPI = {
     // Is current user follower for requested user
     isFollowed: (userID: number) => {
         return instance.get<boolean>(`follow/${userID}`)

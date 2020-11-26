@@ -1,31 +1,30 @@
 import React, {useRef} from "react"
 import s from "../UserItem/UserItem.module.scss"
 import {useDispatch} from "react-redux";
-import {followUnfollow, toggleFollowingProgress, UserType} from "../../../store/UsersReducer";
+import {usersFollow, usersUnfollow, UserType} from "../../../store/UsersReducer";
 import userPhoto from "../../../assets/images/anonymous.svg"
 import {NavLink} from "react-router-dom";
-import {instance} from "../../../api/API";
-import {setFollowingFriends, toggleFollowingFriendsProgress} from "../../../store/FriendsReducer";
+import {friendFollowing, friendUnfollow} from "../../../store/FriendsReducer";
 
+type Extra = {
+    toggleFollowingProgress: Array<number>
+    mode: 'friends' | 'users'
+}
 
-const UserItem = (props: UserType & { toggleFollowingProgress: Array<number> }) => {
+const UserItem = (props: UserType & Extra) => {
 
     const dispatch = useDispatch()
     const btnRef = useRef<HTMLButtonElement>(null)
 
     const onFollowUnfollow = () => {
-        dispatch(toggleFollowingProgress(true, props.id));
-        dispatch(toggleFollowingFriendsProgress(true, props.id));
-        (props.followed ? instance.delete : instance.post)(`follow/${props.id}`)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(followUnfollow(props.id, !props.followed))
-                    // этот диспатч для сраници Friends.
-                    dispatch(setFollowingFriends(props.id, !props.followed))
-                    dispatch(toggleFollowingProgress(false, props.id))
-                    dispatch(toggleFollowingFriendsProgress(false, props.id))
-                }
-            })
+        switch (props.mode) {
+            case "friends":
+                props.followed ? dispatch(friendUnfollow(props.id)) : dispatch(friendFollowing(props.id))
+                break
+            case "users":
+                props.followed ? dispatch(usersUnfollow(props.id)) : dispatch(usersFollow(props.id))
+                break
+        }
     }
 
     const onFollowUnfollowIcon = () => {

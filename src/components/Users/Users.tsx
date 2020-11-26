@@ -14,6 +14,7 @@ type UsersType = {
     setPage: (page: number) => void
     showPreloader: boolean
     toggleFollowingProgress: Array<number>
+    mode: 'friends' | 'users'
 }
 
 const Users = React.memo((props: UsersType) => {
@@ -40,6 +41,7 @@ const Users = React.memo((props: UsersType) => {
                     followed={u.followed}
                     name={u.name}
                     toggleFollowingProgress={props.toggleFollowingProgress}
+                    mode={props.mode}
                 />)}
             </div>
         </div>

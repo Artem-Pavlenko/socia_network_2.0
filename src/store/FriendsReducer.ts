@@ -1,6 +1,6 @@
 import {UserType} from "./UsersReducer";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/API";
+import {followingAPI, usersAPI} from "../api/API";
 
 type ActionsType =
     ReturnType<typeof setFriends>
@@ -11,6 +11,8 @@ type ActionsType =
     | ReturnType<typeof setFollowingFriends>
     | ReturnType<typeof toggleFollowingFriendsProgress>
     | ReturnType<typeof setFriendsLoadingPage>
+    | ReturnType<typeof followF>
+    | ReturnType<typeof unfollowF>
 
 
 export type FriendsRootType = {
@@ -25,6 +27,7 @@ export type FriendsRootType = {
         inProgress: boolean
     }
     isLoadingPage: boolean
+    mode: 'friends'
 }
 
 const initState: FriendsRootType = {
@@ -38,7 +41,8 @@ const initState: FriendsRootType = {
         ID: [],
         inProgress: false
     },
-    isLoadingPage: true
+    isLoadingPage: true,
+    mode: 'friends'
 }
 
 const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType): FriendsRootType => {
@@ -70,6 +74,10 @@ const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType)
             }
         case "friends/SET_FETCH":
             return {...state, isLoadingPage: action.isLoadingPage}
+        case "friends/FOLLOW":
+            return {...state, items: state.items.map(f => f.id === action.userID ? {...f, followed: true} : f)}
+        case "friends/UNFOLLOW":
+            return {...state, items: state.items.map(f => f.id === action.userID ? {...f, followed: false} : f)}
         default:
             return state
     }
@@ -94,6 +102,8 @@ export const toggleFollowingFriendsProgress = (progress: boolean, ID: number) =>
     progress, ID
 } as const)
 export const setFriendsLoadingPage = (isLoadingPage: boolean) => ({type: 'friends/SET_FETCH', isLoadingPage} as const)
+export const followF = (userID: number) => ({type: 'friends/FOLLOW', userID} as const)
+export const unfollowF = (userID: number) => ({type: 'friends/UNFOLLOW', userID} as const)
 
 
 export const getFriendsThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
@@ -103,6 +113,30 @@ export const getFriendsThunk = (currentPage: number, pageSize: number) => (dispa
             dispatch(setFriendsTotalCount(res.totalCount))
             dispatch(setFriendsFetching(false))
             dispatch(setFriendsLoadingPage(false))
+        })
+}
+
+export const friendFollowing = (ID: number) => (dispatch: Dispatch) => {
+    debugger
+    dispatch(toggleFollowingFriendsProgress(true, ID))
+    followingAPI.follow(ID)
+        .then(res => {
+            if (res.resultCode === 0) {
+                dispatch(followF(ID))
+                dispatch(toggleFollowingFriendsProgress(false, ID))
+            }
+        })
+}
+
+export const friendUnfollow = (ID: number) => (dispatch: Dispatch) => {
+    debugger
+    dispatch(toggleFollowingFriendsProgress(true, ID))
+    followingAPI.unfollow(ID)
+        .then(res => {
+            if (res.resultCode === 0) {
+                dispatch(unfollowF(ID))
+                dispatch(toggleFollowingFriendsProgress(false, ID))
+            }
         })
 }
 

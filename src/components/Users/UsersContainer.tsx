@@ -12,7 +12,6 @@ const UsersContainer = React.memo(() => {
     const users = useSelector<StateType, UsersRootType>(state => state.users)
 
     useEffect(() => {
-
         dispatch(getUsersThunk(users.currentPage, users.pageSize))
 
         return () => {
@@ -36,6 +35,7 @@ const UsersContainer = React.memo(() => {
             setPage={setCurrentPage}
             showPreloader={users.isLoadingPage}
             toggleFollowingProgress={users.toggleFollowingProgress.ID}
+            mode={'users'}
         />
     )
 

@@ -44,6 +44,7 @@ const FriendsContainer = React.memo(() => {
                     setPage={setCurrentPage}
                     showPreloader={friends.isLoadingPage}
                     toggleFollowingProgress={friends.toggleFollowingProgress.ID}
+                    mode={'friends'}
                 />
                 : <div className={s.emptyPage}> empty </div>
             }
