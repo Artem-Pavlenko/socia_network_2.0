@@ -10,9 +10,14 @@ import UsersPage from "./components/Users/UsersPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
+import {useSelector} from "react-redux";
+import {StateType} from "./store/store";
 
 
 const App = () => {
+
+    const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
+    const redirectTo = isAuth ? '/profile' : '/login'
 
     return (
         <div className="App">
@@ -26,7 +31,7 @@ const App = () => {
                     <Route path={"/messages"} render={() => <DialogsPage/>}/>
                     <Route path={"/settings"} render={() => <Settings/>}/>
                     <Route path={"/login"} render={() => <Login/>}/>
-                    <Route exact path={'/'}><Redirect to={'/profile'}/></Route>
+                    <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
                     {/*<Redirect from={"/"} to={"profile"}/>*/}
                     <Route render={() => <NotFound/>}/>
                 </Switch>

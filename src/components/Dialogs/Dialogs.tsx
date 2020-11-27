@@ -7,6 +7,7 @@ import {MessageReducerType, sendMess} from "../../store/MessageReducer";
 import {StateType} from "../../store/store";
 import SNButton from "../../common/common_component/button/SNButton";
 import SNTextarea from "../../common/common_component/textarea/SNTextarea";
+import { Redirect } from "react-router-dom";
 
 
 const DialogsPage = React.memo(() => {
@@ -14,6 +15,7 @@ const DialogsPage = React.memo(() => {
     const [value, setValue] = useState<string>('')
     const dispatch = useDispatch()
     const {users, message} = useSelector<StateType, MessageReducerType>(state => state.message)
+    const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
 
     const onTextAreaChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.currentTarget.value)
@@ -23,6 +25,8 @@ const DialogsPage = React.memo(() => {
         dispatch(sendMess(value))
         setValue('')
     }
+
+    if (!isAuth) return <Redirect to={'/login'} />
 
     return (
         <div className={s.dialogsBlock}>

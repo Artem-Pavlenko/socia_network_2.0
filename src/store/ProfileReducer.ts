@@ -98,8 +98,17 @@ export const getProfile = (userID: string) => (dispatch: Dispatch) => {
     Promise.all([profile, status])
         .then(res => {
             dispatch(setProfile(res[0]))
-            dispatch(setStatus(res[1]))
+            res[1] && dispatch(setStatus(res[1]))
             dispatch(setProfileFetch(false))
+        })
+}
+
+export const changeStatus = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.changeStatus(status)
+        .then(res => {
+            if (res.resultCode === 0) {
+                // dispatch(setStatus(res.data))
+            }
         })
 }
 

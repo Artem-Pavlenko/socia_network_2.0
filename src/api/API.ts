@@ -88,5 +88,12 @@ export const profileAPI = {
     getStatus: (userID: string) => {
         return instance.get<string | null>(`profile/status/${userID}`)
             .then(res => res.data)
+    },
+    changeStatus: (status: string) => {
+        return instance.put<LogResponseType>('profile/status', status)
+            .then(res => {
+                debugger
+                return res.data
+            })
     }
 }
