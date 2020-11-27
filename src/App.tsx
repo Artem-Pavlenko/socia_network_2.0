@@ -9,6 +9,7 @@ import FriendsPage from "./components/Friends/FriendsPage";
 import UsersPage from "./components/Users/UsersPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import Login from "./components/Login/Login";
 
 
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
                     <Route path={"/users"} render={() => <UsersPage/>}/>
                     <Route path={"/messages"} render={() => <DialogsPage/>}/>
                     <Route path={"/settings"} render={() => <Settings/>}/>
+                    <Route path={"/login"} render={() => <Login/>}/>
                     <Route exact path={'/'}><Redirect to={'/profile'}/></Route>
                     {/*<Redirect from={"/"} to={"profile"}/>*/}
                     <Route render={() => <NotFound/>}/>
