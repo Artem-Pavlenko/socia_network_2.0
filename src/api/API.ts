@@ -50,7 +50,7 @@ type LogResponseType<d = {}> = {
 
 export const authAPI = {
     authMe: () => {
-        return instance.get<LogResponseType<{ id: number, email: string, login: string }>>(' auth/me')
+        return instance.get<LogResponseType<{ id: number, email: string, login: string }>>('auth/me')
             .then(res => res.data)
     },
     login: (email: string, password: string, rememberMe: boolean = false, captcha?: string) => {
@@ -89,11 +89,8 @@ export const profileAPI = {
         return instance.get<string | null>(`profile/status/${userID}`)
             .then(res => res.data)
     },
-    changeStatus: (status: string) => {
-        return instance.put<LogResponseType>('profile/status', status)
-            .then(res => {
-                debugger
-                return res.data
-            })
+    updStatus: (status: string) => {
+        return instance.put<LogResponseType>('profile/status', {status})
+            .then(res => res.data)
     }
 }

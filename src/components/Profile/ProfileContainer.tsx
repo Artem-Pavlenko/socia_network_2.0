@@ -4,7 +4,7 @@ import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import s from "../Profile/Profile.module.scss"
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {getProfile, ProfileRootType, setProfileFetch} from "../../store/ProfileReducer";
+import {getProfile, ProfileRootType} from "../../store/ProfileReducer";
 import {StateType} from "../../store/store";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 
@@ -15,14 +15,12 @@ const ProfileContainer = React.memo(() => {
 
     const dispatch = useDispatch()
     const profile = useSelector<StateType, ProfileRootType>(state => state.profile)
+    const authUser = useSelector<StateType, number>(state => state.auth.data.id)
+    const ID = userID ? userID : authUser
 
     useEffect(() => {
-        if (userID) {
-            dispatch(getProfile(userID))
-        } else {
-            dispatch(setProfileFetch(false))
-        }
-    }, [userID, dispatch])
+            dispatch(getProfile(ID.toString()))
+    }, [ID, dispatch])
 
     return (
         <div className={s.profileBlock}>

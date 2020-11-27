@@ -56,6 +56,9 @@ export const authMe = () => (dispatch: Dispatch) => {
                 dispatch(setLoginLogout(true))
             }
         })
+        .catch(e => {
+            console.log('auth error :', e.message)
+        })
 }
 
 export const logout = () => (dispatch: Dispatch) => {

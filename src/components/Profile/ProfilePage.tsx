@@ -5,13 +5,13 @@ import {leavingProfilePage} from "../../store/ProfileReducer";
 
 const ProfilePage = () => {
 
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    useEffect( () => {
-        return () => {
-            dispatch(leavingProfilePage())
-        }
-    })
+    // useEffect( () => {
+    //     return () => {
+    //         dispatch(leavingProfilePage())
+    //     }
+    // })
 
     return <ProfileContainer/>
 }

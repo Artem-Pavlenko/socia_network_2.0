@@ -6,7 +6,7 @@ type Input = {
     value: string
     placeholder?: string
     onChange: (event: ChangeEvent<HTMLTextAreaElement>) => void
-
+    autoFocus?: boolean
 }
 
 const SNTextarea = (props: Input) => {
@@ -15,7 +15,7 @@ const SNTextarea = (props: Input) => {
         <div className={s.inputBlock}>
             <div>
                 <TextareaAutosize className={s.textBox} value={props.value} onChange={props.onChange}
-                                  placeholder={props.placeholder}/>
+                                  placeholder={props.placeholder} autoFocus={props.autoFocus}/>
                 {/*<textarea className={s.textBox} value={props.value} onChange={props.onChange}*/}
                 {/*        placeholder={props.placeholder}></textarea>*/}
                 <span className={s.focusBorder}></span>
