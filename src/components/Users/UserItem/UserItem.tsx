@@ -1,10 +1,11 @@
 import React, {useRef} from "react"
 import s from "../UserItem/UserItem.module.scss"
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {usersFollow, usersUnfollow, UserType} from "../../../store/UsersReducer";
 import userPhoto from "../../../assets/images/anonymous.svg"
 import {NavLink} from "react-router-dom";
 import {friendFollowing, friendUnfollow} from "../../../store/FriendsReducer";
+import {StateType} from "../../../store/store";
 
 type Extra = {
     toggleFollowingProgress: Array<number>
@@ -15,6 +16,7 @@ const UserItem = (props: UserType & Extra) => {
 
     const dispatch = useDispatch()
     const btnRef = useRef<HTMLButtonElement>(null)
+    const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
 
     const onFollowUnfollow = () => {
         switch (props.mode) {
@@ -52,22 +54,24 @@ const UserItem = (props: UserType & Extra) => {
                 </div>
 
             </div>
-            <div className={s.followCheck}>
-                <input type="checkbox" checked={props.followed} readOnly={true}/>
-            </div>
-            <div className={s.button}>
-                <div className={`${s.following} ${props.followed
-                    ? s.unfollow
-                    : s.follow} ${props.toggleFollowingProgress.some(id => id === props.id) && s.wait}`}
-                     onClick={(props.toggleFollowingProgress.some(id => id === props.id) ? () => {
-                     } : onFollowUnfollowIcon)}>
-                    {
-                        props.followed
-                            ? <button ref={btnRef} onClick={onFollowUnfollow}>unfollow</button>
-                            : <button ref={btnRef} onClick={onFollowUnfollow}>follow</button>
-                    }
+            {isAuth && <>
+                <div className={s.followCheck}>
+                    <input type="checkbox" checked={props.followed} readOnly={true}/>
                 </div>
-            </div>
+                <div className={s.button}>
+                    <div className={`${s.following} ${props.followed
+                        ? s.unfollow
+                        : s.follow} ${props.toggleFollowingProgress.some(id => id === props.id) && s.wait}`}
+                         onClick={(props.toggleFollowingProgress.some(id => id === props.id) ? () => {
+                         } : onFollowUnfollowIcon)}>
+                        {
+                            props.followed
+                                ? <button ref={btnRef} onClick={onFollowUnfollow}>unfollow</button>
+                                : <button ref={btnRef} onClick={onFollowUnfollow}>follow</button>
+                        }
+                    </div>
+                </div>
+            </>}
         </div>
     )
 }

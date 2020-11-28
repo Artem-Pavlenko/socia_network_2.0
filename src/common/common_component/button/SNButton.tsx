@@ -2,7 +2,7 @@ import React from "react";
 import s from "../button/SNButton.module.scss"
 
 type Button = {
-    onClick: () => void
+    onClick?: () => void
     buttonText: string
 }
 

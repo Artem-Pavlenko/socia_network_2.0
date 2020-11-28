@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import MyPosts from "./MyPosts/MyPosts";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import s from "../Profile/Profile.module.scss"
-import {useParams} from "react-router-dom";
+import {Redirect, useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getProfile, ProfileRootType} from "../../store/ProfileReducer";
 import {StateType} from "../../store/store";
@@ -15,13 +15,15 @@ const ProfileContainer = React.memo(() => {
 
     const dispatch = useDispatch()
     const profile = useSelector<StateType, ProfileRootType>(state => state.profile)
-    const authUser = useSelector<StateType, number>(state => state.auth.data.id)
-    const ID = userID ? userID : authUser
+    const authUser = useSelector<StateType, number | null>(state => state.auth.data.id)
+    const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
+    const ID = userID ? +userID : authUser
 
     useEffect(() => {
-        dispatch(getProfile(ID.toString()))
+        ID && dispatch(getProfile(ID))
     }, [ID, dispatch])
 
+    if (!isAuth && !ID) return <Redirect to={'/login'} />
     return (
         <div className={s.profileBlock}>
             {profile.profileFetching

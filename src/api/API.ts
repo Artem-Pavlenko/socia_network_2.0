@@ -81,11 +81,11 @@ export const followingAPI = {
 }
 
 export const profileAPI = {
-    getProfile: (userID: string) => {
+    getProfile: (userID: number) => {
         return instance.get<ProfileType>(`profile/${userID}`)
             .then(res => res.data)
     },
-    getStatus: (userID: string) => {
+    getStatus: (userID: number) => {
         return instance.get<string | null>(`profile/status/${userID}`)
             .then(res => res.data)
     },

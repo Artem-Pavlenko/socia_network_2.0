@@ -121,7 +121,6 @@ export const getFriendsThunk = (currentPage: number, pageSize: number) => (dispa
 }
 
 export const friendFollowing = (ID: number) => (dispatch: Dispatch) => {
-    debugger
     dispatch(toggleFollowingFriendsProgress(true, ID))
     followingAPI.follow(ID)
         .then(res => {
@@ -133,7 +132,6 @@ export const friendFollowing = (ID: number) => (dispatch: Dispatch) => {
 }
 
 export const friendUnfollow = (ID: number) => (dispatch: Dispatch) => {
-    debugger
     dispatch(toggleFollowingFriendsProgress(true, ID))
     followingAPI.unfollow(ID)
         .then(res => {

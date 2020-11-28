@@ -2,7 +2,7 @@ import {Dispatch} from "redux";
 import {authAPI} from "../api/API";
 
 type AuthData = {
-    id: number
+    id: number | null
     login: string
     email: string
 }
@@ -19,7 +19,7 @@ type ActionTypes =
 
 const initState: AuthRootType = {
     data: {
-        id: 1,
+        id: null,
         email: '',
         login: ''
     },
@@ -33,7 +33,7 @@ const AuthReducer = (state: AuthRootType = initState, action: ActionTypes): Auth
             return {...state, data: {...action.data}, isAuth: true}
         case "auth/SET_LOGIN/LOGOUT":
             if (!action.isAuth) {
-                return {...state, data: {id: 1, email: '', login: ''}, isAuth: action.isAuth}
+                return {...state, data: {id: null, email: '', login: ''}, isAuth: action.isAuth}
             } else {
                 return {...state, isAuth: action.isAuth}
             }
@@ -76,6 +76,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
             if (res.resultCode === 0) {
                 dispatch(setUserId(res.data.userId))
                 dispatch(setLoginLogout(true))
+                dispatch<any>(authMe())
             }
         })
 }

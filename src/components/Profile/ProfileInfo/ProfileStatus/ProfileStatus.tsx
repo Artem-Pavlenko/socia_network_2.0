@@ -9,7 +9,7 @@ const ProfileStatus = ({status}: { status: string | null }) => {
 
     const [editMode, setEditMode] = useState(false)
     const [value, setValue] = useState<string>(status ? status : '')
-    const authUserID = useSelector<StateType, number>(state => state.auth.data.id)
+    const authUserID = useSelector<StateType, number | null>(state => state.auth.data.id)
     const profileID = useSelector<StateType, number>(state => state.profile.userId)
     const dispatch = useDispatch()
 

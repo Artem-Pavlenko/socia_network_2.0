@@ -91,7 +91,7 @@ export const setProfileFetch = (isFetch: boolean) => ({type: 'profile/SET_PROFIL
 export const leavingProfilePage = () => ({type: 'profile/LEAVING_PROFILE_PAGE'} as const)
 
 
-export const getProfile = (userID: string) => (dispatch: Dispatch) => {
+export const getProfile = (userID: number) => (dispatch: Dispatch) => {
     dispatch(setProfileFetch(true))
     let profile = profileAPI.getProfile(userID)
     let status = profileAPI.getStatus(userID)
