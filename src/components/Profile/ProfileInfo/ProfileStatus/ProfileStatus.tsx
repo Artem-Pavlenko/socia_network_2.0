@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {updStatus} from "../../../../store/ProfileReducer";
 import SNInput from "../../../../common/common_component/input/SNInput";
@@ -32,12 +32,22 @@ const ProfileStatus = ({status}: { status: string | null }) => {
         }
     }
 
+    const onEnter = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            saveStatus()
+        }
+    }
 
     return (
         <div>
             {editMode
                 ? <div>
-                    <SNInput value={value} onChange={onInputChange} autoFocus={true} onBlur={saveStatus}/>
+                    <SNInput
+                        value={value}
+                        onChange={onInputChange}
+                        autoFocus={true}
+                        onBlur={saveStatus}
+                        onKeyPress={onEnter}/>
                     <button onClick={saveStatus}>save</button>
                 </div>
                 :

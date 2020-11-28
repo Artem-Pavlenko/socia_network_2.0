@@ -19,7 +19,7 @@ const ProfileContainer = React.memo(() => {
     const ID = userID ? userID : authUser
 
     useEffect(() => {
-            dispatch(getProfile(ID.toString()))
+        dispatch(getProfile(ID.toString()))
     }, [ID, dispatch])
 
     return (
@@ -27,7 +27,8 @@ const ProfileContainer = React.memo(() => {
             {profile.profileFetching
                 ? <MiniPreloader/>
                 : <><ProfileInfo {...profile}/>
-                    <MyPosts/></>
+                    {authUser === profile.userId && <MyPosts/>}
+                </>
             }
         </div>
     )
