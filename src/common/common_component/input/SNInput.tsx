@@ -6,6 +6,7 @@ type Input = {
     placeholder?: string
     onChange: (event: ChangeEvent<HTMLInputElement>) => void
     autoFocus?: boolean
+    onBlur?: () => void
 }
 
 const SNInput = (props: Input) => {

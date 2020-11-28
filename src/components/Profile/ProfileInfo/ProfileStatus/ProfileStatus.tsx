@@ -13,6 +13,7 @@ const ProfileStatus = ({status}: { status: string | null }) => {
     const profileID = useSelector<StateType, number>(state => state.profile.userId)
     const dispatch = useDispatch()
 
+
     const changeEditMode = () => {
         authUserID === profileID && setEditMode(true)
     }
@@ -22,8 +23,13 @@ const ProfileStatus = ({status}: { status: string | null }) => {
     }
 
     const saveStatus = () => {
-        dispatch(updStatus(value))
-        setEditMode(false)
+        if (value && value !== status) {
+            dispatch(updStatus(value))
+            setEditMode(false)
+        } else if (!value || value === status) {
+            setEditMode(false)
+            setValue(status || '')
+        }
     }
 
 
@@ -31,7 +37,7 @@ const ProfileStatus = ({status}: { status: string | null }) => {
         <div>
             {editMode
                 ? <div>
-                    <SNInput value={value} onChange={onInputChange} autoFocus={true}/>
+                    <SNInput value={value} onChange={onInputChange} autoFocus={true} onBlur={saveStatus}/>
                     <button onClick={saveStatus}>save</button>
                 </div>
                 :
