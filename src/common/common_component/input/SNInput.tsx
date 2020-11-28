@@ -13,8 +13,7 @@ const SNInput = (props: Input) => {
     return (
         <div className={s.inputBlock}>
             <div>
-                <input className={s.textBox} type="text" value={props.value} onChange={props.onChange}
-                        placeholder={props.placeholder} autoFocus={props.autoFocus}/>
+                <input className={s.textBox} type="text" {...props}/>
                 <span className={s.focusBorder}></span>
             </div>
         </div>

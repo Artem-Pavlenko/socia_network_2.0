@@ -1,5 +1,5 @@
 
-input {
+* {
   padding: 0;
   margin: 0;
 }
@@ -7,7 +7,6 @@ input {
 .inputBlock {
   display: inline-block;
   position: relative;
-  margin: 10px;
   width: 100%;
   div {
     display: flex;
