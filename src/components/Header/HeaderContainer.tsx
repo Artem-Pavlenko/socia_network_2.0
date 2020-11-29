@@ -1,14 +1,19 @@
 import React, {useEffect} from "react";
 import Header from "./Header";
 import {authMe} from "../../store/AuthReducer";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {StateType} from "../../store/store";
 
 const HeaderContainer = () => {
 
     const dispatch = useDispatch()
 
+    const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
+
     useEffect(() => {
-       dispatch(authMe())
+        if (!isAuth) {
+            dispatch(authMe())
+        }
     })
 
     return <Header/>

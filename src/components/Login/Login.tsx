@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ChangeEvent, useState} from "react";
 import s from "../Login/Login.module.scss"
 import SNInput from "../../common/common_component/input/SNInput";
 import {Controller, useForm} from "react-hook-form";
@@ -30,7 +30,7 @@ const Login = () => {
     })
     const dispatch = useDispatch()
     const {isAuth, authError, captcha} = useSelector<StateType, AuthRootType>(state => state.auth)
-
+    const [type, setType] = useState<'password' | 'text'>('password')
 
     const onSubmit = (data: LoginForm) => {
         dispatch(login(data.email, data.pass, data.rememberMe, data.captcha))
@@ -40,7 +40,13 @@ const Login = () => {
         dispatch(updCaptchaUrl())
     }
 
-    console.log(errors)
+    const showPass = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.currentTarget.checked) {
+            setType("text")
+        } else {
+            setType("password")
+        }
+    }
 
     if (isAuth) return <Redirect to={'/profile'}/>
 
@@ -62,12 +68,13 @@ const Login = () => {
                 </div>
                 <div className={s.pass}>
                     <Controller
-                        as={<SNInput type={'password'} errors={errors.pass?.message}/>}
+                        as={<SNInput type={type} errors={errors.pass?.message}/>}
                         name={'pass'}
                         control={control}
                         rules={{required: true}}
                         defaultValue={''}
                     />
+                    <input type="checkbox" onChange={showPass}/>show password
                     {errors.pass && <span>{errors.pass.message}</span>}
                 </div>
                 <div className={s.rememberMe}>

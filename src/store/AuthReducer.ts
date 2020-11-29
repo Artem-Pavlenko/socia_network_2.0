@@ -3,8 +3,8 @@ import {authAPI, securityAPI} from "../api/API";
 
 type AuthData = {
     id: number | null
-    login: string
-    email: string
+    login: string | null
+    email: string | null
 }
 export type AuthRootType = {
     data: AuthData
@@ -16,7 +16,6 @@ export type AuthRootType = {
 
 type ActionTypes =
     ReturnType<typeof setAuthUserData>
-    | ReturnType<typeof setLoginLogout>
     | ReturnType<typeof setUserId>
     | ReturnType<typeof setError>
     | ReturnType<typeof setCaptcha>
@@ -24,8 +23,8 @@ type ActionTypes =
 const initState: AuthRootType = {
     data: {
         id: null,
-        email: '',
-        login: ''
+        email: null,
+        login: null
     },
     messages: [],
     isAuth: false,
@@ -36,13 +35,7 @@ const initState: AuthRootType = {
 const AuthReducer = (state: AuthRootType = initState, action: ActionTypes): AuthRootType => {
     switch (action.type) {
         case "auth/SET_AUTH_ME":
-            return {...state, data: {...action.data}, isAuth: true}
-        case "auth/SET_LOGIN/LOGOUT":
-            if (!action.isAuth) {
-                return {...state, data: {id: null, email: '', login: ''}, isAuth: action.isAuth}
-            } else {
-                return {...state, isAuth: action.isAuth}
-            }
+            return {...state, data: {...action.data}, isAuth: action.isAuth}
         case "auth/SET_ID":
             return {...state, data: {...state.data, id: action.id}}
         case "auth/SET_ERROR":
@@ -54,8 +47,7 @@ const AuthReducer = (state: AuthRootType = initState, action: ActionTypes): Auth
     }
 }
 
-export const setAuthUserData = (data: AuthData) => ({type: 'auth/SET_AUTH_ME', data} as const)
-export const setLoginLogout = (isAuth: boolean) => ({type: 'auth/SET_LOGIN/LOGOUT', isAuth} as const)
+export const setAuthUserData = (data: AuthData, isAuth: boolean) => ({type: 'auth/SET_AUTH_ME', data, isAuth} as const)
 export const setUserId = (id: number) => ({type: 'auth/SET_ID', id} as const)
 export const setError = (error: string) => ({type: 'auth/SET_ERROR', error} as const)
 export const setCaptcha = (url: string) => ({type: 'auth/SET_CAPTCHA', url} as const)
@@ -65,7 +57,7 @@ export const authMe = () => (dispatch: Dispatch) => {
     authAPI.authMe()
         .then(res => {
             if (res.resultCode === 0) {
-                dispatch(setAuthUserData(res.data))
+                dispatch(setAuthUserData(res.data, true))
             }
         })
         .catch(e => {
@@ -77,7 +69,7 @@ export const logout = () => (dispatch: Dispatch) => {
     authAPI.logout()
         .then(res => {
             if (res.resultCode === 0) {
-                dispatch(setLoginLogout(false))
+                dispatch(setAuthUserData({id: null, login: null, email: null}, false))
             }
         })
 }
@@ -94,6 +86,8 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
                     .then(res => {
                         dispatch(setCaptcha(res.url))
                     })
+            } else if (res.resultCode !== 0) {
+                res.messages.map(mess => dispatch(setError(mess)))
             }
         })
 }
