@@ -1,4 +1,4 @@
-import React, {Suspense} from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import {Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
 import NavBar from "./components/NavBar/NavBar";
@@ -9,17 +9,29 @@ import UsersPage from "./components/Users/UsersPage";
 import ProfilePage from "./components/Profile/ProfilePage";
 import HeaderContainer from "./components/Header/HeaderContainer";
 import Login from "./components/Login/Login";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "./store/store";
 import MiniPreloader from "./common/common_component/Preloader/MiniPreloader/MiniPreloader";
+import {initializeApp} from "./store/appReducer";
+import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/NekoPreloader";
 
 // Components that are loaded when needed (lazy-loading)
 const NotFound = React.lazy(() => import('./components/404/NotFound'))
 
 const App = () => {
 
+    const initialized = useSelector<StateType, boolean>(state => state.app.initialized)
     const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
+    const dispatch = useDispatch()
+
+
+    useEffect( () => {
+        dispatch(initializeApp())
+    })
+
     const redirectTo = isAuth ? '/profile' : '/login'
+
+    if (!initialized) return <NekoPreloader/>
 
     return (
         <div className="App">

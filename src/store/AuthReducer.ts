@@ -54,7 +54,8 @@ export const setCaptcha = (url: string) => ({type: 'auth/SET_CAPTCHA', url} as c
 
 
 export const authMe = () => (dispatch: Dispatch) => {
-    authAPI.authMe()
+    // return чтобы санка вернула Promise, который заюзаем в appReducer
+    return authAPI.authMe()
         .then(res => {
             if (res.resultCode === 0) {
                 dispatch(setAuthUserData(res.data, true))
