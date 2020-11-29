@@ -3,7 +3,7 @@ import s from "../Login/Login.module.scss"
 import SNInput from "../../common/common_component/input/SNInput";
 import {Controller, useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
-import {login} from "../../store/AuthReducer";
+import {AuthRootType, login, updCaptchaUrl} from "../../store/AuthReducer";
 import {StateType} from "../../store/store";
 import SNButton from "../../common/common_component/button/SNButton";
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -14,6 +14,7 @@ type LoginForm = {
     email: string
     pass: string
     rememberMe: boolean
+    captcha?: string
 }
 
 const Login = () => {
@@ -23,17 +24,23 @@ const Login = () => {
         pass: yup.string().required().min(8)
     })
 
-    const {register, handleSubmit, reset, control, errors} = useForm<LoginForm>({
+    const {register, handleSubmit, reset, setError, control, errors} = useForm<LoginForm>({
         resolver: yupResolver(schemaLogin),
         defaultValues: {}
     })
     const dispatch = useDispatch()
-    const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
+    const {isAuth, authError, captcha} = useSelector<StateType, AuthRootType>(state => state.auth)
+
 
     const onSubmit = (data: LoginForm) => {
-        dispatch(login(data.email, data.pass, data.rememberMe))
-        reset()
+        dispatch(login(data.email, data.pass, data.rememberMe, data.captcha))
     }
+
+    const newCaptcha = () => {
+        dispatch(updCaptchaUrl())
+    }
+
+    console.log(errors)
 
     if (isAuth) return <Redirect to={'/profile'}/>
 
@@ -43,7 +50,7 @@ const Login = () => {
                 <h3>l o g i n</h3>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div className={s.email}>
+                <div className={`${s.email} ${errors.email?.message && s.errorField}`}>
                     <Controller
                         as={<SNInput type={'email'} errors={errors.email?.message}/>}
                         name={'email'}
@@ -67,6 +74,16 @@ const Login = () => {
                     <input name={'rememberMe'} type={'checkbox'} ref={register}/>
                     <span>remember me</span>
                 </div>
+                {captcha && <div className={s.captcha}>
+                    <img src={captcha} alt='' onClick={newCaptcha} style={{cursor: "pointer"}}/>
+                    <Controller
+                        as={<SNInput/>}
+                        name={'captcha'}
+                        control={control}
+                        defaultValue={''}
+                    />
+                </div>}
+                {authError && <span>{authError}</span>}
                 <div className={s.btnBlock}>
                     <SNButton buttonText={'login'}/>
                 </div>

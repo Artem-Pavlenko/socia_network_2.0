@@ -3,26 +3,30 @@
   width: 400px;
   margin: 75px auto 0;
 
-    .logBlock {
-      margin: 20px;
+  .logBlock {
+    margin: 50px;
+  }
+
+  form {
+
+    .errorField {
+      border: 2px red solid;
     }
 
-    .form {
-
-        .email {
-
-      }
-
-        .pass {
-
-      }
-
-        .rememberMe {
-
-      }
-
-        .btnBlock {
-
-      }
+    .email {
+      margin: 5px;
     }
+
+    .pass {
+      margin: 5px;
+    }
+
+    .rememberMe {
+      margin: 5px;
+    }
+
+    .btnBlock {
+
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/API";
+import {authAPI, securityAPI} from "../api/API";
 
 type AuthData = {
     id: number | null
@@ -10,12 +10,16 @@ export type AuthRootType = {
     data: AuthData
     messages: string[]
     isAuth: boolean
+    authError: string
+    captcha: string | null
 }
 
 type ActionTypes =
     ReturnType<typeof setAuthUserData>
     | ReturnType<typeof setLoginLogout>
     | ReturnType<typeof setUserId>
+    | ReturnType<typeof setError>
+    | ReturnType<typeof setCaptcha>
 
 const initState: AuthRootType = {
     data: {
@@ -24,7 +28,9 @@ const initState: AuthRootType = {
         login: ''
     },
     messages: [],
-    isAuth: false
+    isAuth: false,
+    authError: '',
+    captcha: null
 }
 
 const AuthReducer = (state: AuthRootType = initState, action: ActionTypes): AuthRootType => {
@@ -39,6 +45,10 @@ const AuthReducer = (state: AuthRootType = initState, action: ActionTypes): Auth
             }
         case "auth/SET_ID":
             return {...state, data: {...state.data, id: action.id}}
+        case "auth/SET_ERROR":
+            return {...state, authError: action.error}
+        case "auth/SET_CAPTCHA":
+            return {...state, captcha: action.url}
         default:
             return state
     }
@@ -47,13 +57,15 @@ const AuthReducer = (state: AuthRootType = initState, action: ActionTypes): Auth
 export const setAuthUserData = (data: AuthData) => ({type: 'auth/SET_AUTH_ME', data} as const)
 export const setLoginLogout = (isAuth: boolean) => ({type: 'auth/SET_LOGIN/LOGOUT', isAuth} as const)
 export const setUserId = (id: number) => ({type: 'auth/SET_ID', id} as const)
+export const setError = (error: string) => ({type: 'auth/SET_ERROR', error} as const)
+export const setCaptcha = (url: string) => ({type: 'auth/SET_CAPTCHA', url} as const)
+
 
 export const authMe = () => (dispatch: Dispatch) => {
     authAPI.authMe()
         .then(res => {
             if (res.resultCode === 0) {
                 dispatch(setAuthUserData(res.data))
-                dispatch(setLoginLogout(true))
             }
         })
         .catch(e => {
@@ -75,9 +87,21 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
         .then(res => {
             if (res.resultCode === 0) {
                 dispatch(setUserId(res.data.userId))
-                dispatch(setLoginLogout(true))
                 dispatch<any>(authMe())
+            } else if (res.resultCode === 10) {
+                res.messages.map(mess => dispatch(setError(mess)))
+                securityAPI.getCaptcha()
+                    .then(res => {
+                        dispatch(setCaptcha(res.url))
+                    })
             }
+        })
+}
+
+export const updCaptchaUrl = () => (dispatch: Dispatch) => {
+    securityAPI.getCaptcha()
+        .then(res => {
+            dispatch(setCaptcha(res.url))
         })
 }
 
