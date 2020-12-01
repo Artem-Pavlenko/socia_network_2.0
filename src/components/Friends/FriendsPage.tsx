@@ -12,9 +12,10 @@ const FriendsPage = () => {
 
     useEffect(() => {
         return () => {
+            // isAuth чтобы лишний раз не диспатчить так как у нас есть редирект === componentDidUnmount
             isAuth && dispatch(leavingFriendsPage())
         }
-    })
+    }, [])
 
     if (!isAuth) return <Redirect to={'/login'} />
     return <FriendsContainer/>

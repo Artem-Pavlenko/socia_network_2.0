@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import s from "../Paginator/Paginator.module.scss";
 import cn from "classnames";
 
@@ -8,30 +8,33 @@ type PaginatorProps = {
     currentPage: number
     totalUsersCont: number
     onClick: (page: number) => void
+    portionSize?: number
 }
 
-const Paginator = ({pageSize, currentPage, totalUsersCont, onClick}: PaginatorProps) => {
+const Paginator = ({pageSize, currentPage, totalUsersCont, onClick, portionSize = 10}: PaginatorProps) => {
+
+    const [portionNumber, setPortionNumber] = useState<number>(1)
 
     const totalPagesCount = Math.ceil(totalUsersCont / pageSize)
-
-    // надо зафиксить пагинатор!
-    // переменная pageCount для отображения пагинатора на странице пользователей
-    // totalUsersCont в Friends меньше 50 и когда делю на 50, не отображаються страници
-
-    const pageCount = totalPagesCount > 1000 ? totalPagesCount / 50 : totalPagesCount
-
     const pages: number[] = []
-    for (let i = 1; i <= pageCount ; i++) {  //делю на 50 для удобства просмотра
+    for (let i = 1; i <= totalPagesCount; i++) {
         pages.push(i)
     }
+    const portionCount = Math.ceil(totalPagesCount / portionSize)
+    const leftPortionNumber = (portionNumber - 1) * portionSize + 1
+    const rightPortionNumber = portionNumber * portionSize
 
     return (
         <div className={s.paginatorBlock}>
-            {pages.map(page => <span
-                key={page}
-                onClick={() => onClick(page)}
-                className={cn(s.pageNumber, {[s.selectedPage]: currentPage === page})}
-            >{page}</span>)}
+            {portionNumber > 1 && <button onClick={() => setPortionNumber(portionNumber - 1)}>{'<'}</button>}
+            {pages
+                .filter(page => page >= leftPortionNumber && page <= rightPortionNumber)
+                .map(page => <span
+                    key={page}
+                    onClick={() => onClick(page)}
+                    className={cn(s.pageNumber, {[s.selectedPage]: currentPage === page})}
+                >{page}</span>)}
+            {portionNumber < portionCount && <button onClick={() => setPortionNumber(portionNumber + 1)}>{'>'}</button>}
         </div>
     )
 }

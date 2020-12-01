@@ -23,7 +23,6 @@ const FriendsContainer = React.memo(() => {
         return () => {
             dispatch(setFriendsLoadingPage(true))
         }
-
     }, [friends.currentPage, friends.pageSize, friends.isFetching, dispatch])
 
     const setCurrentPage = (page: number) => {

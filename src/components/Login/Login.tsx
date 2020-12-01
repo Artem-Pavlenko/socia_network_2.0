@@ -24,7 +24,7 @@ const Login = () => {
         pass: yup.string().required().min(8)
     })
 
-    const {register, handleSubmit, reset, setError, control, errors} = useForm<LoginForm>({
+    const {register, handleSubmit, control, errors} = useForm<LoginForm>({
         resolver: yupResolver(schemaLogin),
         defaultValues: {}
     })

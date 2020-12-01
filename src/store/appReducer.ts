@@ -1,5 +1,4 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/API";
 import {authMe} from "./AuthReducer";
 
 type AppType = {
