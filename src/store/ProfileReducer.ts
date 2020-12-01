@@ -7,6 +7,7 @@ type ActionTypes =
     | ReturnType<typeof setStatus>
     | ReturnType<typeof setProfileFetch>
     | ReturnType<typeof leavingProfilePage>
+    | ReturnType<typeof setPhoto>
 
 
 export type ProfileType = {
@@ -79,6 +80,8 @@ const ProfileReducer = (state: ProfileRootType = initState, action: ActionTypes)
                 lookingForAJobDescription: '',
                 profileFetching: true
             }
+        case "profile/SET_PHOTOS":
+            return {...state, photos: {...action.photos}}
         default:
             return state
     }
@@ -89,6 +92,7 @@ export const setProfile = (profile: ProfileType) => ({type: 'profile/SET_PROFILE
 export const setStatus = (status: string | null) => ({type: 'profile/SET_STATUS', status} as const)
 export const setProfileFetch = (isFetch: boolean) => ({type: 'profile/SET_PROFILE_FETCH', isFetch} as const)
 export const leavingProfilePage = () => ({type: 'profile/LEAVING_PROFILE_PAGE'} as const)
+export const setPhoto = (photos: { small: string, large: string }) => ({type: 'profile/SET_PHOTOS', photos} as const)
 
 
 export const getProfile = (userID: number) => (dispatch: Dispatch) => {
@@ -112,6 +116,15 @@ export const updStatus = (status: string) => (dispatch: Dispatch) => {
         })
         .catch(e => {
             console.log('change status error :', e.message)
+        })
+}
+
+export const updPhoto = (photo: string | Blob) => (dispatch: Dispatch) => {
+    profileAPI.updPhoto(photo)
+        .then(res => {
+            if (res.resultCode === 0) {
+                dispatch(setPhoto(res.data.photos))
+            }
         })
 }
 

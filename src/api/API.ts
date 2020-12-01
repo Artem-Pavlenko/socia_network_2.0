@@ -92,12 +92,24 @@ export const profileAPI = {
     updStatus: (status: string) => {
         return instance.put<LogResponseType>('profile/status', {status})
             .then(res => res.data)
+    },
+    updPhoto: (photo: string | Blob) => {
+        // формируем объект formData
+        const formData = new FormData()
+        // далие добавляем 'image' (так в сервере указано в request) и саму фото
+        formData.append('image', photo)
+        return instance.put<LogResponseType<{photos: {small: string, large: string} }>>('profile/photo', formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+            .then(res => res.data)
     }
 }
 
 export const securityAPI = {
     getCaptcha: () => {
-        return instance.get<{url: string}>('security/get-captcha-url')
+        return instance.get<{ url: string }>('security/get-captcha-url')
             .then(res => res.data)
     }
 }
