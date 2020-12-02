@@ -25,9 +25,12 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
         photoRef && photoRef.current && photoRef.current.click()
     }
 
+    // исправить кнопку изменения фото.
+
+
     return (
         <div className={s.profileInfoBlock}>
-            <div className={s.descriptionBlock}>
+            <div className={s.profileBlock}>
                 <div className={s.photo}>
                     <img src={props.photos.large || userIMG} alt=" "/>
                     <div className={s.btn}>
@@ -41,6 +44,23 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
                 </div>
                 <div className={s.status}>
                     <ProfileStatus status={props.status}/>
+                </div>
+            </div>
+            <div className={s.descriptionBlock}>
+                <div className={s.aboutMe}>
+                    <span>{props.aboutMe}</span>
+                </div>
+                <div className={s.lookingJob}>
+                    <div>
+                        {props.lookingForAJob && <span>I'm looking for a job.</span>}
+                    </div>
+                    <div>
+                        {props.lookingForAJobDescription && <span>Skills: {props.lookingForAJobDescription}</span>}
+                    </div>
+                </div>
+                <div className={s.contacts}>
+                    <h3>Contacts</h3>
+
                 </div>
             </div>
         </div>
