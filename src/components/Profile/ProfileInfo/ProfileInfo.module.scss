@@ -42,6 +42,11 @@
     }
   }
   .descriptionBlock {
+    transition: all 1s linear;
 
+    img {
+      width: 25px;
+      cursor: pointer;
+    }
   }
 }

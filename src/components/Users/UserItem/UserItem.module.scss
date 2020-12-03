@@ -60,14 +60,14 @@
     .unfollow {
       height: 100%;
       transition:all 2s;
-      background-image: url("../../../assets/images/minus.svg")  ;
+      background-image: url("../../../assets/icon/minus.svg")  ;
       background-repeat: no-repeat;
 
     }
     .follow {
       height: 100%;
       transition:all 2s;
-      background-image: url("../../../assets/images/plus.svg");
+      background-image: url("../../../assets/icon/plus.svg");
       background-repeat: no-repeat;
     }
     .wait {
@@ -78,7 +78,7 @@
       //height: 100%;
       //background-size: contain;
       //transition:all 2s;
-      //background-image: url("../../../assets/images/loading.svg");
+      //background-image: url("../../../assets/icon/loading.svg");
       //background-repeat: no-repeat;
       //animation: waiting 1s linear infinite;
     }

@@ -1,6 +1,6 @@
 import React from "react";
 import s from "../Header/Header.module.scss"
-import SocialNetworkIcon from "../../assets/images/social.svg"
+import SocialNetworkIcon from "../../assets/icon/social.svg"
 import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AuthRootType, logout} from "../../store/AuthReducer";

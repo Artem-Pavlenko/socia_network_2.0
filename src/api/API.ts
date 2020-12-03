@@ -80,6 +80,24 @@ export const followingAPI = {
     }
 }
 
+export type ProfileData = {
+    userId?: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+}
+
 export const profileAPI = {
     getProfile: (userID: number) => {
         return instance.get<ProfileType>(`profile/${userID}`)
@@ -98,11 +116,15 @@ export const profileAPI = {
         const formData = new FormData()
         // далие добавляем 'image' (так в сервере указано в request) и саму фото
         formData.append('image', photo)
-        return instance.put<LogResponseType<{photos: {small: string, large: string} }>>('profile/photo', formData, {
+        return instance.put<LogResponseType<{ photos: { small: string, large: string } }>>('profile/photo', formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }
         })
+            .then(res => res.data)
+    },
+    updProfile: (profileData: ProfileData) => {
+        return instance.put<LogResponseType>('profile', profileData)
             .then(res => res.data)
     }
 }

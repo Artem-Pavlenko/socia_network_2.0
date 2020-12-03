@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
-import {profileAPI} from "../api/API";
+import {profileAPI, ProfileData} from "../api/API";
+import {StateType} from "./store";
 
 
 type ActionTypes =
@@ -124,6 +125,18 @@ export const updPhoto = (photo: string | Blob) => (dispatch: Dispatch) => {
         .then(res => {
             if (res.resultCode === 0) {
                 dispatch(setPhoto(res.data.photos))
+
+            }
+        })
+}
+
+export const updProfile = (profileData: ProfileData) => (dispatch: Dispatch, getState: () => StateType) => {
+    debugger
+    profileAPI.updProfile(profileData)
+        .then(res => {
+            debugger
+            if (res.resultCode === 0){
+                dispatch<any>(getProfile(getState().profile.userId))
             }
         })
 }

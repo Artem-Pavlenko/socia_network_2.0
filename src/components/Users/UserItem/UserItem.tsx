@@ -2,12 +2,13 @@ import React, {useRef} from "react"
 import s from "../UserItem/UserItem.module.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {usersFollow, usersUnfollow, UserType} from "../../../store/UsersReducer";
-import userPhoto from "../../../assets/images/anonymous.svg"
+import userPhoto from "../../../assets/icon/anonymous.svg"
 import {NavLink} from "react-router-dom";
 import {friendFollowing, friendUnfollow} from "../../../store/FriendsReducer";
 import {StateType} from "../../../store/store";
 
 type Extra = {
+    //
     toggleFollowingProgress: Array<number>
     mode: 'friends' | 'users'
 }

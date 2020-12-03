@@ -1,5 +1,5 @@
 import React from "react";
-import notFoundIcon from "../../assets/images/404.svg"
+import notFoundIcon from "../../assets/icon/404.svg"
 import s from "../404/NotFound.module.scss"
 const Particles = require('react-particles-js')
 
