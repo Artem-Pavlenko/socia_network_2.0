@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {profileAPI, ProfileData} from "../api/API";
+import {profileAPI, ProfileData, Res} from "../api/API";
 import {StateType} from "./store";
 
 
@@ -9,7 +9,7 @@ type ActionTypes =
     | ReturnType<typeof setProfileFetch>
     | ReturnType<typeof leavingProfilePage>
     | ReturnType<typeof setPhoto>
-
+    | ReturnType<typeof setErrorMessages>
 
 export type ProfileType = {
     aboutMe: string | null
@@ -36,6 +36,7 @@ export type ProfileRootType =
     ProfileType & {
     status: string | null
     profileFetching: boolean
+    messages: string[]
 }
 
 const initState: ProfileRootType = {
@@ -59,7 +60,8 @@ const initState: ProfileRootType = {
         large: null
     },
     status: null,
-    profileFetching: false
+    profileFetching: false,
+    messages: []
 }
 
 const ProfileReducer = (state: ProfileRootType = initState, action: ActionTypes): ProfileRootType => {
@@ -83,6 +85,8 @@ const ProfileReducer = (state: ProfileRootType = initState, action: ActionTypes)
             }
         case "profile/SET_PHOTOS":
             return {...state, photos: {...action.photos}}
+        case "profile/SET_ERROR_MESSAGES":
+            return {...state, messages: action.messages}
         default:
             return state
     }
@@ -94,7 +98,7 @@ export const setStatus = (status: string | null) => ({type: 'profile/SET_STATUS'
 export const setProfileFetch = (isFetch: boolean) => ({type: 'profile/SET_PROFILE_FETCH', isFetch} as const)
 export const leavingProfilePage = () => ({type: 'profile/LEAVING_PROFILE_PAGE'} as const)
 export const setPhoto = (photos: { small: string, large: string }) => ({type: 'profile/SET_PHOTOS', photos} as const)
-
+export const setErrorMessages = (messages: string[]) => ({type: 'profile/SET_ERROR_MESSAGES', messages} as const)
 
 export const getProfile = (userID: number) => (dispatch: Dispatch) => {
     dispatch(setProfileFetch(true))
@@ -111,7 +115,7 @@ export const getProfile = (userID: number) => (dispatch: Dispatch) => {
 export const updStatus = (status: string) => (dispatch: Dispatch) => {
     profileAPI.updStatus(status)
         .then(res => {
-            if (res.resultCode === 0) {
+            if (res.resultCode === Res.Success) {
                 dispatch(setStatus(status))
             }
         })
@@ -123,7 +127,7 @@ export const updStatus = (status: string) => (dispatch: Dispatch) => {
 export const updPhoto = (photo: string | Blob) => (dispatch: Dispatch) => {
     profileAPI.updPhoto(photo)
         .then(res => {
-            if (res.resultCode === 0) {
+            if (res.resultCode === Res.Success) {
                 dispatch(setPhoto(res.data.photos))
 
             }
@@ -131,12 +135,12 @@ export const updPhoto = (photo: string | Blob) => (dispatch: Dispatch) => {
 }
 
 export const updProfile = (profileData: ProfileData) => (dispatch: Dispatch, getState: () => StateType) => {
-    debugger
     profileAPI.updProfile(profileData)
         .then(res => {
-            debugger
-            if (res.resultCode === 0){
+            if (res.resultCode === Res.Success){
                 dispatch<any>(getProfile(getState().profile.userId))
+            } else if (res.resultCode !== Res.Success) {
+                dispatch(setErrorMessages(res.messages))
             }
         })
 }

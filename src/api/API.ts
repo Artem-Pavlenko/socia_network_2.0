@@ -16,7 +16,33 @@ type UsersResponse = {
     }]
     totalCount: number
 }
-
+type LogResponseType<d = {}> = {
+    resultCode: number
+    messages: string[]
+    data: d
+}
+export type ProfileData = {
+    userId?: number
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    contacts: {
+        github: string
+        vk: string
+        facebook: string
+        instagram: string
+        twitter: string
+        website: string
+        youtube: string
+        mainLink: string
+    }
+}
+export enum Res {
+    Success = 0,
+    Error = 1,
+    CaptchaIsRequired = 10
+}
 
 const settings = {
     withCredentials: true,
@@ -42,11 +68,7 @@ export const usersAPI = {
 }
 
 
-type LogResponseType<d = {}> = {
-    resultCode: number
-    messages: string[]
-    data: d
-}
+
 
 export const authAPI = {
     authMe: () => {
@@ -80,23 +102,7 @@ export const followingAPI = {
     }
 }
 
-export type ProfileData = {
-    userId?: number
-    aboutMe: string
-    lookingForAJob: boolean
-    lookingForAJobDescription: string
-    fullName: string
-    contacts: {
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
-}
+
 
 export const profileAPI = {
     getProfile: (userID: number) => {
