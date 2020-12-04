@@ -1,7 +1,7 @@
 import React from "react";
 import {ProfileType} from "../../../../store/ProfileReducer";
 import s from "../ProfileData/ProfileData.module.scss";
-import Contact from "../Contact";
+import Contact from "../Contact/Contact";
 
 const ProfileData = (props: ProfileType) => {
     return (

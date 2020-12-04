@@ -9,7 +9,7 @@ import {StateType} from "../../../store/store";
 import SNButton from "../../../common/common_component/button/SNButton";
 import {useForm} from "react-hook-form";
 import editIcon from "../../../assets/icon/edit.svg"
-import Contact from "./Contact";
+import Contact from "./Contact/Contact";
 import EditProfileData from "./EditProfileData/EditProfileData";
 import ProfileData from "./ProfileData/ProfileData";
 

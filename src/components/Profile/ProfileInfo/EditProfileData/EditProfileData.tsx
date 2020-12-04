@@ -40,37 +40,37 @@ const EditProfileData = (props: ProfileType) => {
 
 
     return (
-        <div>
+        <div className={s.editBlock}>
             <form onSubmit={handleSubmit(saveEdit)}>
-                <div>
+                <div className={s.item}>
                     <div>
                         <span>Full name :</span>
                     </div>
                     <input type="text" name='fullName' ref={register} defaultValue={(props.fullName as string)}/>
                 </div>
-                <div>
+                <div className={s.item}>
                     <span>Looking for a job : </span><input type="checkbox" name='lookingForAJob' ref={register}/>
                 </div>
-                <div>
+                <div className={s.item}>
                     <div>
                         <span>Skills : </span>
                     </div>
                     <input type="text" name='lookingForAJobDescription' ref={register}
                            defaultValue={(props.lookingForAJobDescription as string)}/>
                 </div>
-                <div>
+                <div className={s.item}>
                     <div>
                         <span>About me :</span>
                     </div>
                     <input type="text" name='aboutMe' ref={register} defaultValue={(props.aboutMe as string)}/>
                 </div>
-                <div>
+                <div className={s.item}>
                     <b>Contacts</b>
                 </div>
                 {(Object.keys(props.contacts) as Array<keyof typeof props.contacts>).map(key => {
                     const defaultValue = props.contacts[key] === null ? '' : props.contacts[key]
 
-                    return <div key={key}>
+                    return <div key={key} className={s.item}>
                         <div>
                             <span>{key} :</span>
                         </div>
