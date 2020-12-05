@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {ProfileType, updProfile} from "../../../../store/ProfileReducer";
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../../../store/store";
@@ -34,20 +34,21 @@ const EditProfileData = (props: ProfileType & EditType) => {
     const dispatch = useDispatch()
     const {register, handleSubmit, setError, errors} = useForm<EditProfileDataForm>()
 
-    // const currentError = (m: string, text: "fullName" | "lookingForAJob" | "lookingForAJobDescription" | "aboutMe" | "github" | "vk" | "facebook" | "instagram" | "twitter" | "website" | "youtube" | "mainLink") => {
-    //     m.toLowerCase().indexOf(text) !== -1 && setError(text, {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
-    // }
+
+    const currentErrorIn = (m: string, text: "fullName" | "lookingForAJob" | "lookingForAJobDescription" | "aboutMe" | "github" | "vk" | "facebook" | "instagram" | "twitter" | "website" | "youtube" | "mainLink") => {
+        m.toLowerCase().indexOf(text.toLowerCase()) !== -1 && setError(text, {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
+    }
 
     useEffect(() => {
         props.messages.forEach(m => {
-            m.toLowerCase().indexOf('vk') !== -1 && setError('vk', {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
-            m.toLowerCase().indexOf('facebook') !== -1 && setError('facebook', {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
-            m.toLowerCase().indexOf('instagram') !== -1 && setError('instagram', {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
-            m.toLowerCase().indexOf('twitter') !== -1 && setError('twitter', {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
-            m.toLowerCase().indexOf('website') !== -1 && setError('website', {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
-            m.toLowerCase().indexOf('youtube') !== -1 && setError('youtube', {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
-            m.toLowerCase().indexOf('mainlink') !== -1 && setError('mainLink', {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
-            m.toLowerCase().indexOf('github') !== -1 && setError('github', {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
+            currentErrorIn(m, 'vk')
+            currentErrorIn(m, 'facebook')
+            currentErrorIn(m, 'instagram')
+            currentErrorIn(m, 'twitter')
+            currentErrorIn(m, 'website')
+            currentErrorIn(m, 'youtube')
+            currentErrorIn(m, 'mainLink')
+            currentErrorIn(m, 'github')
         })
     }, [props.messages, setError])
 
@@ -62,6 +63,7 @@ const EditProfileData = (props: ProfileType & EditType) => {
             }
         }))
     }
+
 
 
     return (
@@ -90,6 +92,10 @@ const EditProfileData = (props: ProfileType & EditType) => {
                 <div className={s.item}>
                     <b>Contacts</b>
                 </div>
+                <div>
+                    dfsdfdsfdf
+                </div>
+
                 {(Object.keys(props.contacts) as Array<keyof typeof props.contacts>).map(key => {
                     const defaultValue = props.contacts[key] === null ? '' : props.contacts[key]
 
@@ -99,6 +105,7 @@ const EditProfileData = (props: ProfileType & EditType) => {
                         {errors[key] && <span key={key} style={{color: 'red'}}>{errors[key]?.message}</span>}
                     </div>
                 })}
+
                 {/*<div className={s.errors}>*/}
                 {/*    {errorMessages.map((error, i) => <div key={i} className={s.errorItem}>{error}</div>)}*/}
                 {/*</div>*/}

@@ -1,9 +1,25 @@
-import React from "react";
+import React, {useState} from "react";
 import {ProfileType} from "../../../../store/ProfileReducer";
 import s from "../ProfileData/ProfileData.module.scss";
 import Contact from "../Contact/Contact";
+import SNButton from "../../../../common/common_component/button/SNButton";
 
 const ProfileData = (props: ProfileType) => {
+
+    const [showContacts, setShowContacts] = useState<{ show: boolean, text: 'show contacts' | 'hide contacts' }>({
+        show: false, text: "show contacts"
+    })
+    const showHideContacts = () => {
+        switch (showContacts.text) {
+            case "hide contacts":
+                setShowContacts({show: false, text: "show contacts"})
+                break
+            case "show contacts":
+                setShowContacts({show: true, text: "hide contacts"})
+                break
+        }
+    }
+
     return (
         <div>
             <div className={s.aboutMe}>
@@ -18,10 +34,14 @@ const ProfileData = (props: ProfileType) => {
                 </div>
             </div>
             <div className={s.contacts}>
-                <h3>Contacts</h3>
-                {(Object.keys(props.contacts) as Array<keyof typeof props.contacts>).map(key => {
-                    return <Contact key={key} contactTitle={key[0].toUpperCase() + key.slice(1)} contactValue={props.contacts[key]}/>
-                })}
+                <SNButton buttonText={showContacts.text} onClick={showHideContacts}/>
+                {showContacts.show && <>
+                    <h3>Contacts</h3>
+                    {(Object.keys(props.contacts) as Array<keyof typeof props.contacts>).map(key => {
+                        return <Contact key={key} contactTitle={key[0].toUpperCase() + key.slice(1)}
+                                        contactValue={props.contacts[key]}/>
+                    })}
+                </>}
             </div>
         </div>
     )
