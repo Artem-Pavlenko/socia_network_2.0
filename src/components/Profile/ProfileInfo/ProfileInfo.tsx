@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useRef, useState} from "react";
 import s from "../ProfileInfo/ProfileInfo.module.scss"
-import {ProfileRootType, updPhoto} from "../../../store/ProfileReducer";
+import {clearErrors, ProfileRootType, updPhoto} from "../../../store/ProfileReducer";
 import userIMG from "../../../assets/icon/anonymous.svg"
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import {useParams} from "react-router-dom";
@@ -30,8 +30,10 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
     const editModeTrigger = () => {
         editMode && setEditMode(false)
         !editMode && setEditMode(true)
+        dispatch(clearErrors())
     }
     const cancelEdit = () => {
+        dispatch(clearErrors())
         setEditMode(false)
     }
 

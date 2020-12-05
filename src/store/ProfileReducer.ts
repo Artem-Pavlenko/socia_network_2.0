@@ -10,6 +10,7 @@ type ActionTypes =
     | ReturnType<typeof leavingProfilePage>
     | ReturnType<typeof setPhoto>
     | ReturnType<typeof setErrorMessages>
+    | ReturnType<typeof clearErrors>
 
 export type ProfileType = {
     aboutMe: string | null
@@ -87,6 +88,8 @@ const ProfileReducer = (state: ProfileRootType = initState, action: ActionTypes)
             return {...state, photos: {...action.photos}}
         case "profile/SET_ERROR_MESSAGES":
             return {...state, messages: action.messages}
+        case "profile/CLEAR_ERRORS":
+            return {...state, messages: []}
         default:
             return state
     }
@@ -99,6 +102,8 @@ export const setProfileFetch = (isFetch: boolean) => ({type: 'profile/SET_PROFIL
 export const leavingProfilePage = () => ({type: 'profile/LEAVING_PROFILE_PAGE'} as const)
 export const setPhoto = (photos: { small: string, large: string }) => ({type: 'profile/SET_PHOTOS', photos} as const)
 export const setErrorMessages = (messages: string[]) => ({type: 'profile/SET_ERROR_MESSAGES', messages} as const)
+export const clearErrors = () => ({type: 'profile/CLEAR_ERRORS'} as const)
+
 
 export const getProfile = (userID: number) => (dispatch: Dispatch) => {
     dispatch(setProfileFetch(true))
