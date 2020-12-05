@@ -20,7 +20,7 @@ const ProfileData = (props: ProfileType) => {
             <div className={s.contacts}>
                 <h3>Contacts</h3>
                 {(Object.keys(props.contacts) as Array<keyof typeof props.contacts>).map(key => {
-                    return <Contact key={key} contactTitle={key} contactValue={props.contacts[key]}/>
+                    return <Contact key={key} contactTitle={key[0].toUpperCase() + key.slice(1)} contactValue={props.contacts[key]}/>
                 })}
             </div>
         </div>

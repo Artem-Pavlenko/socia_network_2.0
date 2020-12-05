@@ -1,15 +1,12 @@
 import React, {ChangeEvent, useRef, useState} from "react";
 import s from "../ProfileInfo/ProfileInfo.module.scss"
-import {ProfileRootType, ProfileType, updPhoto, updProfile} from "../../../store/ProfileReducer";
+import {ProfileRootType, updPhoto} from "../../../store/ProfileReducer";
 import userIMG from "../../../assets/icon/anonymous.svg"
 import ProfileStatus from "./ProfileStatus/ProfileStatus";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../../store/store";
 import SNButton from "../../../common/common_component/button/SNButton";
-import {useForm} from "react-hook-form";
-import editIcon from "../../../assets/icon/edit.svg"
-import Contact from "./Contact/Contact";
 import EditProfileData from "./EditProfileData/EditProfileData";
 import ProfileData from "./ProfileData/ProfileData";
 
@@ -34,6 +31,9 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
         editMode && setEditMode(false)
         !editMode && setEditMode(true)
     }
+    const cancelEdit = () => {
+        setEditMode(false)
+    }
 
     // исправить кнопку изменения фото.
 
@@ -57,11 +57,11 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
                 </div>
             </div>
             <div className={s.descriptionBlock}>
-                <img src={editIcon} alt=" " onClick={editModeTrigger}/>
-                {editMode
-                    ? <EditProfileData {...props} />
-                    : <ProfileData {...props}/>
-                }
+                <div className={s.profileData}>{editMode
+                    ? <EditProfileData {...props} cancelEdit={cancelEdit}/>
+                    : <ProfileData {...props} />}
+                </div>
+                {!userID && isAuth && <div className={s.imgEdit} onClick={editModeTrigger}></div>}
             </div>
         </div>
     )

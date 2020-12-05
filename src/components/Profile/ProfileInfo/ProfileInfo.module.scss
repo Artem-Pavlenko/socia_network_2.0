@@ -42,11 +42,32 @@
     }
   }
   .descriptionBlock {
+    border: 1px solid;
     transition: all 1s linear;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 20px;
 
-    img {
+    .profileData {
+      min-height: 150px;
+
+    }
+
+    .imgEdit {
       width: 25px;
+      height: 25px;
       cursor: pointer;
+      border-radius: 50%;
+      border: 1px solid #14a0ea;
+      background-image: url("../../../assets/icon/edit.svg");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      &:hover {
+        border: 1px solid #ffffff;
+        transition: all 0.3s ease-in-out 0s;
+      }
     }
   }
 }

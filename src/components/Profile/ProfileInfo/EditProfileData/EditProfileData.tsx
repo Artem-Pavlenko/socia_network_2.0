@@ -6,22 +6,29 @@ import {useForm} from "react-hook-form";
 import s from "../EditProfileData/EditProfileData.module.scss";
 import SNButton from "../../../../common/common_component/button/SNButton";
 
-const EditProfileData = (props: ProfileType) => {
 
-    type EditProfileData = {
-        aboutMe: string
-        lookingForAJob: boolean
-        lookingForAJobDescription: string
-        fullName: string
-        github: string
-        vk: string
-        facebook: string
-        instagram: string
-        twitter: string
-        website: string
-        youtube: string
-        mainLink: string
-    }
+type EditType = {
+    cancelEdit: () => void
+}
+type EditProfileData = {
+    aboutMe: string
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    github: string
+    vk: string
+    facebook: string
+    instagram: string
+    twitter: string
+    website: string
+    youtube: string
+    mainLink: string
+
+}
+
+const EditProfileData = (props: ProfileType & EditType) => {
+
+
     const errorMessages = useSelector<StateType, string[]>(state => state.profile.messages)
     const dispatch = useDispatch()
     const {register, handleSubmit} = useForm<EditProfileData>()
@@ -43,25 +50,19 @@ const EditProfileData = (props: ProfileType) => {
         <div className={s.editBlock}>
             <form onSubmit={handleSubmit(saveEdit)}>
                 <div className={s.item}>
-                    <div>
-                        <span>Full name :</span>
-                    </div>
+                    <span className={s.title}>Full name :</span>
                     <input type="text" name='fullName' ref={register} defaultValue={(props.fullName as string)}/>
                 </div>
                 <div className={s.item}>
                     <span>Looking for a job : </span><input type="checkbox" name='lookingForAJob' ref={register}/>
                 </div>
                 <div className={s.item}>
-                    <div>
-                        <span>Skills : </span>
-                    </div>
+                    <span className={s.title}>Skills : </span>
                     <input type="text" name='lookingForAJobDescription' ref={register}
                            defaultValue={(props.lookingForAJobDescription as string)}/>
                 </div>
                 <div className={s.item}>
-                    <div>
-                        <span>About me :</span>
-                    </div>
+                    <span className={s.title}>About me :</span>
                     <input type="text" name='aboutMe' ref={register} defaultValue={(props.aboutMe as string)}/>
                 </div>
                 <div className={s.item}>
@@ -71,16 +72,17 @@ const EditProfileData = (props: ProfileType) => {
                     const defaultValue = props.contacts[key] === null ? '' : props.contacts[key]
 
                     return <div key={key} className={s.item}>
-                        <div>
-                            <span>{key} :</span>
-                        </div>
+                        <span className={s.title}>{key} :</span>
                         <input type="text" name={key} ref={register} defaultValue={(defaultValue as string)}/>
                     </div>
                 })}
                 <div className={s.errors}>
-                    <span>{errorMessages}</span>
+                    {errorMessages.map(error => <div className={s.errorItem}>{error}</div>)}
                 </div>
-                <SNButton buttonText={'send'}/>
+                <div className={s.buttons}>
+                    <SNButton buttonText={'save'}/>
+                    <SNButton buttonText={'cancel'} onClick={props.cancelEdit}/>
+                </div>
             </form>
         </div>
     )

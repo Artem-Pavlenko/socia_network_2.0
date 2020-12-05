@@ -1,10 +1,31 @@
 
+input {
+  border-radius: 5px;
+  border: none;
+  width: max-content;
+}
+
 .editBlock {
 
   form {
+    margin: 10px;
 
     .item {
       margin: 10px;
+
+      .title {
+        display: block;
+      }
+    }
+    .errors {
+      margin-bottom: 7px;
+      .errorItem {
+        margin-top: 7px;
+      }
+    }
+    .buttons {
+      display: flex;
+      justify-content: space-between;
     }
   }
 }
