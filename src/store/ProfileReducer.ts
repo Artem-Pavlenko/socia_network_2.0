@@ -146,6 +146,11 @@ export const updProfile = (profileData: ProfileData) => (dispatch: Dispatch, get
                 dispatch<any>(getProfile(getState().profile.userId))
             } else if (res.resultCode !== Res.Success) {
                 dispatch(setErrorMessages(res.messages))
+                // res.messages.map(mess => {
+                //    if (mess.toLowerCase().indexOf('Vk')) {
+                //
+                //    }
+                // })
             }
         })
 }
