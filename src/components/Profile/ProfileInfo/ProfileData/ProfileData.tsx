@@ -4,11 +4,15 @@ import s from "../ProfileData/ProfileData.module.scss";
 import Contact from "../Contact/Contact";
 import SNButton from "../../../../common/common_component/button/SNButton";
 
-const ProfileData = (props: ProfileType) => {
+const ProfileData = React.memo((props: ProfileType) => {
 
     const [showContacts, setShowContacts] = useState<{ show: boolean, text: 'show contacts' | 'hide contacts' }>({
         show: false, text: "show contacts"
     })
+
+    // для отображения контактов, если они есть.
+    const contacts = Object.values(props.contacts).filter(v => v !== null)
+
     const showHideContacts = () => {
         switch (showContacts.text) {
             case "hide contacts":
@@ -34,7 +38,7 @@ const ProfileData = (props: ProfileType) => {
                 </div>
             </div>
             <div className={s.contacts}>
-                <SNButton buttonText={showContacts.text} onClick={showHideContacts}/>
+                {contacts.length !== 0 && <SNButton buttonText={showContacts.text} onClick={showHideContacts}/>}
                 {showContacts.show && <>
                     <h3>Contacts</h3>
                     {(Object.keys(props.contacts) as Array<keyof typeof props.contacts>).map(key => {
@@ -45,6 +49,6 @@ const ProfileData = (props: ProfileType) => {
             </div>
         </div>
     )
-}
+})
 
 export default ProfileData
