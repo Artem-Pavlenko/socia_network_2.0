@@ -1,6 +1,7 @@
 
 .profileInfoBlock {
   margin: 13px 5px 120px;
+
   .profileBlock {
     display: flex;
     justify-content: space-between;
@@ -8,6 +9,7 @@
     flex-wrap: wrap;
     border: 1px solid;
     border-radius: 5px;
+
     .photo {
       margin: 5px;
       width: 30%;
@@ -16,7 +18,12 @@
         width: 150px;
         border-radius: 5px;
         opacity: 1;
+        transition: all .5s linear 0s;
 
+        &:hover {
+          transform: scale(1.03);
+          transition: all .5s linear 0s;
+        }
       }
 
       .btn {
@@ -25,22 +32,26 @@
         left: 223px;
         opacity: 0;
         transition: all .5s linear;
+
         &:hover {
           transition: all .5s linear;
           opacity: .5;
         }
       }
     }
+
     .name {
       width: 30%;
       margin: 5px;
     }
+
     .status {
       text-align: right;
       width: 30%;
       margin: 5px;
     }
   }
+
   .descriptionBlock {
     border: 1px solid;
     transition: all 1s linear;
@@ -64,6 +75,7 @@
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
+
       &:hover {
         border: 1px solid #ffffff;
         transition: all 0.3s ease-in-out 0s;

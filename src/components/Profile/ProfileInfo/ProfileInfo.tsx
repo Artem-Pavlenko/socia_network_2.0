@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useRef, useState} from "react";
+import React, {ChangeEvent, useCallback, useRef, useState} from "react";
 import s from "../ProfileInfo/ProfileInfo.module.scss"
 import {clearErrors, ProfileRootType, updPhoto} from "../../../store/ProfileReducer";
 import userIMG from "../../../assets/icon/anonymous.svg"
@@ -9,6 +9,7 @@ import {StateType} from "../../../store/store";
 import SNButton from "../../../common/common_component/button/SNButton";
 import EditProfileData from "./EditProfileData/EditProfileData";
 import ProfileData from "./ProfileData/ProfileData";
+import {DEV_MODE} from "../../../common/dev.mode/devMode";
 
 
 const ProfileInfo = React.memo((props: ProfileRootType) => {
@@ -19,27 +20,34 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
     const photoRef = useRef<HTMLInputElement>(null)
     const [editMode, setEditMode] = useState<boolean>(false)
 
-    const onSelectedPhoto = (e: ChangeEvent<HTMLInputElement>) => {
+    
+    
+    const onSelectedPhoto = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.files) {
             dispatch(updPhoto(e.currentTarget.files[0]))
         }
-    }
-    const choosePhoto = () => {
+    },[dispatch])
+    
+    const choosePhoto = useCallback(() => {
         photoRef && photoRef.current && photoRef.current.click()
-    }
-    const editModeTrigger = () => {
+    },[photoRef])
+    
+    const editModeTrigger =  useCallback(() => {
         editMode && setEditMode(false)
         !editMode && setEditMode(true)
         dispatch(clearErrors())
-    }
-    const cancelEdit = () => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[dispatch])
+    
+    const cancelEdit = useCallback(() => {
         dispatch(clearErrors())
         setEditMode(false)
-    }
+    },[dispatch])
 
     // исправить кнопку изменения фото.
 
-
+    DEV_MODE && console.log('ProfileInfo')
+    
     return (
         <div className={s.profileInfoBlock}>
             <div className={s.profileBlock}>
