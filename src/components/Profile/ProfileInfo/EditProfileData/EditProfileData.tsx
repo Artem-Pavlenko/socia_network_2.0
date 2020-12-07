@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import {ProfileType, updProfile} from "../../../../store/ProfileReducer";
-import {useDispatch, useSelector} from "react-redux";
-import {StateType} from "../../../../store/store";
+import {useDispatch} from "react-redux";
 import {useForm} from "react-hook-form";
 import s from "../EditProfileData/EditProfileData.module.scss";
 import SNButton from "../../../../common/common_component/button/SNButton";
@@ -26,18 +25,21 @@ type EditProfileDataForm = {
     mainLink: string
 
 }
+type ContactsNames = "fullName" | "lookingForAJob" | "lookingForAJobDescription" | "aboutMe" | "github"
+    | "vk" | "facebook" | "instagram" | "twitter" | "website" | "youtube" | "mainLink"
 
-const EditProfileData = (props: ProfileType & EditType) => {
 
-
+const EditProfileData = React.memo((props: ProfileType & EditType) => {
     // const errorMessages = useSelector<StateType, string[]>(state => state.profile.messages)
     const dispatch = useDispatch()
-    const {register, handleSubmit, setError, errors} = useForm<EditProfileDataForm>()
+    const {register, handleSubmit, setError, errors, getValues} = useForm<EditProfileDataForm>()
+    const formValue = getValues()
 
-
-    const currentErrorIn = (m: string, text: "fullName" | "lookingForAJob" | "lookingForAJobDescription" | "aboutMe" | "github" | "vk" | "facebook" | "instagram" | "twitter" | "website" | "youtube" | "mainLink") => {
-        m.toLowerCase().indexOf(text.toLowerCase()) !== -1 && setError(text, {message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m})
-    }
+    const currentErrorIn = useCallback((m: string, text: ContactsNames) => {
+        m.toLowerCase().indexOf(text.toLowerCase()) !== -1 && setError(text, {
+            message: m.slice(0, 18).toLowerCase() === 'invalid url format' ? m.slice(0, 18) + '.' : m
+        })
+    }, [setError])
 
     useEffect(() => {
         props.messages.forEach(m => {
@@ -50,9 +52,9 @@ const EditProfileData = (props: ProfileType & EditType) => {
             currentErrorIn(m, 'mainLink')
             currentErrorIn(m, 'github')
         })
-    }, [props.messages, setError])
+    }, [props.messages, currentErrorIn])
 
-    const saveEdit = ({fullName, lookingForAJob, lookingForAJobDescription, aboutMe, ...data}: EditProfileDataForm) => {
+    const saveEdit = useCallback(({fullName, lookingForAJob, lookingForAJobDescription, aboutMe, ...data}: EditProfileDataForm) => {
         dispatch(updProfile({
             fullName: fullName,
             lookingForAJob: lookingForAJob,
@@ -62,8 +64,7 @@ const EditProfileData = (props: ProfileType & EditType) => {
                 ...data
             }
         }))
-    }
-
+    },[formValue, dispatch]) // eslint-disable-line react-hooks/exhaustive-deps
 
 
     return (
@@ -92,10 +93,6 @@ const EditProfileData = (props: ProfileType & EditType) => {
                 <div className={s.item}>
                     <b>Contacts</b>
                 </div>
-                <div>
-                    dfsdfdsfdf
-                </div>
-
                 {(Object.keys(props.contacts) as Array<keyof typeof props.contacts>).map(key => {
                     const defaultValue = props.contacts[key] === null ? '' : props.contacts[key]
 
@@ -105,7 +102,6 @@ const EditProfileData = (props: ProfileType & EditType) => {
                         {errors[key] && <span key={key} style={{color: 'red'}}>{errors[key]?.message}</span>}
                     </div>
                 })}
-
                 {/*<div className={s.errors}>*/}
                 {/*    {errorMessages.map((error, i) => <div key={i} className={s.errorItem}>{error}</div>)}*/}
                 {/*</div>*/}
@@ -116,6 +112,6 @@ const EditProfileData = (props: ProfileType & EditType) => {
             </form>
         </div>
     )
-}
+})
 
 export default EditProfileData
