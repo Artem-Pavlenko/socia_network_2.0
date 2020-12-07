@@ -1,9 +1,10 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../store/store";
 import {UsersRootType, setUsersCurrentPage, getUsersThunk, setUsersLoadingPage} from "../../store/UsersReducer";
 import Users from "./Users";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
+import {DEV_MODE} from "../../common/dev.mode/devMode";
 
 
 const UsersContainer = React.memo(() => {
@@ -19,11 +20,11 @@ const UsersContainer = React.memo(() => {
         }
     }, [users.currentPage, users.pageSize, users.isFetching, dispatch])
 
-    const setCurrentPage = (page: number) => {
+    const setCurrentPage = useCallback((page: number) => {
         dispatch(setUsersCurrentPage(page))
-    }
+    }, [dispatch])
 
-    // console.log('users page')
+    DEV_MODE && console.log('usersContainer page')
 
     if (users.isFetching) return <MiniPreloader/>
     return (

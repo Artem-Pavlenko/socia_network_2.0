@@ -11,7 +11,7 @@ const UsersPage = () => {
         return () => {
             dispatch(setLeavingUsersPage())
         }
-    })
+    },[dispatch])
 
     return <UsersContainer/>
 }
