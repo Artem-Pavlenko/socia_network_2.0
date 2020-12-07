@@ -128,6 +128,19 @@ export const getUsersThunk = (currentPage: number, pageSize: number) => (dispatc
         })
 }
 
+export const searchUsers = (currentPage: number, pageSize: number, term: string) => (dispatch: Dispatch) => {
+    dispatch(setUsersFetching(true))
+    dispatch(setUsersLoadingPage(true))
+    usersAPI.searchUsers(currentPage, pageSize, term)
+        .then(res => {
+            dispatch(setUsers(res.items))
+            dispatch(setUsersTotalCount(res.totalCount))
+            dispatch(setUsersFetching(false))
+            dispatch(setUsersLoadingPage(false))
+        })
+
+}
+
 export const usersFollow = (ID: number) => (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, ID))
     followingAPI.follow(ID)

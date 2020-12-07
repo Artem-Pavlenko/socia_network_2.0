@@ -1,12 +1,13 @@
 import React, {ChangeEvent, useState} from "react";
 import s from "../Users/Users.module.scss"
 import UserItem from "./UserItem/UserItem";
-import {getUsersThunk, UsersRootType, UserType} from "../../store/UsersReducer";
+import {searchUsers, UsersRootType, UserType} from "../../store/UsersReducer";
 import Paginator from "../../common/common_component/Paginator/Paginator";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 import {useDispatch, useSelector} from "react-redux";
 import {DEV_MODE} from "../../common/dev.mode/devMode";
 import {StateType} from "../../store/store";
+import SNButton from "../../common/common_component/button/SNButton";
 
 
 type UsersType = {
@@ -28,7 +29,10 @@ const Users = React.memo((props: UsersType) => {
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
-        dispatch(getUsersThunk(currentPage, pageSize))
+
+    }
+    const search = () => {
+        dispatch(searchUsers(currentPage, pageSize, value))
     }
 
     DEV_MODE && console.log('Users render')
@@ -44,6 +48,7 @@ const Users = React.memo((props: UsersType) => {
             </div>
             <div>
                 <input type="text" value={value} onChange={onChange}/>
+                <SNButton buttonText={'search'} onClick={search} />
             </div>
             <div className={s.users}>
 

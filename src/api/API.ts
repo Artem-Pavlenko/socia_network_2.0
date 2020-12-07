@@ -64,7 +64,11 @@ export const usersAPI = {
     getFriends: (currentPage: number, pageSize: number) => {
         return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&friend=true`)
             .then(res => res.data)
-    }
+    },
+    searchUsers: (currentPage: number, pageSize: number, term: string) => {
+        return instance.get(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
+            .then(res => res.data)
+    },
 }
 
 
