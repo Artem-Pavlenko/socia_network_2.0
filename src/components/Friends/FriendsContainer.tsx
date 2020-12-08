@@ -10,6 +10,7 @@ import {
 } from "../../store/FriendsReducer";
 import Users from "../Users/Users";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
+import {DEV_MODE} from "../../common/dev.mode/devMode";
 
 
 const FriendsContainer = React.memo(() => {
@@ -23,13 +24,13 @@ const FriendsContainer = React.memo(() => {
         return () => {
             dispatch(setFriendsLoadingPage(true))
         }
-    }, [friends.currentPage, friends.pageSize, friends.isFetching, dispatch])
+    }, [friends.currentPage, friends.pageSize, dispatch])
 
     const setCurrentPage = (page: number) => {
         dispatch(setFriendCurrentPage(page))
     }
 
-    // console.log('friends rerender')
+    DEV_MODE && console.log('friends rerender')
 
     if (friends.isFetching) return <MiniPreloader/>
     return (

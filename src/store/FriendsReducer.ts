@@ -1,4 +1,4 @@
-import {UserType} from "./UsersReducer";
+import {setUsers, setUsersFetching, setUsersLoadingPage, setUsersTotalCount, UserType} from "./UsersReducer";
 import {Dispatch} from "redux";
 import {followingAPI, usersAPI} from "../api/API";
 
@@ -112,6 +112,18 @@ export const unfollowF = (userID: number) => ({type: 'friends/UNFOLLOW', userID}
 
 export const getFriendsThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     usersAPI.getFriends(currentPage, pageSize)
+        .then(res => {
+            dispatch(setFriends(res.items))
+            dispatch(setFriendsTotalCount(res.totalCount))
+            dispatch(setFriendsFetching(false))
+            dispatch(setFriendsLoadingPage(false))
+        })
+}
+
+export const searchFriends = (currentPage: number, pageSize: number, term: string) => (dispatch: Dispatch) => {
+    dispatch(setFriendsFetching(true))
+    dispatch(setFriendsLoadingPage(true))
+    usersAPI.searchFriends(currentPage, pageSize, term)
         .then(res => {
             dispatch(setFriends(res.items))
             dispatch(setFriendsTotalCount(res.totalCount))

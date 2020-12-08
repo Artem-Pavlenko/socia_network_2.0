@@ -8,6 +8,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {DEV_MODE} from "../../common/dev.mode/devMode";
 import {StateType} from "../../store/store";
 import SNButton from "../../common/common_component/button/SNButton";
+import {searchFriends} from "../../store/FriendsReducer";
 
 
 type UsersType = {
@@ -25,14 +26,21 @@ const Users = React.memo((props: UsersType) => {
 
     const [value, setValue] = useState('')
     const dispatch = useDispatch()
-    const {currentPage, pageSize} = useSelector<StateType, UsersRootType>( state => state.users)
+    const {currentPage, pageSize} = useSelector<StateType, UsersRootType>(state => state.users)
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
-
     }
+
     const search = () => {
-        dispatch(searchUsers(currentPage, pageSize, value))
+        switch (props.mode) {
+            case "friends":
+                dispatch(searchFriends(currentPage, pageSize, value))
+                break
+            case "users":
+                dispatch(searchUsers(currentPage, pageSize, value))
+                break
+        }
     }
 
     DEV_MODE && console.log('Users render')
@@ -48,7 +56,7 @@ const Users = React.memo((props: UsersType) => {
             </div>
             <div>
                 <input type="text" value={value} onChange={onChange}/>
-                <SNButton buttonText={'search'} onClick={search} />
+                <SNButton buttonText={'search'} onClick={search}/>
             </div>
             <div className={s.users}>
 

@@ -138,7 +138,6 @@ export const searchUsers = (currentPage: number, pageSize: number, term: string)
             dispatch(setUsersFetching(false))
             dispatch(setUsersLoadingPage(false))
         })
-
 }
 
 export const usersFollow = (ID: number) => (dispatch: Dispatch) => {

@@ -18,7 +18,7 @@ const UsersContainer = React.memo(() => {
         return () => {
             dispatch(setUsersLoadingPage(true))
         }
-    }, [users.currentPage, users.pageSize, users.isFetching, dispatch])
+    }, [users.currentPage, users.pageSize, dispatch])
 
     const setCurrentPage = useCallback((page: number) => {
         dispatch(setUsersCurrentPage(page))

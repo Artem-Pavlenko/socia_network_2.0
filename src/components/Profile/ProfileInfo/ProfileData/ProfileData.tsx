@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 import {ProfileType} from "../../../../store/ProfileReducer";
 import s from "../ProfileData/ProfileData.module.scss";
 import Contact from "../Contact/Contact";
 import SNButton from "../../../../common/common_component/button/SNButton";
+import {DEV_MODE} from "../../../../common/dev.mode/devMode";
 
 const ProfileData = React.memo((props: ProfileType) => {
 
@@ -10,8 +11,20 @@ const ProfileData = React.memo((props: ProfileType) => {
         show: false, text: "show contacts"
     })
 
-    // для отображения контактов, если они есть.
-    const contacts = Object.values(props.contacts).filter(v => v !== null)
+    const contacts = useMemo(() => {
+        return Object.values(props.contacts).filter(value => value !== null) // для отображения контактов, если они есть.
+    }, [props.contacts])
+
+    const filteredContacts = useMemo(() => {
+        return (Object.entries(props.contacts) as Array<Array<string>>).filter(v => v[1] !== '').map(c => c[0])
+    }, [props.contacts])
+
+    const contactsMemo = useMemo(() => {
+        return (filteredContacts as Array<keyof typeof props.contacts>).map(contact => {
+            return <Contact key={contact} contactTitle={contact[0].toUpperCase() + contact.slice(1)}
+                            contactValue={props.contacts[contact]}/>
+        })
+    }, [props, filteredContacts])
 
     const showHideContacts = () => {
         switch (showContacts.text) {
@@ -23,6 +36,8 @@ const ProfileData = React.memo((props: ProfileType) => {
                 break
         }
     }
+
+    DEV_MODE && console.log('ProfileData render')
 
     return (
         <div>
@@ -41,10 +56,11 @@ const ProfileData = React.memo((props: ProfileType) => {
                 {contacts.length !== 0 && <SNButton buttonText={showContacts.text} onClick={showHideContacts}/>}
                 {showContacts.show && <>
                     <h3>Contacts</h3>
-                    {(Object.keys(props.contacts) as Array<keyof typeof props.contacts>).map(key => {
-                        return <Contact key={key} contactTitle={key[0].toUpperCase() + key.slice(1)}
-                                        contactValue={props.contacts[key]}/>
-                    })}
+                    {/*{(filteredContacts as Array<keyof typeof props.contacts>).map(contact => {*/}
+                    {/*    return <Contact key={contact} contactTitle={contact[0].toUpperCase() + contact.slice(1)}*/}
+                    {/*                    contactValue={props.contacts[contact]}/>*/}
+                    {/*})}*/}
+                    {contactsMemo}
                 </>}
             </div>
         </div>
