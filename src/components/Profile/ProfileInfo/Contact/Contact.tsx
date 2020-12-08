@@ -1,4 +1,5 @@
 import React from "react";
+import s from "../Contact/Contact.module.scss"
 import {DEV_MODE} from "../../../../common/dev.mode/devMode";
 
 
@@ -15,7 +16,7 @@ const Contact = React.memo(({contactTitle, contactValue}: ContactType) => {
 
     if (!contactValue) return null
     return (
-        <div>
+        <div className={s.contactBlock}>
             <span style={{display: 'block', margin: '5px 1px'}}>{contactTitle} : </span>
             <a href={href as string} target='_blank' rel='noreferrer'>{contactValue}</a>
         </div>

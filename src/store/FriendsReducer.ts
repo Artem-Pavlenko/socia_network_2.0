@@ -1,4 +1,4 @@
-import {setUsers, setUsersFetching, setUsersLoadingPage, setUsersTotalCount, UserType} from "./UsersReducer";
+import {UserType} from "./UsersReducer";
 import {Dispatch} from "redux";
 import {followingAPI, usersAPI} from "../api/API";
 

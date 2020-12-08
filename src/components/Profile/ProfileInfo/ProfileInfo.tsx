@@ -20,34 +20,33 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
     const photoRef = useRef<HTMLInputElement>(null)
     const [editMode, setEditMode] = useState<boolean>(false)
 
-    
-    
+
     const onSelectedPhoto = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.files) {
             dispatch(updPhoto(e.currentTarget.files[0]))
         }
-    },[dispatch])
-    
+    }, [dispatch])
+
     const choosePhoto = useCallback(() => {
         photoRef && photoRef.current && photoRef.current.click()
-    },[photoRef])
-    
-    const editModeTrigger =  useCallback(() => {
+    }, [photoRef])
+
+    const editModeTrigger = useCallback(() => {
         editMode && setEditMode(false)
         !editMode && setEditMode(true)
         dispatch(clearErrors())
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[dispatch])
-    
+    }, [dispatch])
+
     const cancelEdit = useCallback(() => {
         dispatch(clearErrors())
         setEditMode(false)
-    },[dispatch])
+    }, [dispatch])
 
     // исправить кнопку изменения фото.
 
     DEV_MODE && console.log('ProfileInfo')
-    
+
     return (
         <div className={s.profileInfoBlock}>
             <div className={s.profileBlock}>
@@ -67,9 +66,11 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
                 </div>
             </div>
             <div className={s.descriptionBlock}>
-                <div className={s.profileData}>{editMode
-                    ? <EditProfileData {...props} cancelEdit={cancelEdit}/>
-                    : <ProfileData {...props} />}
+                <div className={s.profileData}>
+                    {editMode
+                        ? <EditProfileData {...props} cancelEdit={cancelEdit}/>
+                        : <ProfileData {...props} />
+                    }
                 </div>
                 {!userID && isAuth && <div className={s.imgEdit} onClick={editModeTrigger}></div>}
             </div>

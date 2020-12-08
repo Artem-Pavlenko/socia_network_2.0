@@ -33,6 +33,7 @@ const EditProfileData = React.memo((props: ProfileType & EditType) => {
     // const errorMessages = useSelector<StateType, string[]>(state => state.profile.messages)
     const dispatch = useDispatch()
     const {register, handleSubmit, setError, errors, getValues} = useForm<EditProfileDataForm>()
+    // for hook useCallback ('Extract it to a separate variable so it can be statically checked')
     const formValue = getValues()
 
     const currentErrorIn = useCallback((m: string, text: ContactsNames) => {
