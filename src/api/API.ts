@@ -57,8 +57,8 @@ export const instance = axios.create({
 })
 
 export const usersAPI = {
-    getUsers: (currentPage: number, pageSize: number) => {
-        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}`)
+    getUsers: (currentPage: number, pageSize: number, term: string = '') => {
+        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
             .then(res => res.data)
     },
     getFriends: (currentPage: number, pageSize: number) => {
@@ -71,6 +71,10 @@ export const usersAPI = {
     },
     searchFriends: (currentPage: number, pageSize: number, term: string) => {
         return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&term=${term}&friend=true`)
+            .then(res => res.data)
+    },
+    getUsers2: (currentPage: number, pageSize: number, term: string = '') => {
+        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
             .then(res => res.data)
     }
 }

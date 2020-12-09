@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../store/store";
-import {UsersRootType, setUsersCurrentPage, getUsersThunk, setUsersLoadingPage} from "../../store/UsersReducer";
+import {UsersRootType, setUsersLoadingPage, requestUsers} from "../../store/UsersReducer";
 import Users from "./Users";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 import {DEV_MODE} from "../../common/dev.mode/devMode";
@@ -13,16 +13,16 @@ const UsersContainer = React.memo(() => {
     const users = useSelector<StateType, UsersRootType>(state => state.users)
 
     useEffect(() => {
-        dispatch(getUsersThunk(users.currentPage, users.pageSize))
+        dispatch(requestUsers(users.currentPage, users.pageSize, users.filter.term))
 
         return () => {
             dispatch(setUsersLoadingPage(true))
         }
-    }, [users.currentPage, users.pageSize, dispatch])
+    }, [])
 
     const setCurrentPage = useCallback((page: number) => {
-        dispatch(setUsersCurrentPage(page))
-    }, [dispatch])
+        dispatch(requestUsers(page, users.pageSize, users.filter.term))
+    }, [dispatch, users.filter.term, users.pageSize])
 
     DEV_MODE && console.log('usersContainer page')
 

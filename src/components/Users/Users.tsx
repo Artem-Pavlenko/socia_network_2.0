@@ -1,7 +1,7 @@
 import React, {ChangeEvent, useState} from "react";
 import s from "../Users/Users.module.scss"
 import UserItem from "./UserItem/UserItem";
-import {searchUsers, UsersRootType, UserType} from "../../store/UsersReducer";
+import {requestUsers, UsersRootType, UserType} from "../../store/UsersReducer";
 import Paginator from "../../common/common_component/Paginator/Paginator";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 import {useDispatch, useSelector} from "react-redux";
@@ -9,7 +9,7 @@ import {DEV_MODE} from "../../common/dev.mode/devMode";
 import {StateType} from "../../store/store";
 import SNButton from "../../common/common_component/button/SNButton";
 import {searchFriends} from "../../store/FriendsReducer";
-import Search from "./Search/Search";
+import Search from "../../common/common_component/Search/Search";
 
 
 type UsersType = {
@@ -39,7 +39,7 @@ const Users = React.memo((props: UsersType) => {
                 dispatch(searchFriends(currentPage, pageSize, value))
                 break
             case "users":
-                dispatch(searchUsers(currentPage, pageSize, value))
+                dispatch(requestUsers(currentPage, pageSize, value))
                 break
         }
     }
@@ -57,7 +57,7 @@ const Users = React.memo((props: UsersType) => {
             </div>
             <div className={s.searchBlock}>
                 <Search value={value} onChange={onChange} />
-                <SNButton buttonText={'search'} onClick={search}/>
+                <SNButton buttonText={'find'} onClick={search}/>
             </div>
             <div className={s.users}>
 

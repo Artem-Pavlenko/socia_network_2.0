@@ -58,9 +58,9 @@ const UserItem = React.memo((props: UserType & Extra) => {
 
             </div>
             {isAuth && <>
-                <div className={s.followCheck}>
-                    <input type="checkbox" checked={props.followed} readOnly={true}/>
-                </div>
+                {/*<div className={s.followCheck}>*/}
+                {/*    <input type="checkbox" checked={props.followed} readOnly={true}/>*/}
+                {/*</div>*/}
                 <div className={s.button}>
                     <div className={`${s.following} ${props.followed
                         ? s.unfollow

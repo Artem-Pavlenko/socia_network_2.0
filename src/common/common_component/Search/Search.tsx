@@ -1,5 +1,5 @@
 import React, {ChangeEvent} from "react";
-import SNInput from "../../../common/common_component/input/SNInput";
+import SNInput from "../input/SNInput";
 import s from "../Search/Search.module.scss"
 
 type SearchField = {
@@ -11,7 +11,7 @@ const Search = (props: SearchField) => {
 
     return (
         <div className={s.search}>
-            <SNInput value={props.value} onChange={props.onChange} />
+            <SNInput value={props.value} onChange={props.onChange} type={'search'} />
         </div>
     )
 }
