@@ -9,6 +9,7 @@ import {DEV_MODE} from "../../common/dev.mode/devMode";
 import {StateType} from "../../store/store";
 import SNButton from "../../common/common_component/button/SNButton";
 import {searchFriends} from "../../store/FriendsReducer";
+import Search from "./Search/Search";
 
 
 type UsersType = {
@@ -54,8 +55,8 @@ const Users = React.memo((props: UsersType) => {
                     totalUsersCont={props.totalUsersCont}
                     onClick={props.setPage}/>
             </div>
-            <div>
-                <input type="text" value={value} onChange={onChange}/>
+            <div className={s.searchBlock}>
+                <Search value={value} onChange={onChange} />
                 <SNButton buttonText={'search'} onClick={search}/>
             </div>
             <div className={s.users}>
