@@ -4,7 +4,6 @@ import {followingAPI, usersAPI} from "../api/API";
 
 type ActionsType =
     ReturnType<typeof setFriends>
-    | ReturnType<typeof setFriendsTotalCount>
     | ReturnType<typeof setFriendCurrentPage>
     | ReturnType<typeof setFriendsFetching>
     | ReturnType<typeof leavingFriendsPage>
@@ -13,6 +12,7 @@ type ActionsType =
     | ReturnType<typeof setFriendsLoadingPage>
     | ReturnType<typeof followF>
     | ReturnType<typeof unfollowF>
+    | ReturnType<typeof setFilter>
 
 
 export type FriendsRootType = {
@@ -28,6 +28,9 @@ export type FriendsRootType = {
     }
     isLoadingPage: boolean
     mode: 'friends'
+    filter: {
+        term: string
+    }
 }
 
 const initState: FriendsRootType = {
@@ -42,15 +45,16 @@ const initState: FriendsRootType = {
         inProgress: false
     },
     isLoadingPage: true,
-    mode: 'friends'
+    mode: 'friends',
+    filter: {
+        term: ''
+    }
 }
 
 const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType): FriendsRootType => {
     switch (action.type) {
         case "friends/SET_FRIENDS":
-            return {...state, items: action.friends}
-        case "friends/SET_FRIENDS_COUNT":
-            return {...state, totalFriendsCount: action.friendsCount}
+            return {...state, items: action.friends, totalFriendsCount: action.totalCount}
         case "friends/FOLLOW_UNFOLLOW":
             return {
                 ...state,
@@ -78,16 +82,18 @@ const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType)
             return {...state, items: state.items.map(f => f.id === action.userID ? {...f, followed: true} : f)}
         case "friends/UNFOLLOW":
             return {...state, items: state.items.map(f => f.id === action.userID ? {...f, followed: false} : f)}
+        case "friends/SET_FILTER":
+            return  {...state, filter: {...state.filter, term: action.term}}
         default:
             return state
     }
 }
 
 
-export const setFriends = (friends: Array<UserType>) => ({type: 'friends/SET_FRIENDS', friends} as const)
-export const setFriendsTotalCount = (friendsCount: number) => ({
-    type: 'friends/SET_FRIENDS_COUNT',
-    friendsCount
+export const setFriends = (friends: Array<UserType>, totalCount: number) => ({
+    type: 'friends/SET_FRIENDS',
+    friends,
+    totalCount
 } as const)
 export const setFriendCurrentPage = (page: number) => ({type: 'friends/SET_CURRENT_PAGE', page} as const)
 // для прелодера (при загрузки целой стронице "Friends")
@@ -108,25 +114,15 @@ export const toggleFollowingFriendsProgress = (progress: boolean, ID: number) =>
 export const setFriendsLoadingPage = (isLoadingPage: boolean) => ({type: 'friends/SET_FETCH', isLoadingPage} as const)
 export const followF = (userID: number) => ({type: 'friends/FOLLOW', userID} as const)
 export const unfollowF = (userID: number) => ({type: 'friends/UNFOLLOW', userID} as const)
+export const setFilter = (term: string) => ({type: 'friends/SET_FILTER', term} as const)
 
 
-export const getFriendsThunk = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
-    usersAPI.getFriends(currentPage, pageSize)
+export const requestFriends = (currentPage: number, pageSize: number, term: string) => (dispatch: Dispatch) => {
+    dispatch(setFilter(term))
+    dispatch(setFriendCurrentPage(currentPage))
+    usersAPI.getFriends(currentPage, pageSize, term)
         .then(res => {
-            dispatch(setFriends(res.items))
-            dispatch(setFriendsTotalCount(res.totalCount))
-            dispatch(setFriendsFetching(false))
-            dispatch(setFriendsLoadingPage(false))
-        })
-}
-
-export const searchFriends = (currentPage: number, pageSize: number, term: string) => (dispatch: Dispatch) => {
-    dispatch(setFriendsFetching(true))
-    dispatch(setFriendsLoadingPage(true))
-    usersAPI.searchFriends(currentPage, pageSize, term)
-        .then(res => {
-            dispatch(setFriends(res.items))
-            dispatch(setFriendsTotalCount(res.totalCount))
+            dispatch(setFriends(res.items, res.totalCount))
             dispatch(setFriendsFetching(false))
             dispatch(setFriendsLoadingPage(false))
         })

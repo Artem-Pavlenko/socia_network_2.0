@@ -1,13 +1,8 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import s from "../Friends/Friends.module.scss"
 import {useDispatch, useSelector} from "react-redux";
 import {StateType} from "../../store/store";
-import {
-    FriendsRootType,
-    setFriendsLoadingPage,
-    setFriendCurrentPage,
-    getFriendsThunk
-} from "../../store/FriendsReducer";
+import {FriendsRootType, setFriendsLoadingPage, requestFriends} from "../../store/FriendsReducer";
 import Users from "../Users/Users";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
 import {DEV_MODE} from "../../common/dev.mode/devMode";
@@ -19,16 +14,16 @@ const FriendsContainer = React.memo(() => {
     const friends = useSelector<StateType, FriendsRootType>(state => state.friends)
 
     useEffect(() => {
-        dispatch(getFriendsThunk(friends.currentPage, friends.pageSize))
+        dispatch(requestFriends(friends.currentPage, friends.pageSize, ''))
 
         return () => {
             dispatch(setFriendsLoadingPage(true))
         }
-    }, [friends.currentPage, friends.pageSize, dispatch])
+    }, [])
 
-    const setCurrentPage = (page: number) => {
-        dispatch(setFriendCurrentPage(page))
-    }
+    const setCurrentPage = useCallback((page: number) => {
+        dispatch(requestFriends(page, friends.pageSize, friends.filter.term))
+    }, [dispatch, friends.filter.term, friends.pageSize])
 
     DEV_MODE && console.log('friends rerender')
 

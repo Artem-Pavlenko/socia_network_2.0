@@ -8,8 +8,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {DEV_MODE} from "../../common/dev.mode/devMode";
 import {StateType} from "../../store/store";
 import SNButton from "../../common/common_component/button/SNButton";
-import {searchFriends} from "../../store/FriendsReducer";
 import Search from "../../common/common_component/Search/Search";
+import {requestFriends} from "../../store/FriendsReducer";
 
 
 type UsersType = {
@@ -27,7 +27,7 @@ const Users = React.memo((props: UsersType) => {
 
     const [value, setValue] = useState('')
     const dispatch = useDispatch()
-    const {currentPage, pageSize} = useSelector<StateType, UsersRootType>(state => state.users)
+    const {pageSize} = useSelector<StateType, UsersRootType>(state => state.users)
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
@@ -36,10 +36,10 @@ const Users = React.memo((props: UsersType) => {
     const search = () => {
         switch (props.mode) {
             case "friends":
-                dispatch(searchFriends(currentPage, pageSize, value))
+                dispatch(requestFriends(1, pageSize, value))
                 break
             case "users":
-                dispatch(requestUsers(currentPage, pageSize, value))
+                dispatch(requestUsers(1, pageSize, value))
                 break
         }
     }

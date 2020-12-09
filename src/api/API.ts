@@ -61,24 +61,11 @@ export const usersAPI = {
         return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
             .then(res => res.data)
     },
-    getFriends: (currentPage: number, pageSize: number) => {
-        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&friend=true`)
-            .then(res => res.data)
-    },
-    searchUsers: (currentPage: number, pageSize: number, term: string) => {
-        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
-            .then(res => res.data)
-    },
-    searchFriends: (currentPage: number, pageSize: number, term: string) => {
-        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&term=${term}&friend=true`)
-            .then(res => res.data)
-    },
-    getUsers2: (currentPage: number, pageSize: number, term: string = '') => {
-        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
+    getFriends: (currentPage: number, pageSize: number, term: string = '') => {
+        return instance.get<UsersResponse>(`users?page=${currentPage}&count=${pageSize}&friend=true&term=${term}`)
             .then(res => res.data)
     }
 }
-
 
 
 
@@ -113,7 +100,6 @@ export const followingAPI = {
             .then(res => res.data)
     }
 }
-
 
 
 export const profileAPI = {
