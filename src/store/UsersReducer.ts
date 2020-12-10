@@ -116,11 +116,11 @@ export const setFilter = (term: string) => ({type: 'users/SET_FILTER', term} as 
 
 
 export const requestUsers = (currentPage: number, pageSize: number, term: string) => (dispatch: Dispatch) => {
+    dispatch(setUsersLoadingPage(true))
     dispatch(setFilter(term))
     dispatch(setCurrentPage(currentPage))
     usersAPI.getUsers(currentPage, pageSize, term)
         .then(res => {
-            debugger
             dispatch(setUsers(res.items, res.totalCount))
             dispatch(setUsersFetching(false))
             dispatch(setUsersLoadingPage(false))

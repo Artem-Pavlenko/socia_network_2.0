@@ -15,9 +15,9 @@ type Input = {
 const SNInput = ({type = 'text', ...props}: Input) => {
 
     return (
-        <div className={`${s.inputBlock } ${props.errors && s.error}`}>
+        <div className={`${s.inputBlock} ${props.errors && s.error}`}>
             <div>
-                <input className={s.textBox} type={type} {...props}/>
+                <input className={s.textBox} type={type}  {...props}/>
                 <span className={s.focusBorder}></span>
             </div>
         </div>

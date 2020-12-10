@@ -83,7 +83,7 @@ const FriendsReducer = (state: FriendsRootType = initState, action: ActionsType)
         case "friends/UNFOLLOW":
             return {...state, items: state.items.map(f => f.id === action.userID ? {...f, followed: false} : f)}
         case "friends/SET_FILTER":
-            return  {...state, filter: {...state.filter, term: action.term}}
+            return {...state, filter: {...state.filter, term: action.term}}
         default:
             return state
     }
@@ -118,6 +118,7 @@ export const setFilter = (term: string) => ({type: 'friends/SET_FILTER', term} a
 
 
 export const requestFriends = (currentPage: number, pageSize: number, term: string) => (dispatch: Dispatch) => {
+    dispatch(setFriendsLoadingPage(true))
     dispatch(setFilter(term))
     dispatch(setFriendCurrentPage(currentPage))
     usersAPI.getFriends(currentPage, pageSize, term)
