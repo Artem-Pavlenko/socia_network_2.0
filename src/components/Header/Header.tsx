@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AuthRootType, logout} from "../../store/AuthReducer";
 import {StateType} from "../../store/store";
 import ReactTypingEffect from "react-typing-effect";
+import SNButton from "../../common/common_component/button/SNButton";
 
 
 const Header = React.memo(() => {
@@ -30,9 +31,9 @@ const Header = React.memo(() => {
                     {isAuth
                         ? <>
                             <span>{data.login}</span>
-                            <button onClick={onLogout}>logout</button>
+                            <SNButton buttonText={'logout'} onClick={onLogout}/>
                         </>
-                        : <NavLink to={'/login'}>login</NavLink>
+                        : <NavLink to={'/login'}><SNButton buttonText={'login'}/></NavLink>
                     }
                 </div>
             </header>
