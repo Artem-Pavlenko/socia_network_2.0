@@ -1,6 +1,7 @@
 import React from "react";
 import {UserType} from "../../store/UsersReducer";
 import UserItem from "./UserItem/UserItem";
+import {Fade} from "react-awesome-reveal";
 
 type PropsType = {
     users: Array<UserType>
@@ -11,7 +12,7 @@ type PropsType = {
 export const MapUsers = React.memo((props: PropsType) => {
     return (
         <div>
-            {props.users.map(u => <UserItem
+            {props.users.map(u => <Fade><UserItem
                 photos={u.photos}
                 uniqueUrlName={u.uniqueUrlName}
                 key={u.id}
@@ -21,7 +22,7 @@ export const MapUsers = React.memo((props: PropsType) => {
                 name={u.name}
                 toggleFollowingProgress={props.toggleFollowingProgress}
                 mode={props.mode}
-            />)}
+            /></Fade>)}
         </div>
     )
 })

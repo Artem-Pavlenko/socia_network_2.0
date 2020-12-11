@@ -1,7 +1,10 @@
 import React from "react";
 import notFoundIcon from "../../assets/icon/404.svg"
 import s from "../404/NotFound.module.scss"
+import {Fade} from "react-awesome-reveal";
+
 const Particles = require('react-particles-js')
+
 
 const NotFound = () => {
 
@@ -18,13 +21,15 @@ const NotFound = () => {
     }
 
     return (
-        <div className={s.notFoundBlock}>
-            <Particles parems={particlesParams} className={s.particles}/>
-            <img src={notFoundIcon} alt="not found"/>
-            <div>
-                <span>not found</span>
+        <Fade>
+            <div className={s.notFoundBlock}>
+                <Particles parems={particlesParams} className={s.particles}/>
+                <img src={notFoundIcon} alt="not found"/>
+                <div>
+                    <span>not found</span>
+                </div>
             </div>
-        </div>
+        </Fade>
     )
 }
 

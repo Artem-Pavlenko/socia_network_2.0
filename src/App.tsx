@@ -14,6 +14,7 @@ import {StateType} from "./store/store";
 import MiniPreloader from "./common/common_component/Preloader/MiniPreloader/MiniPreloader";
 import {initializeApp} from "./store/appReducer";
 import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/NekoPreloader";
+import {Zoom} from "react-awesome-reveal"
 
 // Components that are loaded when needed (lazy-loading)
 const NotFound = React.lazy(() => import('./components/404/NotFound'))
@@ -25,7 +26,7 @@ const App = () => {
     const dispatch = useDispatch()
 
 
-    useEffect( () => {
+    useEffect(() => {
         dispatch(initializeApp())
     }, [])
 
@@ -34,25 +35,27 @@ const App = () => {
     if (!initialized) return <NekoPreloader/>
 
     return (
-        <div className="App">
-            <HeaderContainer/>
-            <NavBar/>
-            <div className="content-wrapper">
-                <Suspense fallback={<MiniPreloader/>}>
-                    <Switch>
-                        <Route path={"/profile/:userID?"} render={() => <ProfilePage/>}/>
-                        <Route path={"/friends"} render={() => <FriendsPage/>}/>
-                        <Route path={"/users"} render={() => <UsersPage/>}/>
-                        <Route path={"/messages"} render={() => <DialogsPage/>}/>
-                        <Route path={"/settings"} render={() => <Settings/>}/>
-                        <Route path={"/login"} render={() => <Login/>}/>
-                        <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
-                        {/*<Redirect from={"/"} to={"profile"}/>*/}
-                        <Route path={'*'} render={() => <NotFound/>}/>
-                    </Switch>
-                </Suspense>
+        <Zoom>
+            <div className="App">
+                <HeaderContainer/>
+                <NavBar/>
+                <div className="content-wrapper">
+                    <Suspense fallback={<MiniPreloader/>}>
+                        <Switch>
+                            <Route path={"/profile/:userID?"} render={() => <ProfilePage/>}/>
+                            <Route path={"/friends"} render={() => <FriendsPage/>}/>
+                            <Route path={"/users"} render={() => <UsersPage/>}/>
+                            <Route path={"/messages"} render={() => <DialogsPage/>}/>
+                            <Route path={"/settings"} render={() => <Settings/>}/>
+                            <Route path={"/login"} render={() => <Login/>}/>
+                            <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
+                            {/*<Redirect from={"/"} to={"profile"}/>*/}
+                            <Route path={'*'} render={() => <NotFound/>}/>
+                        </Switch>
+                    </Suspense>
+                </div>
             </div>
-        </div>
+        </Zoom>
     )
 }
 
