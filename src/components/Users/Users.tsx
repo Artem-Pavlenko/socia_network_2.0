@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
 import s from "../Users/Users.module.scss"
-import UserItem from "./UserItem/UserItem";
 import {requestUsers, UsersRootType, UserType} from "../../store/UsersReducer";
 import Paginator from "../../common/common_component/Paginator/Paginator";
 import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";

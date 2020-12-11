@@ -1,25 +1,18 @@
-import React, {ChangeEvent, useState} from "react"
-import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
-import _ from "lodash"
+import React from "react"
 
 const Settings = () => {
 
-    const [value, setValue] = useState<string>('')
-
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value)
-        deb()
-    }
-
-    const a = () => {
-        console.log('debounce')
-    }
-    const deb = _.debounce(a, 500)
-
     return (
         <div>
-            <input value={value} onChange={onChange} />
-            <MiniPreloader />
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/QI-bXKC2mvU" frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/mVq53ZJf5fY" frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen></iframe>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/KPqPrVUurLU" frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen></iframe>
         </div>
     )
 }
