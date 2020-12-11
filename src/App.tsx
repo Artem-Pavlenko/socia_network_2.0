@@ -27,7 +27,7 @@ const App = () => {
 
     useEffect( () => {
         dispatch(initializeApp())
-    })
+    }, [])
 
     const redirectTo = isAuth ? '/profile' : '/login'
 
@@ -48,7 +48,7 @@ const App = () => {
                         <Route path={"/login"} render={() => <Login/>}/>
                         <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
                         {/*<Redirect from={"/"} to={"profile"}/>*/}
-                        <Route render={() => <NotFound/>}/>
+                        <Route path={'*'} render={() => <NotFound/>}/>
                     </Switch>
                 </Suspense>
             </div>

@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AuthRootType, logout} from "../../store/AuthReducer";
 import {StateType} from "../../store/store";
+import ReactTypingEffect from "react-typing-effect";
 
 
 const Header = React.memo(() => {
@@ -19,8 +20,13 @@ const Header = React.memo(() => {
     return (
         <div className={s.headerBlock}>
             <header>
-                <img src={SocialNetworkIcon} alt=""/>
-                <div>
+                <div className={s.logo}>
+                    <img src={SocialNetworkIcon} alt=""/>
+                    <div className={s.typing}>
+                        <ReactTypingEffect text={'Hash society '}/>
+                    </div>
+                </div>
+                <div className={s.auth}>
                     {isAuth
                         ? <>
                             <span>{data.login}</span>
