@@ -8,7 +8,6 @@ import {StateType} from "../../store/store";
 import SNButton from "../../common/common_component/button/SNButton";
 import SNTextarea from "../../common/common_component/textarea/SNTextarea";
 import {Redirect} from "react-router-dom";
-import {Fade} from "react-awesome-reveal";
 
 
 const DialogsPage = React.memo(() => {
@@ -30,7 +29,7 @@ const DialogsPage = React.memo(() => {
     if (!isAuth) return <Redirect to={'/login'}/>
 
     return (
-        <Fade>
+
             <div className={s.dialogsBlock}>
                 <div className={s.users}>
                     {users.map(u => <DialogsItems key={u.id} id={u.id} name={u.name}/>)}
@@ -50,7 +49,7 @@ const DialogsPage = React.memo(() => {
                     </div>
                 </div>
             </div>
-        </Fade>
+
     )
 })
 

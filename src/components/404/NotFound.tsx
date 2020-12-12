@@ -1,7 +1,6 @@
 import React from "react";
 import notFoundIcon from "../../assets/icon/404.svg"
 import s from "../404/NotFound.module.scss"
-import {Fade} from "react-awesome-reveal";
 
 const Particles = require('react-particles-js')
 
@@ -21,7 +20,7 @@ const NotFound = () => {
     }
 
     return (
-        <Fade>
+
             <div className={s.notFoundBlock}>
                 <Particles parems={particlesParams} className={s.particles}/>
                 <img src={notFoundIcon} alt="not found"/>
@@ -29,7 +28,7 @@ const NotFound = () => {
                     <span>not found</span>
                 </div>
             </div>
-        </Fade>
+
     )
 }
 

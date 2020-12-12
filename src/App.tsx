@@ -14,7 +14,6 @@ import {StateType} from "./store/store";
 import MiniPreloader from "./common/common_component/Preloader/MiniPreloader/MiniPreloader";
 import {initializeApp} from "./store/appReducer";
 import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/NekoPreloader";
-import {Zoom} from "react-awesome-reveal"
 
 // Components that are loaded when needed (lazy-loading)
 const NotFound = React.lazy(() => import('./components/404/NotFound'))
@@ -25,7 +24,6 @@ const App = () => {
     const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
     const dispatch = useDispatch()
 
-
     useEffect(() => {
         dispatch(initializeApp())
     }, [])
@@ -35,7 +33,7 @@ const App = () => {
     if (!initialized) return <NekoPreloader/>
 
     return (
-        <Zoom>
+        // <Zoom>
             <div className="App">
                 <HeaderContainer/>
                 <NavBar/>
@@ -55,7 +53,7 @@ const App = () => {
                     </Suspense>
                 </div>
             </div>
-        </Zoom>
+        // </Zoom>
     )
 }
 

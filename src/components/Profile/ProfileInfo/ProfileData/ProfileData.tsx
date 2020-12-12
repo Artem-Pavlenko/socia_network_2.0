@@ -5,7 +5,6 @@ import Contact from "../Contact/Contact";
 import SNButton from "../../../../common/common_component/button/SNButton";
 import {DEV_MODE} from "../../../../common/dev.mode/devMode";
 import cn from "classnames"
-import {Fade} from "react-awesome-reveal";
 
 const ProfileData = React.memo((props: ProfileType) => {
 
@@ -39,30 +38,30 @@ const ProfileData = React.memo((props: ProfileType) => {
     DEV_MODE && console.log('ProfileData render')
 
     return (
-        <Fade>
-            <div className={s.contactDetails}>
-                <div className={cn(s.aboutMe, s.item)}>
-                    <span>{props.aboutMe}</span>
+
+        <div className={s.contactDetails}>
+            <div className={cn(s.aboutMe, s.item)}>
+                <span>{props.aboutMe}</span>
+            </div>
+            <div className={cn(s.lookingJob)}>
+                <div className={cn(s.isLookingForAJob, s.item)}>
+                    {props.lookingForAJob && <span>I'm looking for a job.</span>}
                 </div>
-                <div className={cn(s.lookingJob)}>
-                    <div className={cn(s.isLookingForAJob, s.item)}>
-                        {props.lookingForAJob && <span>I'm looking for a job.</span>}
-                    </div>
-                    <div className={cn(s.skills, s.item)}>
-                        {props.lookingForAJobDescription && <span>Skills: {props.lookingForAJobDescription}</span>}
-                    </div>
-                </div>
-                <div className={s.contacts}>
-                    {haveContacts.length !== 0 &&
-                    <div className={s.btn}><SNButton buttonText={showContacts.text} onClick={showHideContacts}/></div>}
-                    {showContacts.show && <Fade><>
-                        <h3>Contacts</h3>
-                        {contacts}
-                    </>
-                    </Fade>}
+                <div className={cn(s.skills, s.item)}>
+                    {props.lookingForAJobDescription && <span>Skills: {props.lookingForAJobDescription}</span>}
                 </div>
             </div>
-        </Fade>
+            <div className={s.contacts}>
+                {haveContacts.length !== 0 &&
+                <div className={s.btn}><SNButton buttonText={showContacts.text} onClick={showHideContacts}/></div>}
+                {showContacts.show && <>
+                    <h3>Contacts</h3>
+                    {contacts}
+                </>
+                }
+            </div>
+        </div>
+
     )
 })
 

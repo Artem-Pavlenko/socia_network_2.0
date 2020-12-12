@@ -13,7 +13,7 @@
     .photo {
       margin: 5px;
       width: 33%;
-
+      position: relative;
       img {
         width: 150px;
         border-radius: 5px;
@@ -30,11 +30,9 @@
         display: flex;
         flex-wrap: wrap;
         position: absolute;
-        height: 10%;
-        width: 12%;
-        bottom: 64%;
-        left: 19%;
-        opacity: 0;
+        bottom: 15%;
+        left: 2%;
+        opacity: 1;
         transition: all .5s linear;
 
         &:hover {

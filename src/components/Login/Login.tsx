@@ -9,7 +9,6 @@ import SNButton from "../../common/common_component/button/SNButton";
 import {yupResolver} from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import {Redirect} from "react-router-dom";
-import {Fade} from "react-awesome-reveal";
 
 type LoginForm = {
     email: string
@@ -52,7 +51,7 @@ const Login = () => {
     if (isAuth) return <Redirect to={'/profile'}/>
 
     return (
-        <Fade>
+
             <div className={s.loginFormBlock}>
                 <div className={s.logBlock}>
                     <h3>l o g i n</h3>
@@ -98,7 +97,7 @@ const Login = () => {
                     </div>
                 </form>
             </div>
-        </Fade>
+
     )
 }
 

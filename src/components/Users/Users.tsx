@@ -67,17 +67,6 @@ const Users = React.memo((props: UsersType) => {
                 {props.showPreloader && <MiniPreloader/>}
                 <MapUsers {...props}/>
 
-                {/*{props.users.map(u => <UserItem*/}
-                {/*    photos={u.photos}*/}
-                {/*    uniqueUrlName={u.uniqueUrlName}*/}
-                {/*    key={u.id}*/}
-                {/*    id={+u.id}*/}
-                {/*    status={u.status}*/}
-                {/*    followed={u.followed}*/}
-                {/*    name={u.name}*/}
-                {/*    toggleFollowingProgress={props.toggleFollowingProgress}*/}
-                {/*    mode={props.mode}*/}
-                {/*/>)}*/}
             </div>
         </div>
     )
