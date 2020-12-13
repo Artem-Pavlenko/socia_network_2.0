@@ -6,11 +6,11 @@ import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader
 import {useDispatch, useSelector} from "react-redux";
 import {DEV_MODE} from "../../common/dev.mode/devMode";
 import {StateType} from "../../store/store";
-import SNButton from "../../common/common_component/button/SNButton";
 import Search from "../../common/common_component/Search/Search";
 import {requestFriends} from "../../store/FriendsReducer";
 import _ from "lodash"
 import {MapUsers} from "./MapUsers";
+import {NotFound} from "../../common/common_component/NotFound/NotFound";
 
 
 type UsersType = {
@@ -60,13 +60,12 @@ const Users = React.memo((props: UsersType) => {
             </div>
             <div className={s.searchBlock}>
                 <Search value={value} onChange={onChange}/>
-                <SNButton buttonText={'find'}/>
             </div>
             <div className={s.users}>
-
                 {props.showPreloader && <MiniPreloader/>}
-                <MapUsers {...props}/>
-
+                {props.users.length === 0
+                    ? <NotFound text={'users not found'}/>
+                    : <MapUsers {...props}/>}
             </div>
         </div>
     )

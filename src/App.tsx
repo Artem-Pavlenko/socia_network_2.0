@@ -16,7 +16,7 @@ import {initializeApp} from "./store/appReducer";
 import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/NekoPreloader";
 
 // Components that are loaded when needed (lazy-loading)
-const NotFound = React.lazy(() => import('./components/404/NotFound'))
+const NotFoundPage = React.lazy(() => import('./common/common_component/NotFoundPage/NotFoundPage'))
 
 const App = () => {
 
@@ -49,7 +49,7 @@ const App = () => {
                         <Route path={"/login"} render={() => <Login/>}/>
                         <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
                         {/*<Redirect from={"/"} to={"profile"}/>*/}
-                        <Route path={'*'} render={() => <NotFound/>}/>
+                        <Route path={'*'} render={() => <NotFoundPage/>}/>
                     </Switch>
                 </Suspense>
             </div>

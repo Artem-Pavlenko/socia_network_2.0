@@ -9,6 +9,7 @@ type PropsType = {
 }
 
 export const MapUsers = React.memo((props: PropsType) => {
+
     return (
         <div>
             {props.users.map(u => <UserItem

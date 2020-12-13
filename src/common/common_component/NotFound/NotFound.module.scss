@@ -1,0 +1,19 @@
+
+.notFoundBlock {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+  .text {
+    padding-right: 10px;
+    span {
+      color: #FF8F8E;
+    }
+  }
+
+  .icon {
+    img {
+      width: 50px;
+    }
+  }
+}

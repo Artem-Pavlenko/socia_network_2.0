@@ -18,6 +18,7 @@ const FriendsContainer = React.memo(() => {
         return () => {
             dispatch(setFriendsLoadingPage(true))
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const setCurrentPage = useCallback((page: number) => {
