@@ -26,6 +26,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(initializeApp())
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const redirectTo = isAuth ? '/profile' : '/login'
@@ -34,25 +35,25 @@ const App = () => {
 
     return (
         // <Zoom>
-            <div className="App">
-                <HeaderContainer/>
-                <NavBar/>
-                <div className="content-wrapper">
-                    <Suspense fallback={<MiniPreloader/>}>
-                        <Switch>
-                            <Route path={"/profile/:userID?"} render={() => <ProfilePage/>}/>
-                            <Route path={"/friends"} render={() => <FriendsPage/>}/>
-                            <Route path={"/users"} render={() => <UsersPage/>}/>
-                            <Route path={"/messages"} render={() => <DialogsPage/>}/>
-                            <Route path={"/settings"} render={() => <Settings/>}/>
-                            <Route path={"/login"} render={() => <Login/>}/>
-                            <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
-                            {/*<Redirect from={"/"} to={"profile"}/>*/}
-                            <Route path={'*'} render={() => <NotFound/>}/>
-                        </Switch>
-                    </Suspense>
-                </div>
+        <div className="App">
+            <HeaderContainer/>
+            <NavBar/>
+            <div className="content-wrapper">
+                <Suspense fallback={<MiniPreloader/>}>
+                    <Switch>
+                        <Route path={"/profile/:userID?"} render={() => <ProfilePage/>}/>
+                        <Route path={"/friends"} render={() => <FriendsPage/>}/>
+                        <Route path={"/users"} render={() => <UsersPage/>}/>
+                        <Route path={"/messages"} render={() => <DialogsPage/>}/>
+                        <Route path={"/settings"} render={() => <Settings/>}/>
+                        <Route path={"/login"} render={() => <Login/>}/>
+                        <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
+                        {/*<Redirect from={"/"} to={"profile"}/>*/}
+                        <Route path={'*'} render={() => <NotFound/>}/>
+                    </Switch>
+                </Suspense>
             </div>
+        </div>
         // </Zoom>
     )
 }

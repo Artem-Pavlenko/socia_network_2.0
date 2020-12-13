@@ -37,7 +37,6 @@ const Users = React.memo((props: UsersType) => {
     const search = (value: string) => {
         props.mode === "friends" && dispatch(requestFriends(1, pageSize, value))
         props.mode === "users" && dispatch(requestUsers(1, pageSize, value))
-        console.log(value)
     }
 
     const change = _.debounce(search, 1000)
@@ -45,6 +44,7 @@ const Users = React.memo((props: UsersType) => {
     useEffect(() => {
         change(value)
         return change.cancel
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value])
 
     DEV_MODE && console.log('Users render')

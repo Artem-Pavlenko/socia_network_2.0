@@ -27,19 +27,16 @@ const UsersContainer = React.memo(() => {
     DEV_MODE && console.log('usersContainer page')
 
     if (users.isFetching) return <MiniPreloader/>
-    return (
-        <Users
-            users={users.items}
-            currentPage={users.currentPage}
-            pageSize={users.pageSize}
-            totalUsersCont={users.totalCount}
-            setPage={setCurrentPage}
-            showPreloader={users.isLoadingPage}
-            toggleFollowingProgress={users.toggleFollowingProgress.ID}
-            mode={'users'}
-        />
-    )
-
+    return <Users
+        users={users.items}
+        currentPage={users.currentPage}
+        pageSize={users.pageSize}
+        totalUsersCont={users.totalCount}
+        setPage={setCurrentPage}
+        showPreloader={users.isLoadingPage}
+        toggleFollowingProgress={users.toggleFollowingProgress.ID}
+        mode={'users'}
+    />
 })
 
 export default UsersContainer

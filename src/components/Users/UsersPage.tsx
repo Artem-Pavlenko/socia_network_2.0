@@ -11,7 +11,8 @@ const UsersPage = () => {
         return () => {
             dispatch(setLeavingUsersPage())
         }
-    },[dispatch])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[])
 
     return <UsersContainer/>
 }
