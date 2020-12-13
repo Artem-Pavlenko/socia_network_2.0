@@ -9,31 +9,16 @@ import {DEV_MODE} from "../../common/dev.mode/devMode";
 
 const FriendsContainer = React.memo(() => {
 
-    const dispatch = useDispatch()
     const friends = useSelector<StateType, FriendsRootType>(state => state.friends)
-
-    useEffect(() => {
-        dispatch(requestFriends(friends.currentPage, friends.pageSize, ''))
-
-        return () => {
-            dispatch(setFriendsLoadingPage(true))
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    const setCurrentPage = useCallback((page: number) => {
-        dispatch(requestFriends(page, friends.pageSize, friends.filter.term))
-    }, [dispatch, friends.filter.term, friends.pageSize])
 
     DEV_MODE && console.log('friends rerender')
 
-    if (friends.isFetching) return <MiniPreloader/>
     return <Users
+        term={friends.filter.term}
         users={friends.items}
         pageSize={friends.pageSize}
         currentPage={friends.currentPage}
         totalUsersCont={friends.totalFriendsCount}
-        setPage={setCurrentPage}
         showPreloader={friends.isLoadingPage}
         toggleFollowingProgress={friends.toggleFollowingProgress.ID}
         mode={'friends'}

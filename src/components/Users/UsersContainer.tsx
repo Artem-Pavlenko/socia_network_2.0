@@ -9,31 +9,16 @@ import {DEV_MODE} from "../../common/dev.mode/devMode";
 
 const UsersContainer = React.memo(() => {
 
-    const dispatch = useDispatch()
     const users = useSelector<StateType, UsersRootType>(state => state.users)
-
-    useEffect(() => {
-        dispatch(requestUsers(users.currentPage, users.pageSize, users.filter.term))
-
-        return () => {
-            dispatch(setUsersLoadingPage(true))
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    const setCurrentPage = useCallback((page: number) => {
-        dispatch(requestUsers(page, users.pageSize, users.filter.term))
-    }, [dispatch, users.filter.term, users.pageSize])
 
     DEV_MODE && console.log('usersContainer page')
 
-    if (users.isFetching) return <MiniPreloader/>
     return <Users
+        term={users.filter.term}
         users={users.items}
         currentPage={users.currentPage}
         pageSize={users.pageSize}
         totalUsersCont={users.totalCount}
-        setPage={setCurrentPage}
         showPreloader={users.isLoadingPage}
         toggleFollowingProgress={users.toggleFollowingProgress.ID}
         mode={'users'}

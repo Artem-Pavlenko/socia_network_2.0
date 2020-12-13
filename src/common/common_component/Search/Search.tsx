@@ -12,7 +12,7 @@ const Search = (props: SearchField) => {
 
     return (
         <div className={s.search}>
-            <SNInput value={props.value} onChange={props.onChange} type={'search'} onKeyPress={props.onKeyPress}/>
+            <SNInput {...props}/>
         </div>
     )
 }

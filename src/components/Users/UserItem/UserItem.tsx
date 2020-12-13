@@ -8,12 +8,12 @@ import {friendFollowing, friendUnfollow} from "../../../store/FriendsReducer";
 import {StateType} from "../../../store/store";
 import {DEV_MODE} from "../../../common/dev.mode/devMode";
 
-type Extra = {
+type PropsType = {
     toggleFollowingProgress: Array<number>
     mode: 'friends' | 'users'
 }
 
-const UserItem = React.memo((props: UserType & Extra) => {
+const UserItem = React.memo((props: UserType & PropsType) => {
 
     const dispatch = useDispatch()
     const btnRef = useRef<HTMLButtonElement>(null)
