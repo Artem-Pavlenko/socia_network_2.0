@@ -13,6 +13,7 @@ import {MapUsers} from "./MapUsers";
 import {NotFound} from "../../common/common_component/NotFound/NotFound";
 import {useHistory} from "react-router-dom";
 import * as queryString from "querystring";
+import SNButton from "../../common/common_component/button/SNButton";
 
 type UsersType = {
     users: Array<UserType>
@@ -27,22 +28,30 @@ type UsersType = {
 
 const Users = React.memo((props: UsersType) => {
 
-    const [value, setValue] = useState<string>(props.term)
     const dispatch = useDispatch()
     const users = useSelector<StateType, UsersRootType>(state => state.users)
     const friends = useSelector<StateType, FriendsRootType>(state => state.friends)
     const history = useHistory()
+    const [value, setValue] = useState<string>(props.term)
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         setValue(e.currentTarget.value)
     }
 
     const search = (value: string) => {
-        props.mode === "friends" && dispatch(requestFriends(1, friends.pageSize, value))
-        props.mode === "users" && dispatch(requestUsers(1, users.pageSize, value))
-    }
 
-    const change = _.debounce(search, 1000)
+        let friendsCurrentPageForDebounce = 1
+        let usersCurrentPageForDebounce = 1
+
+        if (value === '') {
+            friendsCurrentPageForDebounce = friends.currentPage
+            usersCurrentPageForDebounce = users.currentPage
+        }
+        debugger
+        props.mode === "friends" && dispatch(requestFriends(friendsCurrentPageForDebounce, friends.pageSize, value))
+        props.mode === "users" && dispatch(requestUsers(usersCurrentPageForDebounce, users.pageSize, value))
+    }
+    // const debounceSearch = _.debounce(search, 1000)
 
     let currentPage: number
     let term: string
@@ -57,24 +66,16 @@ const Users = React.memo((props: UsersType) => {
             break
     }
 
+
+
     useEffect(() => {
-        const parsed = queryString.parse(history.location.search.substr(1)) as {term: string, page: string}
+        // .substr(1) для того чтобы убрать "?"
+        const parsed = queryString.parse(history.location.search.substr(1)) as { term: string, page: string }
+        let actualPage = currentPage
+        let actualFilter = term
 
-        let actualPage: number
-        let actualFilter: string
-        switch (props.mode) {
-            case "users":
-                actualPage = users.currentPage
-                actualFilter = users.filter.term
-                break
-            case "friends":
-                actualPage = friends.currentPage
-                actualFilter = friends.filter.term
-                break
-        }
-
-        if (parsed.page) actualPage = +parsed.page
-        if (parsed.term) actualFilter = parsed.term as string // может прийти массив строк. для этого as string
+        if (!!parsed.page) actualPage = +parsed.page
+        if (!!parsed.term) actualFilter = parsed.term as string // может прийти массив строк. для этого as string
 
         props.mode === "users" && dispatch(requestUsers(actualPage, users.pageSize, actualFilter))
         props.mode === "friends" && dispatch(requestFriends(actualPage, friends.pageSize, actualFilter))
@@ -86,6 +87,14 @@ const Users = React.memo((props: UsersType) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
+    // для _.debounce
+    // useEffect(() => {
+    //     debugger
+    //     debounceSearch(value)
+    //     return debounceSearch.cancel
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [value])
+
     useEffect(() => {
         history.push({
             pathname: `/${props.mode}`,
@@ -94,11 +103,6 @@ const Users = React.memo((props: UsersType) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [term, props.mode, currentPage])
 
-    useEffect(() => {
-        change(value)
-        return change.cancel
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [value])
 
     const setPage = (page: number) => {
         props.mode === "friends" && dispatch(requestFriends(page, friends.pageSize, friends.filter.term))
@@ -109,6 +113,7 @@ const Users = React.memo((props: UsersType) => {
 
     if (props.mode === "friends" && friends.isFetching) return <MiniPreloader/>
     if (props.mode === "users" && users.isFetching) return <MiniPreloader/>
+
     return (
         <div className={s.usersBlock}>
             <div className={s.paginator}>
@@ -120,6 +125,7 @@ const Users = React.memo((props: UsersType) => {
             </div>
             <div className={s.searchBlock}>
                 <Search value={value} onChange={onChange}/>
+                <SNButton buttonText={'find'} onClick={ () => search(value)} />
             </div>
             <div className={s.users}>
                 {props.showPreloader && <MiniPreloader/>}
