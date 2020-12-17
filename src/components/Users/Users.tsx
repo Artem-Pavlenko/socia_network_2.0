@@ -14,7 +14,6 @@ import {NotFound} from "../../common/common_component/NotFound/NotFound";
 import {useHistory} from "react-router-dom";
 import * as queryString from "querystring";
 
-
 type UsersType = {
     users: Array<UserType>
     pageSize: number
@@ -75,7 +74,7 @@ const Users = React.memo((props: UsersType) => {
         }
 
         if (parsed.page) actualPage = +parsed.page
-        if (parsed.term) actualFilter = parsed.term as string
+        if (parsed.term) actualFilter = parsed.term as string // может прийти массив строк. для этого as string
 
         props.mode === "users" && dispatch(requestUsers(actualPage, users.pageSize, actualFilter))
         props.mode === "friends" && dispatch(requestFriends(actualPage, friends.pageSize, actualFilter))
@@ -92,6 +91,7 @@ const Users = React.memo((props: UsersType) => {
             pathname: `/${props.mode}`,
             search: `?term=${term}&page=${currentPage}`
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [term, props.mode, currentPage])
 
     useEffect(() => {
