@@ -1,89 +1,32 @@
-import React, {Suspense} from "react"
+import React, {useState} from "react"
 import 'antd/dist/antd.css'
-import {Layout, Menu, Breadcrumb} from 'antd';
-import {UserOutlined, LaptopOutlined, NotificationOutlined} from '@ant-design/icons';
-import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader";
-import {Redirect, Route, Switch} from "react-router-dom";
-import ProfilePage from "../Profile/ProfilePage";
-import FriendsPage from "../Friends/FriendsPage";
-import UsersPage from "../Users/UsersPage";
-import DialogsPage from "../Dialogs/Dialogs";
-import Login from "../Login/Login";
-import {useSelector} from "react-redux";
-import {StateType} from "../../store/store";
-import NotFoundPage from "../../common/common_component/NotFoundPage/NotFoundPage";
+import {Button, Modal} from "antd";
 
-const {SubMenu} = Menu;
-const {Header, Content, Footer, Sider} = Layout
 
 const Settings = () => {
 
-    const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
-    const redirectTo = isAuth ? '/profile' : '/login'
+    const [visible, setVisible] = useState(false);
 
     return (
-        <Layout>
-            <Header className="header">
-                <div className="logo"/>
-                <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']}>
-                    <Menu.Item key="1">nav 1</Menu.Item>
-                    <Menu.Item key="2">nav 2</Menu.Item>
-                    <Menu.Item key="3">nav 3</Menu.Item>
-                </Menu>
-            </Header>
-            <Content style={{padding: '0 50px'}}>
-                <Breadcrumb style={{margin: '16px 0'}}>
-                    <Breadcrumb.Item>Home</Breadcrumb.Item>
-                    <Breadcrumb.Item>List</Breadcrumb.Item>
-                    <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
-                <Layout className="site-layout-background" style={{padding: '24px 0'}}>
-                    <Sider className="site-layout-background" width={200}>
-                        <Menu
-                            mode="inline"
-                            defaultSelectedKeys={['1']}
-                            defaultOpenKeys={['sub1']}
-                            style={{height: '100%'}}
-                        >
-                            <SubMenu key="sub1" icon={<UserOutlined/>} title="subnav 1">
-                                <Menu.Item key="1">option1</Menu.Item>
-                                <Menu.Item key="2">option2</Menu.Item>
-                                <Menu.Item key="3">option3</Menu.Item>
-                                <Menu.Item key="4">option4</Menu.Item>
-                            </SubMenu>
-                            <SubMenu key="sub2" icon={<LaptopOutlined/>} title="subnav 2">
-                                <Menu.Item key="5">option5</Menu.Item>
-                                <Menu.Item key="6">option6</Menu.Item>
-                                <Menu.Item key="7">option7</Menu.Item>
-                                <Menu.Item key="8">option8</Menu.Item>
-                            </SubMenu>
-                            <SubMenu key="sub3" icon={<NotificationOutlined/>} title="subnav 3">
-                                <Menu.Item key="9">option9</Menu.Item>
-                                <Menu.Item key="10">option10</Menu.Item>
-                                <Menu.Item key="11">option11</Menu.Item>
-                                <Menu.Item key="12">option12</Menu.Item>
-                            </SubMenu>
-                        </Menu>
-                    </Sider>
-                    <Content style={{padding: '0 24px', minHeight: 280}}>
-                        {/*<Suspense fallback={<MiniPreloader/>}>*/}
-                        {/*    <Switch>*/}
-                        {/*        <Route path={"/profile/:userID?"} render={() => <ProfilePage/>}/>*/}
-                        {/*        <Route path={"/friends"} render={() => <FriendsPage/>}/>*/}
-                        {/*        <Route path={"/users"} render={() => <UsersPage/>}/>*/}
-                        {/*        <Route path={"/messages"} render={() => <DialogsPage/>}/>*/}
-                        {/*        <Route path={"/settings"} render={() => <Settings/>}/>*/}
-                        {/*        <Route path={"/login"} render={() => <Login/>}/>*/}
-                        {/*        <Route exact path={'/'}><Redirect to={redirectTo}/></Route>*/}
-                        {/*        /!*<Redirect from={"/"} to={"profile"}/>*!/*/}
-                        {/*        <Route path={'*'} render={() => <NotFoundPage/>}/>*/}
-                        {/*    </Switch>*/}
-                        {/*</Suspense>*/}
-                    </Content>
-                </Layout>
-            </Content>
-            <Footer style={{textAlign: 'center'}}>Footer</Footer>
-        </Layout>
+        <div>
+
+            <>
+                <Button type="primary" onClick={() => setVisible(true)}>
+                    Open Modal of 1000px width
+                </Button>
+                <Modal
+                    title="Modal 1000px width"
+                    centered
+                    visible={visible}
+                    onOk={() => setVisible(false)}
+                    onCancel={() => setVisible(false)}
+                    width={1000}
+                >
+                    <p>E R R O R</p>
+                </Modal>
+            </>
+            Settings
+        </div>
     )
 }
 

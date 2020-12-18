@@ -13,7 +13,7 @@ import MiniPreloader from "./common/common_component/Preloader/MiniPreloader/Min
 import {initializeApp} from "./store/appReducer";
 import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/NekoPreloader";
 
-import {Breadcrumb, Layout, Menu} from "antd";
+import {Layout, Menu} from "antd";
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from "@ant-design/icons";
 import 'antd/dist/antd.css'
 import {AuthRootType} from "./store/AuthReducer";
@@ -64,11 +64,6 @@ const App = () => {
         <Layout>
             <AppHeader/>
             <Content style={{padding: '0 50px'}}>
-                {/*<Breadcrumb style={{margin: '16px 0'}}>*/}
-                {/*    <Breadcrumb.Item>Home</Breadcrumb.Item>*/}
-                {/*    <Breadcrumb.Item>List</Breadcrumb.Item>*/}
-                {/*    <Breadcrumb.Item>App</Breadcrumb.Item>*/}
-                {/*</Breadcrumb>*/}
                 <ReactTypingEffect text={['Hash society ', 'Society for developers']}/>
                 <Layout className="site-layout-background" style={{padding: '24px 0'}}>
                     <Sider className="site-layout-background" width={175}>
