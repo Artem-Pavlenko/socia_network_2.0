@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
-import {profileAPI, ProfileData, Res} from "../api/API";
+import {profileAPI, ProfileData, Result} from "../api/API";
 import {StateType} from "./store";
+import {setError} from "./ErrorReducer";
 
 
 type ActionTypes =
@@ -105,49 +106,64 @@ export const setErrorMessages = (messages: string[]) => ({type: 'profile/SET_ERR
 export const clearErrors = () => ({type: 'profile/CLEAR_ERRORS'} as const)
 
 
-export const getProfile = (userID: number) => (dispatch: Dispatch) => {
+export const getProfile = (userID: number) => async (dispatch: Dispatch) => {
     dispatch(setProfileFetch(true))
-    let profile = profileAPI.getProfile(userID)
-    let status = profileAPI.getStatus(userID)
-    Promise.all([profile, status])
-        .then(res => {
-            dispatch(setProfile(res[0]))
-            dispatch(setStatus(res[1]))
-            dispatch(setProfileFetch(false))
-        })
+    try {
+        const profile = await profileAPI.getProfile(userID)
+        const status = await profileAPI.getStatus(userID)
+        debugger
+        const res = await Promise.all([profile, status])
+        dispatch(setProfile(res[0]))
+        dispatch(setStatus(res[1]))
+        dispatch(setProfileFetch(false))
+    } catch (e) {
+        setError(e.message)
+    }
+
+    // dispatch(setProfileFetch(true))
+    // let profile = profileAPI.getProfile(userID)
+    // let status = profileAPI.getStatus(userID)
+    // Promise.all([profile, status])
+    //     .then(res => {
+    //         dispatch(setProfile(res[0]))
+    //         dispatch(setStatus(res[1]))
+    //         dispatch(setProfileFetch(false))
+    //     })
 }
 
-export const updStatus = (status: string) => (dispatch: Dispatch) => {
-    profileAPI.updStatus(status)
-        .then(res => {
-            if (res.resultCode === Res.Success) {
-                dispatch(setStatus(status))
-            }
-        })
-        .catch(e => {
-            console.log('change status error :', e.message)
-        })
+export const updStatus = (status: string) => async (dispatch: Dispatch) => {
+    try {
+        const res = await profileAPI.updStatus(status)
+        if (res.resultCode === Result.Success) {
+            dispatch(setStatus(status))
+        }
+    } catch (e) {
+        setError(e.message)
+    }
 }
 
-export const updPhoto = (photo: string | Blob) => (dispatch: Dispatch) => {
-    profileAPI.updPhoto(photo)
-        .then(res => {
-            if (res.resultCode === Res.Success) {
-                dispatch(setPhoto(res.data.photos))
-
-            }
-        })
+export const updPhoto = (photo: string | Blob) => async (dispatch: Dispatch) => {
+    try {
+        const res = await profileAPI.updPhoto(photo)
+        if (res.resultCode === Result.Success) {
+            dispatch(setPhoto(res.data.photos))
+        }
+    } catch (e) {
+        setError(e.message)
+    }
 }
 
-export const updProfile = (profileData: ProfileData) => (dispatch: Dispatch, getState: () => StateType) => {
-    profileAPI.updProfile(profileData)
-        .then(res => {
-            if (res.resultCode === Res.Success){
-                dispatch<any>(getProfile(getState().profile.userId))
-            } else if (res.resultCode !== Res.Success) {
-                dispatch(setErrorMessages(res.messages))
-            }
-        })
+export const updProfile = (profileData: ProfileData) => async (dispatch: Dispatch, getState: () => StateType) => {
+    try {
+        const res = await profileAPI.updProfile(profileData)
+        if (res.resultCode === Result.Success) {
+            dispatch<any>(getProfile(getState().profile.userId))
+        } else if (res.resultCode !== Result.Success) {
+            dispatch(setErrorMessages(res.messages))
+        }
+    } catch (e) {
+        setError(e.message)
+    }
 }
 
 export default ProfileReducer

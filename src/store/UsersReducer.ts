@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
-import {followingAPI, usersAPI} from "../api/API";
+import {followingAPI, Result, usersAPI} from "../api/API";
+import {setError} from "./ErrorReducer";
 
 export type UserType = {
     followed: boolean
@@ -115,39 +116,45 @@ export const unfollowUser = (ID: number) => ({type: 'users/UNFOLLOW', ID} as con
 export const setFilter = (term: string) => ({type: 'users/SET_FILTER', term} as const)
 
 
-export const requestUsers = (currentPage: number, pageSize: number, term: string) => (dispatch: Dispatch) => {
+export const requestUsers = (currentPage: number, pageSize: number, term: string) => async (dispatch: Dispatch) => {
     dispatch(setUsersLoadingPage(true))
     dispatch(setFilter(term))
     dispatch(setCurrentPage(currentPage))
-    usersAPI.getUsers(currentPage, pageSize, term)
-        .then(res => {
-            dispatch(setUsers(res.items, res.totalCount))
-            dispatch(setUsersFetching(false))
-            dispatch(setUsersLoadingPage(false))
-        })
+    try {
+        const res = await usersAPI.getUsers(currentPage, pageSize, term)
+        dispatch(setUsers(res.items, res.totalCount))
+        dispatch(setUsersFetching(false))
+        dispatch(setUsersLoadingPage(false))
+    } catch (e) {
+        setError(e.messagea)
+    }
 }
 
 
-export const usersFollow = (ID: number) => (dispatch: Dispatch) => {
+export const usersFollow = (ID: number) => async (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, ID))
-    followingAPI.follow(ID)
-        .then(res => {
-            if (res.resultCode === 0) {
-                dispatch(followUser(ID))
-                dispatch(toggleFollowingProgress(false, ID))
-            }
-        })
+    try {
+        const res = await followingAPI.follow(ID)
+        if (res.resultCode === Result.Success) {
+            dispatch(followUser(ID))
+            dispatch(toggleFollowingProgress(false, ID))
+        }
+    } catch (e) {
+        setError(e.message)
+    }
 }
 
-export const usersUnfollow = (ID: number) => (dispatch: Dispatch) => {
+export const usersUnfollow = (ID: number) => async (dispatch: Dispatch) => {
     dispatch(toggleFollowingProgress(true, ID))
-    followingAPI.unfollow(ID)
-        .then(res => {
-            if (res.resultCode === 0) {
-                dispatch(unfollowUser(ID))
-                dispatch(toggleFollowingProgress(false, ID))
-            }
-        })
+    try {
+        const res = await followingAPI.unfollow(ID)
+        if (res.resultCode === Result.Success) {
+            dispatch(unfollowUser(ID))
+            dispatch(toggleFollowingProgress(false, ID))
+        }
+    } catch (e) {
+        setError(e.message)
+    }
 }
 
 export default UsersReducers

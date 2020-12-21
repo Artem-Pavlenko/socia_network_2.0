@@ -38,7 +38,7 @@ export type ProfileData = {
         mainLink: string
     }
 }
-export enum Res {
+export enum Result {
     Success = 0,
     Error = 1,
     CaptchaIsRequired = 10

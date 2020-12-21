@@ -7,6 +7,7 @@ import ProfileReducer from "./ProfileReducer";
 import AuthReducer from "./AuthReducer";
 import thunkMiddleware from "redux-thunk"
 import AppReducer from "./appReducer";
+import ErrorReducer from "./ErrorReducer";
 
 const reducers = combineReducers({
     message: MessageReducer,
@@ -15,7 +16,8 @@ const reducers = combineReducers({
     friends: FriendsReducer,
     profile: ProfileReducer,
     auth: AuthReducer,
-    app: AppReducer
+    app: AppReducer,
+    error: ErrorReducer
 })
 
 

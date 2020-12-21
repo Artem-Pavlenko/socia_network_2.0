@@ -1,6 +1,7 @@
 import {UserType} from "./UsersReducer";
 import {Dispatch} from "redux";
-import {followingAPI, usersAPI} from "../api/API";
+import {followingAPI, Result, usersAPI} from "../api/API";
+import {setError} from "./ErrorReducer";
 
 type ActionsType =
     ReturnType<typeof setFriends>
@@ -117,38 +118,44 @@ export const unfollowF = (userID: number) => ({type: 'friends/UNFOLLOW', userID}
 export const setFilter = (term: string) => ({type: 'friends/SET_FILTER', term} as const)
 
 
-export const requestFriends = (currentPage: number, pageSize: number, term: string) => (dispatch: Dispatch) => {
+export const requestFriends = (currentPage: number, pageSize: number, term: string) => async (dispatch: Dispatch) => {
     dispatch(setFriendsLoadingPage(true))
     dispatch(setFilter(term))
     dispatch(setFriendCurrentPage(currentPage))
-    usersAPI.getFriends(currentPage, pageSize, term)
-        .then(res => {
-            dispatch(setFriends(res.items, res.totalCount))
-            dispatch(setFriendsFetching(false))
-            dispatch(setFriendsLoadingPage(false))
-        })
+    try {
+        const res = await usersAPI.getFriends(currentPage, pageSize, term)
+        dispatch(setFriends(res.items, res.totalCount))
+        dispatch(setFriendsFetching(false))
+        dispatch(setFriendsLoadingPage(false))
+    } catch (e) {
+        setError(e.message)
+    }
 }
 
-export const friendFollowing = (ID: number) => (dispatch: Dispatch) => {
+export const friendFollowing = (ID: number) => async (dispatch: Dispatch) => {
     dispatch(toggleFollowingFriendsProgress(true, ID))
-    followingAPI.follow(ID)
-        .then(res => {
-            if (res.resultCode === 0) {
-                dispatch(followF(ID))
-                dispatch(toggleFollowingFriendsProgress(false, ID))
-            }
-        })
+    try {
+        const res = await followingAPI.follow(ID)
+        if (res.resultCode === Result.Success) {
+            dispatch(followF(ID))
+            dispatch(toggleFollowingFriendsProgress(false, ID))
+        }
+    } catch (e) {
+        setError(e.message)
+    }
 }
 
-export const friendUnfollow = (ID: number) => (dispatch: Dispatch) => {
+export const friendUnfollow = (ID: number) => async (dispatch: Dispatch) => {
     dispatch(toggleFollowingFriendsProgress(true, ID))
-    followingAPI.unfollow(ID)
-        .then(res => {
-            if (res.resultCode === 0) {
-                dispatch(unfollowF(ID))
-                dispatch(toggleFollowingFriendsProgress(false, ID))
-            }
-        })
+    try {
+        const res = await followingAPI.unfollow(ID)
+        if (res.resultCode === Result.Success) {
+            dispatch(unfollowF(ID))
+            dispatch(toggleFollowingFriendsProgress(false, ID))
+        }
+    } catch (e) {
+        setError(e.message)
+    }
 }
 
 

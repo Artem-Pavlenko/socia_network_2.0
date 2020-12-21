@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {authMe} from "./AuthReducer";
+import {setError} from "./ErrorReducer";
 
 type AppType = {
     initialized: boolean
@@ -22,8 +23,13 @@ const AppReducer = (state: AppType = initState, action: ActionTypes): AppType =>
 
 export const setInitialize = () => ({type: 'app/SET_INITIALIZE_APP'})
 
-export const initializeApp = () => (dispatch: Dispatch) => {
-    dispatch<any>(authMe()).then(() =>  dispatch(setInitialize()))
+export const initializeApp = () => async (dispatch: Dispatch) => {
+    try {
+        await dispatch<any>(authMe())
+        dispatch(setInitialize())
+    } catch (e) {
+        setError(e.message)
+    }
 }
 
 export default AppReducer
