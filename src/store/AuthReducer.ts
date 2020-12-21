@@ -61,7 +61,7 @@ export const authMe = () => async (dispatch: Dispatch) => {
             dispatch(setAuthUserData(res.data, true))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 
@@ -72,7 +72,7 @@ export const logout = () => async (dispatch: Dispatch) => {
             dispatch(setAuthUserData({id: null, login: null, email: null}, false))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 
@@ -90,7 +90,7 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
             res.messages.map(mess => dispatch(setAuthError(mess)))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 

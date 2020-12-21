@@ -28,7 +28,7 @@ export const initializeApp = () => async (dispatch: Dispatch) => {
         await dispatch<any>(authMe())
         dispatch(setInitialize())
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 

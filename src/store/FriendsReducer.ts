@@ -128,7 +128,7 @@ export const requestFriends = (currentPage: number, pageSize: number, term: stri
         dispatch(setFriendsFetching(false))
         dispatch(setFriendsLoadingPage(false))
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 
@@ -141,7 +141,7 @@ export const friendFollowing = (ID: number) => async (dispatch: Dispatch) => {
             dispatch(toggleFollowingFriendsProgress(false, ID))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 
@@ -154,7 +154,7 @@ export const friendUnfollow = (ID: number) => async (dispatch: Dispatch) => {
             dispatch(toggleFollowingFriendsProgress(false, ID))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 

@@ -117,7 +117,7 @@ export const getProfile = (userID: number) => async (dispatch: Dispatch) => {
         dispatch(setStatus(res[1]))
         dispatch(setProfileFetch(false))
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 
     // dispatch(setProfileFetch(true))
@@ -138,7 +138,7 @@ export const updStatus = (status: string) => async (dispatch: Dispatch) => {
             dispatch(setStatus(status))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 
@@ -149,7 +149,7 @@ export const updPhoto = (photo: string | Blob) => async (dispatch: Dispatch) => 
             dispatch(setPhoto(res.data.photos))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 
@@ -162,7 +162,7 @@ export const updProfile = (profileData: ProfileData) => async (dispatch: Dispatc
             dispatch(setErrorMessages(res.messages))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 

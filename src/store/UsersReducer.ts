@@ -126,7 +126,7 @@ export const requestUsers = (currentPage: number, pageSize: number, term: string
         dispatch(setUsersFetching(false))
         dispatch(setUsersLoadingPage(false))
     } catch (e) {
-        setError(e.messagea)
+        dispatch(setError(e.message))
     }
 }
 
@@ -140,7 +140,7 @@ export const usersFollow = (ID: number) => async (dispatch: Dispatch) => {
             dispatch(toggleFollowingProgress(false, ID))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 
@@ -153,7 +153,7 @@ export const usersUnfollow = (ID: number) => async (dispatch: Dispatch) => {
             dispatch(toggleFollowingProgress(false, ID))
         }
     } catch (e) {
-        setError(e.message)
+        dispatch(setError(e.message))
     }
 }
 
