@@ -1,0 +1,18 @@
+
+.popUpBlock {
+  position: fixed;
+  top: 86%;
+  left: 49%;
+  width: 150px;
+  height: 100px;
+  background-color: rgba(1, 1, 1, .8);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .text {
+    background-color: #2deeaf;
+
+  }
+}

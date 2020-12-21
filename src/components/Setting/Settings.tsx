@@ -1,13 +1,14 @@
 import React, {useState} from "react"
 import 'antd/dist/antd.css'
-import {Modal} from "../../common/common_component/Modal/Modal";
+import {Modal} from "../../common/common_component/ModalWimdow/Modal";
 import SNButton from "../../common/common_component/button/SNButton";
+import {PopUp} from "../../common/common_component/PopUp/PopUp";
 
 
 const Settings = () => {
 
     const [visible, setVisible] = useState(false);
-
+    const [popUp, setPopUp] = useState(false)
     const errors = ['bla bla', 'Lorem car firs', 'error']
 
     return (
@@ -20,6 +21,8 @@ const Settings = () => {
             >
                 {errors.map(e => <p>{e}</p>)}
             </Modal>}
+            <SNButton buttonText={'show PopUp'} onClick={() => setPopUp(true)}/>
+            {popUp && <PopUp text={'text'}/>}
         </>
     )
 }

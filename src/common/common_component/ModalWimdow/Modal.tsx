@@ -1,5 +1,5 @@
 import React, {ReactNode} from "react";
-import s from "../Modal/Modal.module.scss"
+import s from ".//Modal.module.scss"
 import SNButton from "../button/SNButton";
 
 type PropsType = {
