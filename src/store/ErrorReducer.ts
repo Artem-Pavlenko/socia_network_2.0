@@ -1,5 +1,4 @@
-
-type ErrorRootType = {
+export type ErrorRootType = {
     error: string[]
 }
 

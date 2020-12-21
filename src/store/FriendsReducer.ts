@@ -139,6 +139,8 @@ export const friendFollowing = (ID: number) => async (dispatch: Dispatch) => {
         if (res.resultCode === Result.Success) {
             dispatch(followF(ID))
             dispatch(toggleFollowingFriendsProgress(false, ID))
+        } else if (res.resultCode !== Result.Success) {
+            res.messages.forEach(e => dispatch(setError(e)))
         }
     } catch (e) {
         dispatch(setError(e.message))
@@ -152,6 +154,8 @@ export const friendUnfollow = (ID: number) => async (dispatch: Dispatch) => {
         if (res.resultCode === Result.Success) {
             dispatch(unfollowF(ID))
             dispatch(toggleFollowingFriendsProgress(false, ID))
+        } else if (res.resultCode !== Result.Success) {
+            res.messages.forEach(e => dispatch(setError(e)))
         }
     } catch (e) {
         dispatch(setError(e.message))

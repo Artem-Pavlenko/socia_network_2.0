@@ -88,6 +88,8 @@ export const login = (email: string, password: string, rememberMe: boolean, capt
             dispatch(setCaptcha(captcha.url))
         } else if (res.resultCode !== Result.Success) {
             res.messages.map(mess => dispatch(setAuthError(mess)))
+        } else if (res.resultCode !== Result.Success) {
+            res.messages.forEach(e => dispatch(setError(e)))
         }
     } catch (e) {
         dispatch(setError(e.message))

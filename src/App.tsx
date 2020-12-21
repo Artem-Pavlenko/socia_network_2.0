@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect} from 'react';
+import React, {Suspense, useEffect, useState} from 'react';
 import {Link, Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
 import Settings from "./components/Setting/Settings";
@@ -13,12 +13,13 @@ import MiniPreloader from "./common/common_component/Preloader/MiniPreloader/Min
 import {initializeApp} from "./store/appReducer";
 import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/NekoPreloader";
 
-import {Layout, Menu} from "antd";
+import {Layout, Menu, Modal} from "antd";
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from "@ant-design/icons";
 import 'antd/dist/antd.css'
 import {AuthRootType} from "./store/AuthReducer";
 import {AppHeader} from "./components/Header/AppHeader";
 import ReactTypingEffect from "react-typing-effect";
+import {clearErrors, ErrorRootType} from "./store/ErrorReducer";
 
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout
@@ -30,7 +31,10 @@ const App = () => {
 
     const initialized = useSelector<StateType, boolean>(state => state.app.initialized)
     const {isAuth} = useSelector<StateType, AuthRootType>(state => state.auth)
+    const errors = useSelector<StateType, ErrorRootType>(state => state.error)
     const dispatch = useDispatch()
+    const [visible, setVisible] = useState(false);
+
 
     useEffect(() => {
         dispatch(initializeApp())
@@ -105,6 +109,13 @@ const App = () => {
                 </Layout>
             </Content>
             <Footer style={{textAlign: 'center'}}>Footer</Footer>
+            <Modal
+                title={'Error...'}
+                centered
+                visible={!!errors.error.length}
+                onOk={() => dispatch(clearErrors())}
+                onCancel={() => dispatch(clearErrors())}
+            >{errors.error.map(e => <p>{e}</p>)}</Modal>
         </Layout>
     )
 }

@@ -138,6 +138,8 @@ export const usersFollow = (ID: number) => async (dispatch: Dispatch) => {
         if (res.resultCode === Result.Success) {
             dispatch(followUser(ID))
             dispatch(toggleFollowingProgress(false, ID))
+        } else if (res.resultCode !== Result.Success) {
+            res.messages.forEach(e => dispatch(setError(e)))
         }
     } catch (e) {
         dispatch(setError(e.message))
@@ -151,6 +153,8 @@ export const usersUnfollow = (ID: number) => async (dispatch: Dispatch) => {
         if (res.resultCode === Result.Success) {
             dispatch(unfollowUser(ID))
             dispatch(toggleFollowingProgress(false, ID))
+        } else if (res.resultCode !== Result.Success) {
+            res.messages.forEach(e => dispatch(setError(e)))
         }
     } catch (e) {
         dispatch(setError(e.message))

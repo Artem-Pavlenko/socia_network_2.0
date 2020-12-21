@@ -111,7 +111,6 @@ export const getProfile = (userID: number) => async (dispatch: Dispatch) => {
     try {
         const profile = await profileAPI.getProfile(userID)
         const status = await profileAPI.getStatus(userID)
-        debugger
         const res = await Promise.all([profile, status])
         dispatch(setProfile(res[0]))
         dispatch(setStatus(res[1]))
@@ -136,6 +135,8 @@ export const updStatus = (status: string) => async (dispatch: Dispatch) => {
         const res = await profileAPI.updStatus(status)
         if (res.resultCode === Result.Success) {
             dispatch(setStatus(status))
+        } else if (res.resultCode !== Result.Success) {
+            res.messages.forEach(e => dispatch(setError(e)))
         }
     } catch (e) {
         dispatch(setError(e.message))
@@ -147,6 +148,8 @@ export const updPhoto = (photo: string | Blob) => async (dispatch: Dispatch) => 
         const res = await profileAPI.updPhoto(photo)
         if (res.resultCode === Result.Success) {
             dispatch(setPhoto(res.data.photos))
+        } else if (res.resultCode !== Result.Success) {
+            res.messages.forEach(e => dispatch(setError(e)))
         }
     } catch (e) {
         dispatch(setError(e.message))
@@ -160,6 +163,7 @@ export const updProfile = (profileData: ProfileData) => async (dispatch: Dispatc
             dispatch<any>(getProfile(getState().profile.userId))
         } else if (res.resultCode !== Result.Success) {
             dispatch(setErrorMessages(res.messages))
+            res.messages.forEach(e => dispatch(setError(e)))
         }
     } catch (e) {
         dispatch(setError(e.message))
