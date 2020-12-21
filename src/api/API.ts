@@ -38,7 +38,6 @@ export type ProfileData = {
         mainLink: string
     }
 }
-
 export enum Result {
     Success = 0,
     Error = 1,

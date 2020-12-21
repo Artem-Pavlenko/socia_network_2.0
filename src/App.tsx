@@ -87,7 +87,7 @@ const App = () => {
                             </SubMenu>
                             <SubMenu key="sub3" icon={<NotificationOutlined/>} title="Others">
                                 <Menu.Item key="10"><Link to={'/news'}>News</Link></Menu.Item>
-                                <Menu.Item key="9"><Link to={'/settings'}>Setting</Link></Menu.Item>
+                                <Menu.Item key="9"><Link to={'/settings'}>Experimental</Link></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
