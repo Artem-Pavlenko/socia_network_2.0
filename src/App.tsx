@@ -26,6 +26,7 @@ const {Content, Footer, Sider} = Layout
 
 // Components that are loaded when needed (lazy-loading)
 const NotFoundPage = React.lazy(() => import('./common/common_component/NotFoundPage/NotFoundPage'))
+const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'))
 
 const App = () => {
 
@@ -80,6 +81,7 @@ const App = () => {
                             <SubMenu key="sub1" icon={<UserOutlined/>} title="Main">
                                 <Menu.Item key="1"><Link to={'/profile'}>Profile</Link></Menu.Item>
                                 <Menu.Item key="2"><Link to={'/messages'}>Messages</Link></Menu.Item>
+                                <Menu.Item key="3"><Link to={'/chat'}>Chat</Link></Menu.Item>
                             </SubMenu>
                             <SubMenu key="sub2" icon={<LaptopOutlined/>} title="Developers">
                                 <Menu.Item key="5"><Link to={'/users'}>Users</Link></Menu.Item>
@@ -100,6 +102,7 @@ const App = () => {
                                 <Route path={"/messages"} render={() => <DialogsPage/>}/>
                                 <Route path={"/settings"} render={() => <Settings/>}/>
                                 <Route path={"/login"} render={() => <Login/>}/>
+                                <Route path={"/chat"} render={() => <ChatPage/>}/>
                                 <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
                                 {/*<Redirect from={"/"} to={"profile"}/>*/}
                                 <Route path={'*'} render={() => <NotFoundPage/>}/>
