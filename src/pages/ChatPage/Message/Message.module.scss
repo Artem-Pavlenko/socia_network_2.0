@@ -1,3 +1,43 @@
-.messBlock {
 
+.messBlock {
+  display: flex;
+  justify-content: flex-start;
+  padding: 7px;
+
+  .author {
+    img {
+      width: 50px;
+      border-radius: 50%;
+    }
+
+  }
+
+  .mess {
+    background-color: rgba(192, 241, 173, .3);
+    margin-left: 7px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid;
+    border-radius: 7px;
+    padding: 5px;
+
+    .userName {
+      color: #e77a0e;
+      font-weight: 500;
+    }
+
+    .messText {
+
+    }
+  }
+}
+
+.owner {
+  flex-direction: row-reverse;
+
+  .mess {
+    .userName {
+      text-align: right;
+    }
+  }
 }

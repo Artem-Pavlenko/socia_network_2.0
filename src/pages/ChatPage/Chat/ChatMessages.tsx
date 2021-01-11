@@ -1,8 +1,13 @@
 import React, {useEffect, useRef, useState} from "react"
 import {ChatMessageType} from "../ChatPage"
-import {Message} from "../Message/Message";
-import SNTextarea from "../../../common/common_component/textarea/SNTextarea";
-import SNButton from "../../../common/common_component/button/SNButton";
+import {Message} from "../Message/Message"
+import SNTextarea from "../../../common/common_component/textarea/SNTextarea"
+import SNButton from "../../../common/common_component/button/SNButton"
+import s from "./ChatMessages.module.scss"
+import cn from "classnames"
+import {useSelector} from "react-redux"
+import {StateType} from "../../../store/store"
+
 
 const wsChanel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
@@ -10,6 +15,7 @@ const wsChanel = new WebSocket('wss://social-network.samuraijs.com/handlers/Chat
 export const ChatMessages: React.FC = () => {
 
     const scrollToBottom = useRef<HTMLDivElement>(null)
+    const ownerId = useSelector<StateType, number | null>(state => state.auth.data.id)
 
     const [messages, setMessages] = useState<ChatMessageType[]>([])
 
@@ -22,11 +28,20 @@ export const ChatMessages: React.FC = () => {
 
     useEffect(() => {
         scrollToBottom && scrollToBottom.current && scrollToBottom.current.scrollIntoView({behavior: "smooth"})
+        // console.log(ownerId)
+        // messages.length && console.log(messages[messages.length - 1].userId)
     }, [messages])
 
     return (
-        <div style={{height: '400px', overflowY: 'auto'}}>
-            {messages.map((m, i) => <Message key={i} message={m}/>)}
+        <div className={s.allMessagesBlock}>
+            {
+                messages.map((m, i) => <div
+                    key={i}
+                    className={cn(s.message, {[s.owner]: ownerId === m.userId})}
+                >
+                <Message message={m}/>
+            </div>)
+            }
             <div ref={scrollToBottom}/>
         </div>
     )
