@@ -1,11 +1,15 @@
-import React, {useEffect, useState} from "react"
+import React, {useEffect, useRef, useState} from "react"
 import {ChatMessageType} from "../ChatPage"
 import {Message} from "../Message/Message";
+import SNTextarea from "../../../common/common_component/textarea/SNTextarea";
+import SNButton from "../../../common/common_component/button/SNButton";
 
 const wsChanel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 
 export const ChatMessages: React.FC = () => {
+
+    const scrollToBottom = useRef<HTMLDivElement>(null)
 
     const [messages, setMessages] = useState<ChatMessageType[]>([])
 
@@ -16,12 +20,18 @@ export const ChatMessages: React.FC = () => {
         })
     }, [])
 
+    useEffect(() => {
+        scrollToBottom && scrollToBottom.current && scrollToBottom.current.scrollIntoView({behavior: "smooth"})
+    }, [messages])
+
     return (
         <div style={{height: '400px', overflowY: 'auto'}}>
             {messages.map((m, i) => <Message key={i} message={m}/>)}
+            <div ref={scrollToBottom}/>
         </div>
     )
 }
+
 
 export const AddChatMessageForm: React.FC = () => {
 
@@ -37,13 +47,13 @@ export const AddChatMessageForm: React.FC = () => {
     return (
         <div>
             <div>
-                <textarea
+                <SNTextarea
                     value={value}
                     onChange={(e) => setValue(e.currentTarget.value)}
-                ></textarea>
+                ></SNTextarea>
             </div>
             <div>
-                <button onClick={sendMessage}>send</button>
+                <SNButton buttonText={'send'} onClick={sendMessage}/>
             </div>
         </div>
     )
