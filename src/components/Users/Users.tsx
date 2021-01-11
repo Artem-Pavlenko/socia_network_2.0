@@ -8,12 +8,12 @@ import {DEV_MODE} from "../../common/dev.mode/devMode";
 import {StateType} from "../../store/store";
 import Search from "../../common/common_component/Search/Search";
 import {FriendsRootType, requestFriends, setFriendsLoadingPage} from "../../store/FriendsReducer";
-import _ from "lodash"
 import {MapUsers} from "./MapUsers";
 import {NotFound} from "../../common/common_component/NotFound/NotFound";
 import {useHistory} from "react-router-dom";
 import * as queryString from "querystring";
 import SNButton from "../../common/common_component/button/SNButton";
+// import _ from "lodash"
 
 type UsersType = {
     users: Array<UserType>

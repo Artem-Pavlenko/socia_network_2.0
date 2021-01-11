@@ -1,4 +1,4 @@
-import React, {Suspense, useEffect, useState} from 'react';
+import React, {Suspense, useEffect} from 'react';
 import {Link, Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
 import Settings from "./components/Setting/Settings";
@@ -26,7 +26,7 @@ const {Content, Footer, Sider} = Layout
 
 // Components that are loaded when needed (lazy-loading)
 const NotFoundPage = React.lazy(() => import('./common/common_component/NotFoundPage/NotFoundPage'))
-const ChatPage = React.lazy(() => import('./pages/Chat/ChatPage'))
+const ChatPage = React.lazy(() => import('./pages/ChatPage/ChatPage'))
 
 const App = () => {
 
@@ -34,7 +34,7 @@ const App = () => {
     const {isAuth} = useSelector<StateType, AuthRootType>(state => state.auth)
     const errors = useSelector<StateType, ErrorRootType>(state => state.error)
     const dispatch = useDispatch()
-    const [visible, setVisible] = useState(false);
+    // const [visible, setVisible] = useState(false)
 
 
     useEffect(() => {
