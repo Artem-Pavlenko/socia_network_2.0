@@ -1,6 +1,6 @@
-import React from "react";
-import {UserType} from "../../store/UsersReducer";
-import UserItem from "./UserItem/UserItem";
+import React from "react"
+import {UserType} from "../../store/UsersReducer"
+import UserItem from "./UserItem/UserItem"
 
 type PropsType = {
     users: Array<UserType>

@@ -1,9 +1,9 @@
 import React, {useCallback, useEffect} from "react";
-import {ProfileType, updProfile} from "../../../../store/ProfileReducer";
-import {useDispatch} from "react-redux";
-import {useForm} from "react-hook-form";
-import s from "../EditProfileData/EditProfileData.module.scss";
-import SNButton from "../../../../common/common_component/button/SNButton";
+import {useDispatch} from "react-redux"
+import {useForm} from "react-hook-form"
+import {ProfileType, updProfile} from "../../../../store/ProfileReducer"
+import s from "../EditProfileData/EditProfileData.module.scss"
+import SNButton from "../../../../common/common_component/button/SNButton"
 
 
 type EditType = {
@@ -27,7 +27,6 @@ type EditProfileDataForm = {
 }
 type ContactsNames = "fullName" | "lookingForAJob" | "lookingForAJobDescription" | "aboutMe" | "github"
     | "vk" | "facebook" | "instagram" | "twitter" | "website" | "youtube" | "mainLink"
-
 
 const EditProfileData = React.memo((props: ProfileType & EditType) => {
     // const errorMessages = useSelector<StateType, string[]>(state => state.profile.messages)

@@ -1,15 +1,15 @@
-import React, {ChangeEvent, useCallback, useRef, useState} from "react";
+import React, {ChangeEvent, useCallback, useRef, useState} from "react"
+import {useDispatch, useSelector} from "react-redux"
+import {useParams} from "react-router-dom"
 import s from "../ProfileInfo/ProfileInfo.module.scss"
-import {clearErrors, ProfileRootType, updPhoto} from "../../../store/ProfileReducer";
+import {clearErrors, ProfileRootType, updPhoto} from "../../../store/ProfileReducer"
 import userIMG from "../../../assets/icon/anonymous.svg"
-import ProfileStatus from "./ProfileStatus/ProfileStatus";
-import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {StateType} from "../../../store/store";
-import SNButton from "../../../common/common_component/button/SNButton";
-import EditProfileData from "./EditProfileData/EditProfileData";
-import ProfileData from "./ProfileData/ProfileData";
-import {DEV_MODE} from "../../../common/dev.mode/devMode";
+import ProfileStatus from "./ProfileStatus/ProfileStatus"
+import {StateType} from "../../../store/store"
+import SNButton from "../../../common/common_component/button/SNButton"
+import EditProfileData from "./EditProfileData/EditProfileData"
+import ProfileData from "./ProfileData/ProfileData"
+import {DEV_MODE} from "../../../common/dev.mode/devMode"
 
 
 const ProfileInfo = React.memo((props: ProfileRootType) => {
@@ -19,7 +19,6 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
     const dispatch = useDispatch()
     const photoRef = useRef<HTMLInputElement>(null)
     const [editMode, setEditMode] = useState<boolean>(false)
-
 
     const onSelectedPhoto = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.files) {
