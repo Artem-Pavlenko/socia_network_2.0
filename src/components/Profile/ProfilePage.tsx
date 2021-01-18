@@ -1,5 +1,5 @@
-import React from "react";
-import ProfileContainer from "./ProfileContainer";
+import React from "react"
+import ProfileContainer from "./ProfileContainer"
 
 const ProfilePage = () => {
 

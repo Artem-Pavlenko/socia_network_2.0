@@ -8,26 +8,32 @@
   padding: 55px 45px 40px 45px;
   border-radius: 8px;
   margin-bottom: 5px;
+
   .userInfo {
     border: 1px solid;
     @include flex(space-betwen, flex-center);
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
+
     .avaWithDescription {
       display: flex;
       justify-content: flex-start;
       align-items: flex-start;
       border: 1px solid;
-      .avatarBlock{
+
+      .avatarBlock {
         border: 1px solid;
+
         img {
           width: 120px;
         }
       }
+
       .name {
         padding: 15px 5px 5px 15px;
         border: 1px solid;
+
         div {
           opacity: .93;
           color: #FFFFFF;
@@ -35,17 +41,20 @@
         }
       }
     }
+
     .status {
       border: 1px solid;
       display: flex;
       flex-direction: column;
     }
   }
+
   .followCheck {
     position: relative;
     top: -132px;
     opacity: 0.3;
   }
+
   .button {
 
     position: relative;
@@ -57,19 +66,22 @@
     cursor: pointer;
     opacity: .85;
     transition: 2s;
+
     .unfollow {
       height: 100%;
-      transition:all 2s;
-      background-image: url("../../../assets/icon/minus.svg")  ;
+      transition: all 2s;
+      background-image: url("../../../assets/icon/minus.svg");
       background-repeat: no-repeat;
 
     }
+
     .follow {
       height: 100%;
-      transition:all 2s;
+      transition: all 2s;
       background-image: url("../../../assets/icon/plus.svg");
       background-repeat: no-repeat;
     }
+
     .wait {
       opacity: 0;
       transition: all .3s;
@@ -82,6 +94,7 @@
       //background-repeat: no-repeat;
       //animation: waiting 1s linear infinite;
     }
+
     button {
       display: none;
     }

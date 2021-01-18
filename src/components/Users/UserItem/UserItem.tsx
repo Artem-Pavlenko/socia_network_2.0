@@ -1,12 +1,12 @@
 import React, {useCallback, useRef} from "react"
-import s from "../UserItem/UserItem.module.scss"
-import {useDispatch, useSelector} from "react-redux";
-import {usersFollow, usersUnfollow, UserType} from "../../../store/UsersReducer";
+import {useDispatch, useSelector} from "react-redux"
+import {NavLink} from "react-router-dom"
+import {usersFollow, usersUnfollow, UserType} from "../../../store/UsersReducer"
+import {friendFollowing, friendUnfollow} from "../../../store/FriendsReducer"
 import userPhoto from "../../../assets/icon/anonymous.svg"
-import {NavLink} from "react-router-dom";
-import {friendFollowing, friendUnfollow} from "../../../store/FriendsReducer";
-import {StateType} from "../../../store/store";
-import {DEV_MODE} from "../../../common/dev.mode/devMode";
+import {DEV_MODE} from "../../../common/dev.mode/devMode"
+import s from "../UserItem/UserItem.module.scss"
+import {StateType} from "../../../store/store"
 
 type PropsType = {
     toggleFollowingProgress: Array<number>
@@ -28,11 +28,11 @@ const UserItem = React.memo((props: UserType & PropsType) => {
                 props.followed ? dispatch(usersUnfollow(props.id)) : dispatch(usersFollow(props.id))
                 break
         }
-    },[dispatch, props.followed, props.id, props.mode])
+    }, [dispatch, props.followed, props.id, props.mode])
 
     const onFollowUnfollowIcon = useCallback(() => {
         btnRef && btnRef.current && btnRef.current.click()
-    },[btnRef])
+    }, [btnRef])
 
     DEV_MODE && console.log('UserItem render')
 

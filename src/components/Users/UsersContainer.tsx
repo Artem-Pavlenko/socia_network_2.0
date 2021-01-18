@@ -1,9 +1,9 @@
-import React from "react";
-import {useSelector} from "react-redux";
-import {StateType} from "../../store/store";
-import {UsersRootType} from "../../store/UsersReducer";
-import Users from "./Users";
-import {DEV_MODE} from "../../common/dev.mode/devMode";
+import React from "react"
+import {useSelector} from "react-redux"
+import {UsersRootType} from "../../store/UsersReducer"
+import {DEV_MODE} from "../../common/dev.mode/devMode"
+import {StateType} from "../../store/store"
+import Users from "./Users"
 
 
 const UsersContainer = React.memo(() => {
