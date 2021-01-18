@@ -33,7 +33,7 @@ export const AddChatMessageForm: React.FC<AddChat> = ({wsChanel}) => {
         wsChanel?.addEventListener('open', openHandler)
         return () => {
             wsChanel?.removeEventListener('open', openHandler)
-            wsChanel?.close()
+            // wsChanel?.close()
         }
     }, [wsChanel])
 

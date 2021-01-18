@@ -30,7 +30,7 @@ export const ChatMessages: React.FC<ChatMessage> = ({wsChanel}) => {
         // если прийдёт новый сокет-канал, то сделаем (clearUp) зачистку старого канала
         return () => {
             wsChanel?.removeEventListener('message', messageHandler)
-            wsChanel?.close()
+            // wsChanel?.close()
         }
         // в зависимости wsChanel в случае если будем делать реконект, потеряется сооединение
         // и чтобы подписка была на новый сокет-канал
