@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from "react"
-import {useHistory} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
+import {useHistory} from "react-router-dom"
 import * as queryString from "querystring"
 import {FriendsRootType, requestFriends, setFriendsLoadingPage} from "../../store/FriendsReducer"
 import {requestUsers, setUsersLoadingPage, UsersRootType, UserType} from "../../store/UsersReducer"

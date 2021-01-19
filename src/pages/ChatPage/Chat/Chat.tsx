@@ -6,7 +6,6 @@ export const Chat: React.FC = () => {
 
     const [wsChanel, setWsChanel] = useState<WebSocket | null>(null)
 
-
     useEffect(() => {
         let ws: WebSocket
 
@@ -18,7 +17,6 @@ export const Chat: React.FC = () => {
             // в случае если есть сокет(ws !== null) и делаем реконект нужно подчистить слушателей, которые на закрытие
             // канала 'close' делают реконект, то есть рекурсивно вызывает fn createChanel();
             // иначе будет утечка памяти
-
             ws?.removeEventListener('close', reconnect)
             ws?.close()
 

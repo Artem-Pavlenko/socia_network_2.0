@@ -1,12 +1,12 @@
 import React, {useEffect} from "react"
 import {Redirect, useParams} from "react-router-dom"
 import {useDispatch, useSelector} from "react-redux"
-import MyPosts from "./MyPosts/MyPosts"
+import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader"
+import {getProfile, ProfileRootType} from "../../store/ProfileReducer"
 import ProfileInfo from "./ProfileInfo/ProfileInfo"
 import s from "../Profile/Profile.module.scss"
-import {getProfile, ProfileRootType} from "../../store/ProfileReducer"
 import {StateType} from "../../store/store"
-import MiniPreloader from "../../common/common_component/Preloader/MiniPreloader/MiniPreloader"
+import MyPosts from "./MyPosts/MyPosts"
 
 
 const ProfileContainer = React.memo(() => {

@@ -1,25 +1,25 @@
-import React, {Suspense, useEffect} from 'react';
-import {Link, Redirect, Route, Switch} from 'react-router-dom';
+import React, {Suspense, useEffect} from 'react'
+import {useDispatch, useSelector} from "react-redux"
+import {Link, Redirect, Route, Switch, useHistory} from 'react-router-dom'
 import './App.css';
-import Settings from "./components/Setting/Settings";
-import DialogsPage from "./components/Dialogs/Dialogs";
-import FriendsPage from "./components/Friends/FriendsPage";
-import UsersPage from "./components/Users/UsersPage";
-import ProfilePage from "./components/Profile/ProfilePage";
-import Login from "./components/Login/Login";
-import {useDispatch, useSelector} from "react-redux";
-import {StateType} from "./store/store";
-import MiniPreloader from "./common/common_component/Preloader/MiniPreloader/MiniPreloader";
-import {initializeApp} from "./store/appReducer";
-import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/NekoPreloader";
+import MiniPreloader from "./common/common_component/Preloader/MiniPreloader/MiniPreloader"
+import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/NekoPreloader"
+import FriendsPage from "./components/Friends/FriendsPage"
+import ProfilePage from "./components/Profile/ProfilePage"
+import DialogsPage from "./components/Dialogs/Dialogs"
+import Settings from "./components/Setting/Settings"
+import UsersPage from "./components/Users/UsersPage"
+import {initializeApp} from "./store/appReducer"
+import Login from "./components/Login/Login"
+import {StateType} from "./store/store"
 
-import {Layout, Menu, Modal} from "antd";
-import {LaptopOutlined, NotificationOutlined, UserOutlined} from "@ant-design/icons";
+import {LaptopOutlined, NotificationOutlined, UserOutlined} from "@ant-design/icons"
+import {clearErrors, ErrorRootType} from "./store/ErrorReducer"
+import {AppHeader} from "./components/Header/AppHeader"
+import ReactTypingEffect from "react-typing-effect"
+import {AuthRootType} from "./store/AuthReducer"
+import {Layout, Menu, Modal} from "antd"
 import 'antd/dist/antd.css'
-import {AuthRootType} from "./store/AuthReducer";
-import {AppHeader} from "./components/Header/AppHeader";
-import ReactTypingEffect from "react-typing-effect";
-import {clearErrors, ErrorRootType} from "./store/ErrorReducer";
 
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout
@@ -34,8 +34,7 @@ const App = () => {
     const {isAuth} = useSelector<StateType, AuthRootType>(state => state.auth)
     const errors = useSelector<StateType, ErrorRootType>(state => state.error)
     const dispatch = useDispatch()
-    // const [visible, setVisible] = useState(false)
-
+    const pathName = useHistory().location.pathname.substr(1)
 
     useEffect(() => {
         dispatch(initializeApp())
@@ -74,22 +73,22 @@ const App = () => {
                     <Sider className="site-layout-background" width={175}>
                         <Menu
                             mode="inline"
-                            defaultSelectedKeys={['1']}
+                            defaultSelectedKeys={[pathName.toString()]}
                             defaultOpenKeys={['sub1']}
                             style={{height: '100%',}}
                         >
                             <SubMenu key="sub1" icon={<UserOutlined/>} title="Main">
-                                <Menu.Item key="1"><Link to={'/profile'}>Profile</Link></Menu.Item>
-                                <Menu.Item key="2"><Link to={'/messages'}>Messages</Link></Menu.Item>
-                                <Menu.Item key="3"><Link to={'/chat'}>Chat</Link></Menu.Item>
+                                <Menu.Item key="profile"><Link to={'/profile'}>Profile</Link></Menu.Item>
+                                <Menu.Item key="messages"><Link to={'/messages'}>Messages</Link></Menu.Item>
+                                <Menu.Item key="chat"><Link to={'/chat'}>Chat</Link></Menu.Item>
                             </SubMenu>
                             <SubMenu key="sub2" icon={<LaptopOutlined/>} title="Developers">
-                                <Menu.Item key="5"><Link to={'/users'}>Users</Link></Menu.Item>
-                                <Menu.Item key="6"><Link to={'/friends'}>Friends</Link></Menu.Item>
+                                <Menu.Item key="users"><Link to={'/users'}>Users</Link></Menu.Item>
+                                <Menu.Item key="friends"><Link to={'/friends'}>Friends</Link></Menu.Item>
                             </SubMenu>
                             <SubMenu key="sub3" icon={<NotificationOutlined/>} title="Others">
-                                <Menu.Item key="10"><Link to={'/news'}>News</Link></Menu.Item>
-                                <Menu.Item key="9"><Link to={'/settings'}>Experimental</Link></Menu.Item>
+                                <Menu.Item key="news"><Link to={'/news'}>News</Link></Menu.Item>
+                                <Menu.Item key="settings"><Link to={'/settings'}>Experimental</Link></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>

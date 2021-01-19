@@ -1,15 +1,15 @@
 import React, {ChangeEvent, useCallback, useRef, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {useParams} from "react-router-dom"
-import s from "../ProfileInfo/ProfileInfo.module.scss"
 import {clearErrors, ProfileRootType, updPhoto} from "../../../store/ProfileReducer"
-import userIMG from "../../../assets/icon/anonymous.svg"
-import ProfileStatus from "./ProfileStatus/ProfileStatus"
-import {StateType} from "../../../store/store"
 import SNButton from "../../../common/common_component/button/SNButton"
 import EditProfileData from "./EditProfileData/EditProfileData"
-import ProfileData from "./ProfileData/ProfileData"
 import {DEV_MODE} from "../../../common/dev.mode/devMode"
+import ProfileStatus from "./ProfileStatus/ProfileStatus"
+import userIMG from "../../../assets/icon/anonymous.svg"
+import s from "../ProfileInfo/ProfileInfo.module.scss"
+import ProfileData from "./ProfileData/ProfileData"
+import {StateType} from "../../../store/store"
 
 
 const ProfileInfo = React.memo((props: ProfileRootType) => {
@@ -41,8 +41,6 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
         dispatch(clearErrors())
         setEditMode(false)
     }, [dispatch])
-
-    // исправить кнопку изменения фото.
 
     DEV_MODE && console.log('ProfileInfo')
 

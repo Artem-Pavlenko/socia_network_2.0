@@ -1,13 +1,11 @@
 import React, {useEffect, useRef, useState} from "react"
 import {useSelector} from "react-redux"
+import cn from "classnames"
 import {StateType} from "../../../store/store"
 import {ChatMessageType} from "../ChatPage"
 import {Message} from "../Message/Message"
 import s from "./ChatMessages.module.scss"
-import cn from "classnames"
 
-
-// const wsChanel = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx')
 
 type ChatMessage = {
     wsChanel: WebSocket | null
@@ -38,7 +36,6 @@ export const ChatMessages: React.FC<ChatMessage> = ({wsChanel}) => {
 
     useEffect(() => {
         scrollToBottom && scrollToBottom.current && scrollToBottom.current.scrollIntoView({behavior: "smooth"})
-        // messages.length && console.log(messages[messages.length - 1].userId)
     }, [messages])
 
     return (
