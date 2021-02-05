@@ -1,9 +1,9 @@
 import React from "react"
-import {ChatMessageType} from "../ChatPage"
 import s from "./Message.module.scss"
 import {useSelector} from "react-redux"
 import {StateType} from "../../../store/store"
 import cn from "classnames";
+import {ChatMessageType} from "../../../api/chatAPI";
 
 export const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
 

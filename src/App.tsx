@@ -1,37 +1,26 @@
-import React, {Suspense, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {useDispatch, useSelector} from "react-redux"
-import {Link, Redirect, Route, Switch, useHistory} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom'
 import './App.css';
-import MiniPreloader from "./common/common_component/Preloader/MiniPreloader/MiniPreloader"
 import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/NekoPreloader"
-import FriendsPage from "./components/Friends/FriendsPage"
-import ProfilePage from "./components/Profile/ProfilePage"
-import DialogsPage from "./components/Dialogs/Dialogs"
-import Experimental from "./components/Experimental/Experimental"
-import UsersPage from "./components/Users/UsersPage"
 import {initializeApp} from "./store/appReducer"
-import Login from "./components/Login/Login"
 import {StateType} from "./store/store"
 
 import {LaptopOutlined, NotificationOutlined, UserOutlined} from "@ant-design/icons"
 import {clearErrors, ErrorRootType} from "./store/ErrorReducer"
 import {AppHeader} from "./components/Header/AppHeader"
 import ReactTypingEffect from "react-typing-effect"
-import {AuthRootType} from "./store/AuthReducer"
 import {Layout, Menu, Modal} from "antd"
 import 'antd/dist/antd.css'
+import AppRoutes from "./routes/AppRoutes";
 
 const {SubMenu} = Menu;
 const {Content, Footer, Sider} = Layout
 
-// Components that are loaded when needed (lazy-loading)
-const NotFoundPage = React.lazy(() => import('./common/common_component/NotFoundPage/NotFoundPage'))
-const ChatPage = React.lazy(() => import('./pages/ChatPage/ChatPage'))
 
 const App = () => {
 
     const initialized = useSelector<StateType, boolean>(state => state.app.initialized)
-    const {isAuth} = useSelector<StateType, AuthRootType>(state => state.auth)
     const errors = useSelector<StateType, ErrorRootType>(state => state.error)
     const dispatch = useDispatch()
     const pathName = useHistory().location.pathname.substr(1)
@@ -41,7 +30,6 @@ const App = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const redirectTo = isAuth ? '/profile' : '/login'
 
     if (!initialized) return <NekoPreloader/>
 
@@ -93,22 +81,7 @@ const App = () => {
                         </Menu>
                     </Sider>
                     <Content style={{padding: '0 24px', minHeight: 280}}>
-                        <Suspense fallback={<MiniPreloader/>}>
-                            <Switch>
-                                <Route path={"/profile/:userID?"} render={() => <ProfilePage/>}/>
-                                <Route path={"/friends"} render={() => <FriendsPage/>}/>
-                                <Route path={"/users"} render={() => <UsersPage/>}/>
-                                <Route path={"/messages"} render={() => <DialogsPage/>}/>
-                                <Route path={"/experimental"} render={() => <Experimental/>}/>
-                                <Route path={"/login"} render={() => <Login/>}/>
-                                <Route path={"/chat"} render={() => <ChatPage/>}/>
-                                 {/*при первой загрузке в useHistory() попадает '/socia_network_2.0'*/}
-                                <Route exact path={'/socia_network_2.0'}><Redirect to={redirectTo}/></Route>
-                                <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
-                                {/*<Redirect from={"/"} to={"profile"}/>*/}
-                                <Route path={'*'} render={() => <NotFoundPage/>}/>
-                            </Switch>
-                        </Suspense>
+                        <AppRoutes/>
                     </Content>
                 </Layout>
             </Content>

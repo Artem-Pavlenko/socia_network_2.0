@@ -8,6 +8,7 @@ import AuthReducer from "./AuthReducer";
 import thunkMiddleware from "redux-thunk"
 import AppReducer from "./appReducer";
 import ErrorReducer from "./ErrorReducer";
+import {chatReducer} from "./chatReducer";
 
 const reducers = combineReducers({
     message: MessageReducer,
@@ -17,7 +18,8 @@ const reducers = combineReducers({
     profile: ProfileReducer,
     auth: AuthReducer,
     app: AppReducer,
-    error: ErrorReducer
+    error: ErrorReducer,
+    chat: chatReducer
 })
 
 
