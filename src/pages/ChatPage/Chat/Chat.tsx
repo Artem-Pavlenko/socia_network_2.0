@@ -36,7 +36,7 @@ export const Chat: React.FC = () => {
 
 
     return (
-        <div>
+        <div style={{height: '70vh'}}>
             <ChatMessages wsChanel={wsChanel}/>
             <AddChatMessageForm wsChanel={wsChanel}/>
         </div>

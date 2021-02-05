@@ -69,7 +69,7 @@ const App = () => {
             <AppHeader/>
             <Content style={{padding: '0 50px'}}>
                 <ReactTypingEffect text={['Hash society ', 'Society for developers']}/>
-                <Layout className="site-layout-background" style={{padding: '24px 0'}}>
+                <Layout className="site-layout-background" style={{padding: '15px 0'}}>
                     <Sider className="site-layout-background" width={175}>
                         <Menu
                             mode="inline"
@@ -102,6 +102,8 @@ const App = () => {
                                 <Route path={"/experimental"} render={() => <Experimental/>}/>
                                 <Route path={"/login"} render={() => <Login/>}/>
                                 <Route path={"/chat"} render={() => <ChatPage/>}/>
+                                 {/*при первой загрузке в useHistory() попадает '/socia_network_2.0'*/}
+                                <Route exact path={'/socia_network_2.0'}><Redirect to={redirectTo}/></Route>
                                 <Route exact path={'/'}><Redirect to={redirectTo}/></Route>
                                 {/*<Redirect from={"/"} to={"profile"}/>*/}
                                 <Route path={'*'} render={() => <NotFoundPage/>}/>

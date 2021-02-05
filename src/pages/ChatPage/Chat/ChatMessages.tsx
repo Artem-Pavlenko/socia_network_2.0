@@ -40,15 +40,10 @@ export const ChatMessages: React.FC<ChatMessage> = ({wsChanel}) => {
 
     return (
         <div className={s.allMessagesBlock}>
-            {
-                messages.map((m, i) =>
-                    <div
-                        key={i}
-                        className={cn(s.message, {[s.owner]: ownerId === m.userId})}
-                    >
-                        <Message message={m}/>
-                    </div>)
-            }
+            {messages.map((m, i) =>
+                <div key={i} className={cn(s.message, {[s.owner]: ownerId === m.userId})}>
+                    <Message message={m}/>
+                </div>)}
             <div ref={scrollToBottom}/>
         </div>
     )

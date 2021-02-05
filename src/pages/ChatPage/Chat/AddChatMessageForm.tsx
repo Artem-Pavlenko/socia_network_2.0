@@ -29,7 +29,7 @@ export const AddChatMessageForm: React.FC<AddChat> = ({wsChanel}) => {
     useEffect(() => {
         const openHandler = () => {
             setReadyStatus('ready')
-        };
+        }
         wsChanel?.addEventListener('open', openHandler)
         return () => {
             wsChanel?.removeEventListener('open', openHandler)
@@ -50,7 +50,7 @@ export const AddChatMessageForm: React.FC<AddChat> = ({wsChanel}) => {
                 />
             </div>
             <div>
-                <SNButton buttonText={'cancel'} disabled={!value}/>
+                <SNButton buttonText={'cancel'} disabled={!value} onClick={() => setValue('')}/>
                 {/*дизеблим кнопку до тех пор пока канал не установлен*/}
                 {/*<SNButton disabled={wsChanel.readyState !== WebSocket.OPEN} buttonText={'send'} onClick={sendMessage}/>*/}
                 <SNButton

@@ -27,13 +27,25 @@
     }
 
     .messText {
-
+      color: #4b576e;
     }
   }
 }
 
 .owner {
   flex-direction: row-reverse;
+
+  .author {
+    img {
+      border: #2deeaf 2px solid;
+    }
+  }
+
+  .mess {
+    .userName {
+      color: blue;
+    }
+  }
 
   .mess {
     .userName {
