@@ -6,7 +6,7 @@ import {ChatType, sendMessage} from "../../../store/chatReducer"
 import {StateType} from "../../../store/store";
 
 
-export const AddChatMessageForm: React.FC = () => {
+export const AddChatMessageForm: React.FC = React.memo (() => {
     const {status} = useSelector<StateType, ChatType>(state => state.chat)
     const [value, setValue] = useState<string>('')
     const dispatch = useDispatch()
@@ -42,4 +42,4 @@ export const AddChatMessageForm: React.FC = () => {
             </div>
         </div>
     )
-}
+})

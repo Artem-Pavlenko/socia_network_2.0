@@ -11,12 +11,9 @@ export const Chat: React.FC = () => {
 
     return (
         <div style={{height: '70vh'}}>
-            {status === "error" ? <div>Some error occurred. Please refresh page...</div>
-                : <>
-                    <ChatMessages/>
-                    <AddChatMessageForm/>
-                </>
-            }
+            {status === "error" && <div>Some error occurred. Please refresh page...</div>}
+            <ChatMessages/>
+            <AddChatMessageForm/>
         </div>
     )
 }

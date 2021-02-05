@@ -1,4 +1,4 @@
-export type ChatMessageType = {
+export type ChatMessageAPIType = {
     message: string
     photo: string
     userId: number
@@ -6,7 +6,7 @@ export type ChatMessageType = {
 }
 export type StatusType = 'pending' | 'ready' | 'error'
 type EventsNamesType = 'message_received' | 'status_changed'
-type MessagesReceivedSubscriberType = (messages: ChatMessageType[]) => void
+type MessagesReceivedSubscriberType = (messages: ChatMessageAPIType[]) => void
 type StatusChangedSubscriberType = (status: StatusType) => void
 
 let ws: WebSocket | null = null
@@ -20,6 +20,10 @@ const reconnect = () => {
 const messageHandler = (e: MessageEvent) => {
     const newMessages = JSON.parse(e.data)
     subscribers['message_received'].forEach(s => s(newMessages))
+}
+
+const notifySubscribersAboutStatusChanging = (status: StatusType) => {
+    subscribers["status_changed"].forEach(s => s(status))
 }
 
 const openHandler = () => {
@@ -38,9 +42,7 @@ const cleanUp = () => {
     ws?.removeEventListener('error', errorHandler)
 }
 
-const notifySubscribersAboutStatusChanging = (status: StatusType) => {
-    subscribers["status_changed"].forEach(s => s(status))
-}
+
 
 function createChanel() {
     // в случае если есть сокет(ws !== null) и делаем реконект нужно подчистить слушателей, которые на закрытие

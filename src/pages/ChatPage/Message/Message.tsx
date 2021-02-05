@@ -3,9 +3,9 @@ import s from "./Message.module.scss"
 import {useSelector} from "react-redux"
 import {StateType} from "../../../store/store"
 import cn from "classnames";
-import {ChatMessageType} from "../../../api/chatAPI";
+import {ChatMessageAPIType} from "../../../api/chatAPI";
 
-export const Message: React.FC<{ message: ChatMessageType }> = ({message}) => {
+export const Message: React.FC<{ message: ChatMessageAPIType }> = ({message}) => {
 
     const ownerId = useSelector<StateType, number | null>(state => state.auth.data.id)
 
