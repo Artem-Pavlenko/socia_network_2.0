@@ -1,15 +1,14 @@
 import React, {KeyboardEvent, useState} from "react"
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import SNTextarea from "../../../common/common_component/textarea/SNTextarea"
 import SNButton from "../../../common/common_component/button/SNButton"
-import {sendMessage} from "../../../store/chatReducer"
+import {ChatType, sendMessage} from "../../../store/chatReducer"
+import {StateType} from "../../../store/store";
 
 
 export const AddChatMessageForm: React.FC = () => {
-
+    const {status} = useSelector<StateType, ChatType>(state => state.chat)
     const [value, setValue] = useState<string>('')
-    // WebSocket status
-    // const [readyStatus, setReadyStatus] = useState<'pending' | 'ready'>('pending')
     const dispatch = useDispatch()
     const sendMessageHandler = () => {
         if (value.trim()) {
@@ -22,21 +21,6 @@ export const AddChatMessageForm: React.FC = () => {
             sendMessageHandler()
         }
     }
-
-    // useEffect(() => {
-    //     const openHandler = () => {
-    //         setReadyStatus('ready')
-    //     }
-    //     wsChanel?.addEventListener('open', openHandler)
-    //     return () => {
-    //         wsChanel?.removeEventListener('open', openHandler)
-    //         // wsChanel?.close()
-    //     }
-    // }, [wsChanel])
-
-    // мы можем отправить сообщение быстрее чем установиться соедениние с каналом сокета
-    // для этого нужно садизеблить кнопку до тех пор пока канал не будет открыт
-
     return (
         <div>
             <div>
@@ -51,7 +35,7 @@ export const AddChatMessageForm: React.FC = () => {
                 {/*дизеблим кнопку до тех пор пока канал не установлен*/}
                 {/*<SNButton disabled={wsChanel.readyState !== WebSocket.OPEN} buttonText={'send'} onClick={sendMessage}/>*/}
                 <SNButton
-                    // disabled={wsChanel == null || readyStatus !== 'ready'}
+                    disabled={status !== 'ready'}
                     buttonText={'send'}
                     onClick={sendMessageHandler}
                 />
