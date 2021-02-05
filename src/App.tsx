@@ -7,7 +7,7 @@ import NekoPreloader from "./common/common_component/Preloader/NekoPreloader/Nek
 import FriendsPage from "./components/Friends/FriendsPage"
 import ProfilePage from "./components/Profile/ProfilePage"
 import DialogsPage from "./components/Dialogs/Dialogs"
-import Settings from "./components/Setting/Settings"
+import Experimental from "./components/Experimental/Experimental"
 import UsersPage from "./components/Users/UsersPage"
 import {initializeApp} from "./store/appReducer"
 import Login from "./components/Login/Login"
@@ -65,7 +65,7 @@ const App = () => {
         //         </Suspense>
         //     </div>
         // </div>
-        <Layout>
+        <Layout style={{minHeight: '100vh'}}>
             <AppHeader/>
             <Content style={{padding: '0 50px'}}>
                 <ReactTypingEffect text={['Hash society ', 'Society for developers']}/>
@@ -88,7 +88,7 @@ const App = () => {
                             </SubMenu>
                             <SubMenu key="sub3" icon={<NotificationOutlined/>} title="Others">
                                 <Menu.Item key="news"><Link to={'/news'}>News</Link></Menu.Item>
-                                <Menu.Item key="settings"><Link to={'/settings'}>Experimental</Link></Menu.Item>
+                                <Menu.Item key="settings"><Link to={'/experimental'}>Experimental</Link></Menu.Item>
                             </SubMenu>
                         </Menu>
                     </Sider>
@@ -99,7 +99,7 @@ const App = () => {
                                 <Route path={"/friends"} render={() => <FriendsPage/>}/>
                                 <Route path={"/users"} render={() => <UsersPage/>}/>
                                 <Route path={"/messages"} render={() => <DialogsPage/>}/>
-                                <Route path={"/settings"} render={() => <Settings/>}/>
+                                <Route path={"/experimental"} render={() => <Experimental/>}/>
                                 <Route path={"/login"} render={() => <Login/>}/>
                                 <Route path={"/chat"} render={() => <ChatPage/>}/>
                                 <Route exact path={'/'}><Redirect to={redirectTo}/></Route>

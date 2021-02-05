@@ -47,7 +47,7 @@ const Users = React.memo((props: UsersType) => {
             friendsCurrentPageForDebounce = friends.currentPage
             usersCurrentPageForDebounce = users.currentPage
         }
-        debugger
+
         props.mode === "friends" && dispatch(requestFriends(friendsCurrentPageForDebounce, friends.pageSize, value))
         props.mode === "users" && dispatch(requestUsers(usersCurrentPageForDebounce, users.pageSize, value))
     }

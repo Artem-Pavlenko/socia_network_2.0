@@ -5,7 +5,7 @@ import SNButton from "../../common/common_component/button/SNButton";
 import {PopUp} from "../../common/common_component/PopUp/PopUp";
 
 
-const Settings = () => {
+const Experimental = () => {
 
     const [visible, setVisible] = useState(false);
     const [popUp, setPopUp] = useState(false)
@@ -27,4 +27,4 @@ const Settings = () => {
     )
 }
 
-export default Settings
+export default Experimental

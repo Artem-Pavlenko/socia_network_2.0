@@ -39,8 +39,8 @@ export const AppHeader = React.memo(() => {
         // </div>
         <Header className="header">
             <Row>
-                <Col span={20}><Avatar src={hashSociety} shape={'square'} size={'large'}/></Col>
-                <Col span={4}> {isAuth
+                <Col span={19}><Avatar src={hashSociety} shape={'square'} size={'large'}/></Col>
+                <Col span={5}> {isAuth
                     ? <div>
                         <span style={{color: 'white'}}>{data.login}</span>
                         <Button size={'small'} onClick={onLogout} type={'primary'}>logout</Button>
