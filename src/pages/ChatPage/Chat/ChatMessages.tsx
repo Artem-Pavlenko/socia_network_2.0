@@ -8,7 +8,7 @@ import cn from "classnames"
 import {ChatMessagesType} from "../../../store/chatReducer";
 
 
-export const ChatMessages: React.FC = React.memo (() => {
+export const ChatMessages: React.FC = React.memo(() => {
 
     // реф для того чтобы chat-блок со скролом всегда был в конце
     const scrollToBottom = useRef<HTMLDivElement>(null)

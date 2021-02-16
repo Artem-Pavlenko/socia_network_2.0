@@ -6,7 +6,7 @@ import {Chat} from "./Chat/Chat"
 
 const ChatPage: React.FC = () => {
     const dispatch = useDispatch()
-    useEffect( () => {
+    useEffect(() => {
         dispatch(startMessagesListening())
         return () => {
             dispatch(stopMessagesListening())

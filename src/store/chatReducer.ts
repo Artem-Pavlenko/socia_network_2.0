@@ -22,9 +22,9 @@ export const chatReducer = (state = initializeState, action: ActionType): ChatTy
             // фильтруем сообщения (filter()). оставляем только последние 100
             return {
                 ...state,
-                messages: [...state.messages, ...action.payload.mess.map( m => ({...m, id: v1()}))]
+                messages: [...state.messages, ...action.payload.mess.map(m => ({...m, id: v1()}))]
                     .filter((m, i, arr) =>
-                    i >= arr.length - 100)
+                        i >= arr.length - 100)
             }
         case "chat/CLEAR_ALL_MESSAGES":
             return {...state, messages: []}
