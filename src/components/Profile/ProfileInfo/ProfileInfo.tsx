@@ -14,6 +14,7 @@ import {StateType} from "../../../store/store"
 
 const ProfileInfo = React.memo((props: ProfileRootType) => {
 
+
     const {userID} = useParams<{ userID: string }>()
     const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
     const dispatch = useDispatch()
