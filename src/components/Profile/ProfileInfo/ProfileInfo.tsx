@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useCallback, useRef, useState} from "react"
+import React, {ChangeEvent, useCallback, useEffect, useRef, useState} from "react"
 import {useDispatch, useSelector} from "react-redux"
 import {useParams} from "react-router-dom"
 import {clearErrors, ProfileRootType, updPhoto} from "../../../store/ProfileReducer"
@@ -13,7 +13,6 @@ import {StateType} from "../../../store/store"
 
 
 const ProfileInfo = React.memo((props: ProfileRootType) => {
-
 
     const {userID} = useParams<{ userID: string }>()
     const isAuth = useSelector<StateType, boolean>(state => state.auth.isAuth)
@@ -70,7 +69,7 @@ const ProfileInfo = React.memo((props: ProfileRootType) => {
                         : <ProfileData {...props} />
                     }
                 </div>
-                {!userID && isAuth && <div className={s.imgEdit} onClick={editModeTrigger}></div>}
+                {!userID && isAuth && <div className={s.imgEdit} onClick={editModeTrigger}/>}
             </div>
         </div>
     )
